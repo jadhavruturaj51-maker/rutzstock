@@ -1,0 +1,262 @@
+{
+ "days": [
+  {
+   "date": "2026-11-13",
+   "source": "backtest",
+   "side": "SHORT",
+   "nifty_move_pct": -0.36,
+   "rj": {
+    "picks": [],
+    "no_pick": true
+   },
+   "claude": {
+    "picks": [],
+    "no_pick": true
+   }
+  },
+  {
+   "date": "2026-11-12",
+   "source": "backtest",
+   "side": "LONG",
+   "nifty_move_pct": 0.33,
+   "rj": {
+    "picks": [
+     {
+      "symbol": "PRESTIGE",
+      "entry": 1656.0,
+      "passed": 10,
+      "close": 1693.9,
+      "return_pct": 2.29
+     },
+     {
+      "symbol": "ICICIGI",
+      "entry": 1714.0,
+      "passed": 10,
+      "close": 1700.6,
+      "return_pct": -0.78
+     },
+     {
+      "symbol": "AUBANK",
+      "entry": 973.0,
+      "passed": 10,
+      "close": 979.35,
+      "return_pct": 0.65
+     }
+    ],
+    "no_pick": false
+   },
+   "claude": {
+    "picks": [
+     {
+      "symbol": "PRESTIGE",
+      "entry": 1656.0,
+      "passed": 10,
+      "close": 1693.9,
+      "return_pct": 2.29
+     },
+     {
+      "symbol": "PHOENIXLTD",
+      "entry": 2211.2,
+      "passed": 10,
+      "close": 2292.0,
+      "return_pct": 3.65
+     }
+    ],
+    "no_pick": false
+   }
+  },
+  {
+   "date": "2026-11-11",
+   "source": "backtest",
+   "side": "LONG",
+   "nifty_move_pct": 1.43,
+   "rj": {
+    "picks": [
+     {
+      "symbol": "AXISBANK",
+      "entry": 1339.4,
+      "passed": 10,
+      "close": 1336.4,
+      "return_pct": -0.22
+     },
+     {
+      "symbol": "BDL",
+      "entry": 1124.2,
+      "passed": 10,
+      "close": 1100.0,
+      "return_pct": -2.15
+     },
+     {
+      "symbol": "SIEMENS",
+      "entry": 3721.0,
+      "passed": 10,
+      "close": 3690.0,
+      "return_pct": -0.83
+     }
+    ],
+    "no_pick": false
+   },
+   "claude": {
+    "picks": [
+     {
+      "symbol": "VMM",
+      "entry": 94.35,
+      "passed": 10,
+      "close": 96.79,
+      "return_pct": 2.59
+     }
+    ],
+    "no_pick": false
+   }
+  },
+  {
+   "date": "2026-11-09",
+   "source": "backtest",
+   "side": "SHORT",
+   "nifty_move_pct": -0.33,
+   "rj": {
+    "picks": [],
+    "no_pick": true
+   },
+   "claude": {
+    "picks": [],
+    "no_pick": true
+   }
+  },
+  {
+   "date": "2026-11-06",
+   "source": "backtest",
+   "side": "LONG",
+   "nifty_move_pct": 0.43,
+   "rj": {
+    "picks": [],
+    "no_pick": true
+   },
+   "claude": {
+    "picks": [],
+    "no_pick": true
+   }
+  },
+  {
+   "date": "2026-11-05",
+   "source": "backtest",
+   "side": "LONG",
+   "nifty_move_pct": 1.89,
+   "rj": {
+    "picks": [
+     {
+      "symbol": "DLF",
+      "entry": 733.05,
+      "passed": 10,
+      "close": 745.2,
+      "return_pct": 1.66
+     },
+     {
+      "symbol": "TITAN",
+      "entry": 4843.0,
+      "passed": 10,
+      "close": 4834.6,
+      "return_pct": -0.17
+     }
+    ],
+    "no_pick": false
+   },
+   "claude": {
+    "picks": [
+     {
+      "symbol": "PAYTM",
+      "entry": 1767.6,
+      "passed": 10,
+      "close": 1781.6,
+      "return_pct": 0.79
+     },
+     {
+      "symbol": "ETERNAL",
+      "entry": 351.9,
+      "passed": 10,
+      "close": 358.3,
+      "return_pct": 1.82
+     }
+    ],
+    "no_pick": false
+   }
+  },
+  {
+   "date": "2026-11-04",
+   "source": "backtest",
+   "side": "LONG",
+   "nifty_move_pct": 0.52,
+   "rj": {
+    "picks": [
+     {
+      "symbol": "PRESTIGE",
+      "entry": 1563.7,
+      "passed": 10,
+      "close": 1580.0,
+      "return_pct": 1.04
+     },
+     {
+      "symbol": "GODREJPROP",
+      "entry": 1704.1,
+      "passed": 10,
+      "close": 1739.0,
+      "return_pct": 2.05
+     },
+     {
+      "symbol": "OBEROIRLTY",
+      "entry": 1703.6,
+      "passed": 10,
+      "close": 1710.9,
+      "return_pct": 0.43
+     }
+    ],
+    "no_pick": false
+   },
+   "claude": {
+    "picks": [
+     {
+      "symbol": "COCHINSHIP",
+      "entry": 1227.9,
+      "passed": 10,
+      "close": 1237.5,
+      "return_pct": 0.78
+     },
+     {
+      "symbol": "PRESTIGE",
+      "entry": 1563.7,
+      "passed": 10,
+      "close": 1580.0,
+      "return_pct": 1.04
+     },
+     {
+      "symbol": "BDL",
+      "entry": 1037.15,
+      "passed": 10,
+      "close": 1075.0,
+      "return_pct": 3.65
+     }
+    ],
+    "no_pick": false
+   }
+  }
+ ],
+ "scoreboard": {
+  "rj": {
+   "days": 7,
+   "picks": 11,
+   "scored": 11,
+   "positive": 6,
+   "pct_positive": 54.5,
+   "avg_return": 0.36
+  },
+  "claude": {
+   "days": 7,
+   "picks": 8,
+   "scored": 8,
+   "positive": 8,
+   "pct_positive": 100.0,
+   "avg_return": 2.08
+  }
+ },
+ "updated_at": "2026-11-15T10:48:47+05:30"
+}
