@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>F&amp;O criteria — 9:50 list</title>
+<title>Rutzstock — 9:50 list</title>
 <style>
   :root { --bg:#f2f3f5; --card:#ffffff; --line:#e3e6ea; --txt:#111827; --dim:#6b7280;
           --green:#1a7f37; --red:#b42318; --badge:#dcf2e3; --badge-txt:#137333; }
@@ -44,12 +44,32 @@
   .tag { display: inline-block; font-size: 10.5px; border: 1px solid var(--line);
          border-radius: 20px; padding: 0 7px; color: var(--dim); margin-left: 6px; }
   .err { color: var(--red); font-size: 13px; }
+  #gate { position: fixed; inset: 0; background: var(--bg); display: flex; align-items: center;
+          justify-content: center; padding: 16px; z-index: 10; }
+  .gate-box { background: var(--card); border: 1px solid var(--line); border-radius: 14px;
+              padding: 22px 20px; width: 100%; max-width: 320px; text-align: center; }
+  .gate-title { font-size: 20px; font-weight: 700; margin-bottom: 4px; }
+  .gate-sub { color: var(--dim); font-size: 12.5px; margin-bottom: 14px; }
+  .gate-box input { width: 100%; padding: 10px; font-size: 16px; border: 1px solid var(--line);
+                    border-radius: 8px; margin-bottom: 10px; text-align: center; }
+  .gate-box button { width: 100%; padding: 10px; font-size: 15px; font-weight: 700;
+                     background: #111827; color: #fff; border: 0; border-radius: 8px; cursor: pointer; }
+  .gate-err { color: var(--red); font-size: 12.5px; margin-top: 8px; min-height: 16px; }
   @media (max-width: 560px) { .levels { white-space: normal; } td, th { padding-right: 4px; } }
 </style>
 </head>
 <body>
-<div class="wrap">
-  <h1>F&amp;O criteria — 9:50 list</h1>
+<div id="gate">
+  <div class="gate-box">
+    <div class="gate-title">Rutzstock</div>
+    <div class="gate-sub">This page is password protected.</div>
+    <input id="pw" type="password" inputmode="numeric" placeholder="Password" autocomplete="off">
+    <button id="pwbtn">Open</button>
+    <div class="gate-err" id="pwerr"></div>
+  </div>
+</div>
+<div class="wrap" id="app" style="display:none">
+  <h1>Rutzstock <span style="color:#6b7280;font-size:13.5px;font-weight:600;">— F&amp;O criteria · 9:50 list</span></h1>
   <div class="snapshot" id="snapshot">Loading…</div>
 
   <h2>Scoreboard <span class="who">— RJ Scanner vs Muse Scanner</span></h2>
@@ -89,7 +109,7 @@
     scoreboard are measured from the 9:50 entry to that day's close. Days marked
     <span class="tag">backtest</span> were computed later from historical data; unmarked days are live 9:50 scans.
   </div>
-  <div class="foot">own risk, not advice. This scan is for information only; the decisions and the losses are yours.</div>
+  <div class="foot">own risk, not advice. This scan is for information only; the decisions and the losses are yours. · <a href="#" id="locklink" style="color:#6b7280;">Lock site</a></div>
 </div>
 
 <script>
@@ -179,6 +199,7 @@ function scannerSection(days, key, title) {
           historyTable(days, key) + "</div>";
   return html;
 }
+function loadData() {
 fetch("results.json", { cache: "no-store" })
   .then(function (r) { return r.json(); })
   .then(function (data) {
@@ -201,6 +222,42 @@ fetch("results.json", { cache: "no-store" })
   .catch(function () {
     document.getElementById("snapshot").innerHTML = '<span class="err">Could not load results.json yet.</span>';
   });
+}
+var PW_HASH = "72103e00168c0b76061e54a93ec1bd72629abe364bdbd4eccf7c30495179bcfb";
+function sha256hex(text) {
+  return crypto.subtle.digest("SHA-256", new TextEncoder().encode(text)).then(function (buf) {
+    return Array.prototype.map.call(new Uint8Array(buf), function (b) {
+      return ("0" + b.toString(16)).slice(-2);
+    }).join("");
+  });
+}
+function unlock() {
+  document.getElementById("gate").style.display = "none";
+  document.getElementById("app").style.display = "block";
+  loadData();
+}
+function tryUnlock() {
+  sha256hex(document.getElementById("pw").value).then(function (h) {
+    if (h === PW_HASH) {
+      try { localStorage.setItem("rutzstock_unlocked", PW_HASH); } catch (e) {}
+      unlock();
+    } else {
+      document.getElementById("pwerr").textContent = "Wrong password — try again.";
+    }
+  });
+}
+document.getElementById("pwbtn").addEventListener("click", tryUnlock);
+document.getElementById("pw").addEventListener("keydown", function (e) {
+  if (e.key === "Enter") tryUnlock();
+});
+document.getElementById("locklink").addEventListener("click", function (e) {
+  e.preventDefault();
+  try { localStorage.removeItem("rutzstock_unlocked"); } catch (err) {}
+  location.reload();
+});
+var savedUnlock = null;
+try { savedUnlock = localStorage.getItem("rutzstock_unlocked"); } catch (e) {}
+if (savedUnlock === PW_HASH) { unlock(); } else { document.getElementById("pw").focus(); }
 </script>
 </body>
 </html>

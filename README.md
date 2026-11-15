@@ -1,4 +1,4 @@
-# F&O 9:50 Scanner — RJ vs Muse (independent)
+# Rutzstock — F&O 9:50 Scanner (independent)
 
 A fully independent stock scanner that lives in this GitHub repository.
 It does **not** depend on Muse or any paid service:
