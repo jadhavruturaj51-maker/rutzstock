@@ -339,11 +339,11 @@ def evaluate(date, daily, m5, nifty_d, nifty_5, sectors, syms):
     def levels(r):
         entry = r["entry"]
         if long_side:
-            sl = r["orl"]
+            sl = round(float(r["orl"]), 2)
             if entry - sl <= 0:
                 sl = round(entry * 0.98, 2)
             return sl, round(entry + 2 * (entry - sl), 2)
-        sl = r["orh"]
+        sl = round(float(r["orh"]), 2)
         if sl - entry <= 0:
             sl = round(entry * 1.02, 2)
         return sl, round(entry - 2 * (sl - entry), 2)

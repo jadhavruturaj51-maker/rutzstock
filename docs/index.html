@@ -109,7 +109,7 @@ function fmtPct(v) {
 function stockRows(day, rows, isPick) {
   var out = "";
   rows.forEach(function (p) {
-    var lv = "entry " + p.entry + " · SL " + p.sl + " · T1 " + p.t1;
+    var lv = "entry " + Number(p.entry).toFixed(2) + " · SL " + Number(p.sl).toFixed(2) + " · T1 " + Number(p.t1).toFixed(2);
     if (!isPick && p.failed && p.failed.length) {
       lv += '<span class="failed">failed: ' + p.failed.join(", ") + "</span>";
     }
