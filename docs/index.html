@@ -3,168 +3,203 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>F&amp;O 9:50 Scanner — RJ vs Muse</title>
+<title>F&amp;O criteria — 9:50 list</title>
 <style>
-  :root { --bg:#0d1117; --card:#161b22; --line:#30363d; --txt:#e6edf3; --dim:#8b949e;
-          --gold:#d4a72c; --green:#3fb950; --red:#f85149; --blue:#58a6ff; }
+  :root { --bg:#f2f3f5; --card:#ffffff; --line:#e3e6ea; --txt:#111827; --dim:#6b7280;
+          --green:#1a7f37; --red:#b42318; --badge:#dcf2e3; --badge-txt:#137333; }
   * { box-sizing: border-box; }
   body { margin:0; background:var(--bg); color:var(--txt);
          font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
-  .wrap { max-width: 880px; margin: 0 auto; padding: 20px 14px 48px; }
-  h1 { font-size: 24px; margin: 6px 0 2px; }
-  h1 .gold { color: var(--gold); }
-  .sub { color: var(--dim); font-size: 13px; margin-bottom: 18px; }
-  h2 { font-size: 17px; margin: 26px 0 10px; border-bottom: 1px solid var(--line); padding-bottom: 6px; }
-  .cards { display: flex; gap: 12px; flex-wrap: wrap; }
-  .card { flex: 1 1 260px; background: var(--card); border: 1px solid var(--line);
-          border-radius: 10px; padding: 14px 16px; }
-  .card h3 { margin: 0 0 8px; font-size: 15px; }
-  .card .big { font-size: 26px; font-weight: 700; }
-  .card .row { display:flex; justify-content:space-between; font-size: 13px;
-               color: var(--dim); padding: 2px 0; }
-  .card .row b { color: var(--txt); }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 18px 12px 40px; }
+  h1 { font-size: 19px; margin: 2px 0 2px; font-weight: 700; }
+  .snapshot { color: var(--dim); font-size: 12px; margin-bottom: 16px; }
+  h2 { font-size: 15px; margin: 20px 0 8px; font-weight: 700; }
+  h2 .who { color: var(--dim); font-weight: 600; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 14px;
+          padding: 12px 14px 6px; margin-bottom: 14px; }
+  .card-head { font-size: 13.5px; margin-bottom: 6px; }
+  .card-head .status { color: var(--dim); }
   table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
-  th, td { text-align: left; padding: 7px 8px; border-bottom: 1px solid var(--line); }
-  th { color: var(--dim); font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: .04em; }
-  .pos { color: var(--green); } .neg { color: var(--red); }
-  .pick { color: var(--gold); font-weight: 700; }
-  .nopick { color: var(--dim); }
+  th { text-align: left; color: var(--dim); font-weight: 600; font-size: 11px;
+       text-transform: uppercase; letter-spacing: .05em; padding: 6px 6px 6px 0; }
+  td { padding: 8px 6px 8px 0; border-top: 1px solid var(--line); vertical-align: top; }
+  .sym { font-weight: 600; }
   .side-long { color: var(--green); font-weight: 700; }
   .side-short { color: var(--red); font-weight: 700; }
-  .day-head { font-size: 14px; margin: 14px 0 6px; color: var(--dim); }
-  .day-head b { color: var(--txt); }
-  ul.crit { margin: 6px 0 0 18px; padding: 0; font-size: 13.5px; line-height: 1.55; color: var(--txt); }
-  .note { font-size: 12.5px; color: var(--dim); line-height: 1.6; }
-  .tag { display:inline-block; font-size: 11px; border:1px solid var(--line); border-radius: 20px;
-         padding: 1px 8px; color: var(--dim); margin-left: 6px; vertical-align: middle; }
-  .err { color: var(--red); }
+  .levels { white-space: nowrap; }
+  .failed { display: block; color: var(--dim); font-size: 12px; white-space: normal; }
+  .pick-badge { background: var(--badge); color: var(--badge-txt); font-weight: 700;
+                font-size: 11.5px; padding: 2px 10px; border-radius: 20px; }
+  .nopick { color: var(--dim); font-size: 12.5px; }
+  .scores { display: flex; gap: 12px; flex-wrap: wrap; }
+  .score { flex: 1 1 250px; background: var(--card); border: 1px solid var(--line);
+           border-radius: 14px; padding: 12px 14px; }
+  .score h3 { margin: 0 0 6px; font-size: 14px; }
+  .score .row { display: flex; justify-content: space-between; font-size: 13px;
+                color: var(--dim); padding: 2px 0; }
+  .score .row b { color: var(--txt); }
+  .pos { color: var(--green); } .neg { color: var(--red); }
+  ul.crit { margin: 4px 0 10px 18px; padding: 0; font-size: 13px; line-height: 1.55; }
+  .foot { color: var(--dim); font-size: 12px; line-height: 1.6; margin-top: 10px; }
+  .tag { display: inline-block; font-size: 10.5px; border: 1px solid var(--line);
+         border-radius: 20px; padding: 0 7px; color: var(--dim); margin-left: 6px; }
+  .err { color: var(--red); font-size: 13px; }
+  @media (max-width: 560px) { .levels { white-space: normal; } td, th { padding-right: 4px; } }
 </style>
 </head>
 <body>
 <div class="wrap">
-  <h1>F&amp;O 9:50 Scanner — <span class="gold">RJ vs Muse</span></h1>
-  <div class="sub">Every trading day at 9:50 am IST, all NSE Futures &amp; Options stocks are scanned.
-  Max 3 picks per scanner per day — a no-pick day is better than a weak pick.
-  <span id="updated"></span></div>
+  <h1>F&amp;O criteria — 9:50 list</h1>
+  <div class="snapshot" id="snapshot">Loading…</div>
 
-  <h2>Scoreboard — live comparison</h2>
-  <div class="cards" id="scoreboard"></div>
+  <h2>Scoreboard <span class="who">— RJ Scanner vs Muse Scanner</span></h2>
+  <div class="scores" id="scoreboard"></div>
 
-  <h2>Latest scan</h2>
-  <div id="latest"></div>
-
-  <h2>History — past lists</h2>
-  <div id="history"></div>
+  <div id="scanners"></div>
 
   <h2>The two scanners</h2>
-  <div class="cards">
-    <div class="card">
-      <h3>Scanner A — RJ Scanner</h3>
-      <ul class="crit">
-        <li>Market direction decides the side (bullish = LONG only, bearish = SHORT only)</li>
-        <li>Volume 9:20–9:50 at least 2x the 10-day average</li>
-        <li>Breakout above Previous Week High and Previous Day High</li>
-        <li>15m chart: price above EMA10 and EMA20</li>
-        <li>Stock's sector in today's top 5 sectors</li>
-        <li>Price above VWAP and above the first 15-min opening range</li>
-        <li>Gap less than 3%; stock has not already moved more than 2.5% by 9:50</li>
-        <li>OI buildup and no-event criteria: not checkable from the free data source (see note)</li>
-      </ul>
-    </div>
-    <div class="card">
-      <h3>Scanner B — Muse Scanner</h3>
-      <ul class="crit">
-        <li>Same base: market direction, Previous Day breakout, EMA10/EMA20, opening range, gap &lt; 3%, move &lt; 2.5%</li>
-        <li>Volume at least 1.0x the 10-day average (not 2x)</li>
-        <li>No Previous-Week or sector top-5 hard gates</li>
-        <li>VWAP distance at least 0.3% to enter the pool</li>
-        <li>Quality gate: sector strength at least 1.0% in the trade direction AND VWAP distance at least 0.5%</li>
-        <li>RSI filter: LONG needs 15m RSI(14) at 9:50 of 80 or less; SHORT needs 20 or more</li>
-        <li>Ranked by sector strength + VWAP distance, max 3 per day</li>
-      </ul>
-    </div>
+  <div class="card">
+    <div class="card-head"><b>Scanner A — RJ Scanner</b> (original criteria)</div>
+    <ul class="crit">
+      <li>Market direction decides the side (bullish = LONG only, bearish = SHORT only)</li>
+      <li>Volume 9:20–9:50 at least 2x the 10-day average</li>
+      <li>Breakout above Previous Week High and Previous Day High</li>
+      <li>15m chart: price above EMA10 and EMA20</li>
+      <li>Stock's sector in today's top 5 sectors</li>
+      <li>Price above VWAP and above the first 15-min opening range</li>
+      <li>Gap less than 3%; stock has not already moved more than 2.5% by 9:50</li>
+    </ul>
+    <div class="card-head"><b>Scanner B — Muse Scanner</b> (V2-Quality + RSI)</div>
+    <ul class="crit">
+      <li>Same base: market direction, Previous Day breakout, EMA10/EMA20, opening range, gap &lt; 3%, move &lt; 2.5%</li>
+      <li>Volume at least 1.0x the 10-day average (not 2x); no Previous-Week or sector top-5 hard gates</li>
+      <li>Quality gate: sector strength at least 1.0% in the trade direction AND VWAP distance at least 0.5%</li>
+      <li>RSI filter: LONG needs 15m RSI(14) at 9:50 of 80 or less; SHORT needs 20 or more</li>
+      <li>Ranked by sector strength + VWAP distance, max 3 per day</li>
+    </ul>
   </div>
 
-  <h2>Notes</h2>
-  <p class="note">
-    Data source: Yahoo Finance (free). "9:50 price" is the close of the 09:45 five-minute candle.
-    Returns are measured from the 9:50 entry to that day's close. PASSED is shown out of 12 criteria;
-    10 are checked from price/volume data — OI buildup and same-day events cannot be verified from the
-    free data source, exactly as in the backtests. Days marked <span class="tag">backtest</span> were
-    computed later from historical data; unmarked days are live 9:50 scans.
-    This page is a personal research tool, not investment advice.
-  </p>
+  <div class="foot" id="footdays"></div>
+  <div class="foot">
+    Top 3 per day by checks passed are shown for each scanner; on a no-pick day these are the
+    closest stocks, with the checks they failed listed under the levels. PASSED is out of 12 criteria —
+    10 are checked from price/volume data; OI buildup and same-day events cannot be verified from the
+    free data source (Yahoo Finance), exactly as in the backtests. REF LEVELS: entry = price at 9:50,
+    SL = opening-range low (LONG) / high (SHORT), T1 = target at 2x the SL distance. Returns in the
+    scoreboard are measured from the 9:50 entry to that day's close. Days marked
+    <span class="tag">backtest</span> were computed later from historical data; unmarked days are live 9:50 scans.
+  </div>
+  <div class="foot">own risk, not advice. This scan is for information only; the decisions and the losses are yours.</div>
 </div>
 
 <script>
-function fmtPct(v) {
-  if (v === null || v === undefined) return "—";
-  var s = (v > 0 ? "+" : "") + v.toFixed(2) + "%";
-  var cls = v > 0 ? "pos" : (v < 0 ? "neg" : "");
-  return '<span class="' + cls + '">' + s + "</span>";
-}
+function esc(s) { return String(s); }
 function sideHtml(side) {
   return '<span class="' + (side === "LONG" ? "side-long" : "side-short") + '">' + side + "</span>";
 }
-function picksTable(day, key) {
+function fmtMove(v) {
+  if (v === null || v === undefined) return "—";
+  return (v > 0 ? "+" : "") + Number(v).toFixed(2) + "%";
+}
+function fmtPct(v) {
+  if (v === null || v === undefined) return "—";
+  var cls = v > 0 ? "pos" : (v < 0 ? "neg" : "");
+  return '<span class="' + cls + '">' + (v > 0 ? "+" : "") + Number(v).toFixed(2) + "%</span>";
+}
+function stockRows(day, rows, isPick) {
+  var out = "";
+  rows.forEach(function (p) {
+    var lv = "entry " + p.entry + " · SL " + p.sl + " · T1 " + p.t1;
+    if (!isPick && p.failed && p.failed.length) {
+      lv += '<span class="failed">failed: ' + p.failed.join(", ") + "</span>";
+    }
+    out += "<tr><td class='sym'>" + esc(p.symbol) + "</td><td>" + sideHtml(day.side) +
+           "</td><td>" + fmtMove(p.move_pct) + "</td><td>" + p.passed + "/12</td>" +
+           "<td class='levels'>" + lv + "</td></tr>";
+  });
+  return out;
+}
+function stockTable(day, rows, isPick) {
+  return "<table><thead><tr><th>Stock</th><th>Side</th><th>Move</th><th>Passed</th><th>Ref levels</th></tr></thead><tbody>" +
+         stockRows(day, rows, isPick) + "</tbody></table>";
+}
+function dayCard(day, key, title) {
   var s = day[key];
-  var rows = "";
-  if (s.no_pick || !s.picks.length) {
-    rows = '<tr><td>' + day.date + '</td><td class="nopick">—</td><td>' + sideHtml(day.side) +
-           '</td><td>—</td><td>—</td><td class="nopick">no pick</td></tr>';
-  } else {
-    s.picks.forEach(function (p) {
-      rows += "<tr><td>" + day.date + "</td><td><b>" + p.symbol + "</b></td><td>" + sideHtml(day.side) +
-              "</td><td>" + p.passed + "/12</td><td>" + fmtPct(p.return_pct) +
-              '</td><td class="pick">PICK</td></tr>';
+  var has = s.picks && s.picks.length;
+  var rows = has ? s.picks : (s.near || []);
+  var status = has ? "PICK — " + s.picks.length + " stock" + (s.picks.length > 1 ? "s" : "")
+                   : "no pick (no stock passed all checks)";
+  var html = '<div class="card"><div class="card-head">' + day.date + ' — <span class="status">' + status + "</span>" +
+             (day.source === "backtest" ? '<span class="tag">backtest</span>' : '<span class="tag">live</span>') + "</div>";
+  if (rows.length) html += stockTable(day, rows, has);
+  else html += '<div class="nopick">No stocks to show.</div>';
+  return html + "</div>";
+}
+function historyTable(days, key) {
+  var out = "<table><thead><tr><th>Date</th><th>Stock</th><th>Side</th><th>Passed</th><th>Day</th></tr></thead><tbody>";
+  days.forEach(function (d) {
+    var s = d[key];
+    var has = s.picks && s.picks.length;
+    var rows = has ? s.picks : (s.near || []);
+    if (!rows.length) {
+      out += "<tr><td>" + d.date + "</td><td class='nopick'>—</td><td>" + sideHtml(d.side) +
+             "</td><td>—</td><td class='nopick'>no pick</td></tr>";
+      return;
+    }
+    rows.forEach(function (p) {
+      out += "<tr><td>" + d.date + "</td><td class='sym'>" + esc(p.symbol) + "</td><td>" + sideHtml(d.side) +
+             "</td><td>" + p.passed + "/12</td><td>" +
+             (has ? '<span class="pick-badge">PICK</span>' : '<span class="nopick">no pick</span>') + "</td></tr>";
     });
-  }
-  return "<table><thead><tr><th>Date</th><th>Stock</th><th>Side</th><th>Passed</th><th>Return to close</th><th>Day</th></tr></thead><tbody>" +
-         rows + "</tbody></table>";
+  });
+  return out + "</tbody></table>";
 }
 function scoreCard(title, sb) {
   if (!sb) return "";
-  return '<div class="card"><h3>' + title + '</h3>' +
-    '<div class="row"><span>Days scanned</span><b>' + sb.days + '</b></div>' +
-    '<div class="row"><span>Total picks</span><b>' + sb.picks + '</b></div>' +
-    '<div class="row"><span>Scored picks</span><b>' + sb.scored + '</b></div>' +
-    '<div class="row"><span>% positive</span><b>' + (sb.pct_positive === null ? "—" : sb.pct_positive + "%") + '</b></div>' +
-    '<div class="row"><span>Avg return (9:50 → close)</span><b>' + (sb.avg_return === null ? "—" : fmtPct(sb.avg_return)) + '</b></div></div>';
+  return '<div class="score"><h3>' + title + "</h3>" +
+    '<div class="row"><span>Days scanned</span><b>' + sb.days + "</b></div>" +
+    '<div class="row"><span>Total picks</span><b>' + sb.picks + "</b></div>" +
+    '<div class="row"><span>% positive (to close)</span><b>' + (sb.pct_positive === null ? "—" : sb.pct_positive + "%") + "</b></div>" +
+    '<div class="row"><span>Avg return (9:50 → close)</span><b>' + (sb.avg_return === null ? "—" : fmtPct(sb.avg_return)) + "</b></div></div>";
+}
+function scannerSection(days, key, title) {
+  if (!days.length) return "";
+  var latest = days[0];
+  var html = "<h2>" + title + '</h2><h2 style="margin-top:0;font-size:13.5px;color:#6b7280;">Today / latest run</h2>' +
+             dayCard(latest, key, title);
+  if (!(latest[key].picks || []).length) {
+    for (var i = 1; i < days.length; i++) {
+      if ((days[i][key].picks || []).length) {
+        html += '<h2 style="font-size:13.5px;color:#6b7280;">Last list with stocks</h2>' + dayCard(days[i], key, title);
+        break;
+      }
+    }
+  }
+  html += '<h2 style="font-size:13.5px;color:#6b7280;">History — past lists</h2><div class="card">' +
+          historyTable(days, key) + "</div>";
+  return html;
 }
 fetch("results.json", { cache: "no-store" })
   .then(function (r) { return r.json(); })
   .then(function (data) {
-    if (data.updated_at) {
-      document.getElementById("updated").textContent =
-        " Last updated: " + new Date(data.updated_at).toLocaleString("en-IN", { timeZone: "Asia/Kolkata" }) + " IST.";
-    }
+    var days = data.days || [];
+    document.getElementById("snapshot").textContent =
+      "Data snapshot: " + (days.length ? days[0].date : "—") +
+      " (refreshed automatically every trading day at 9:50 am IST)" +
+      (data.updated_at ? " · Last updated: " + new Date(data.updated_at).toLocaleString("en-IN", { timeZone: "Asia/Kolkata" }) + " IST" : "");
     var sb = data.scoreboard || {};
     document.getElementById("scoreboard").innerHTML =
       scoreCard("Scanner A — RJ Scanner", sb.rj) + scoreCard("Scanner B — Muse Scanner", sb.claude);
-    var days = data.days || [];
-    if (!days.length) {
-      document.getElementById("latest").innerHTML = '<p class="note">No scans recorded yet. The first live scan runs at 9:50 am IST on the next trading day.</p>';
-      document.getElementById("history").innerHTML = "";
-      return;
+    document.getElementById("scanners").innerHTML =
+      scannerSection(days, "rj", "Scanner A — RJ Scanner") +
+      scannerSection(days, "claude", "Scanner B — Muse Scanner");
+    if (days.length) {
+      document.getElementById("footdays").textContent =
+        "Days: " + days.map(function (d) { return d.date; }).reverse().join(", ") + ".";
     }
-    var latest = days[0];
-    document.getElementById("latest").innerHTML =
-      '<div class="day-head"><b>' + latest.date + "</b> · Market side " + sideHtml(latest.side) +
-      " · Nifty " + fmtPct(latest.nifty_move_pct) + " by 9:50" +
-      (latest.source === "backtest" ? '<span class="tag">backtest</span>' : '<span class="tag">live</span>') + "</div>" +
-      '<div class="day-head">Scanner A — RJ Scanner</div>' + picksTable(latest, "rj") +
-      '<div class="day-head">Scanner B — Muse Scanner</div>' + picksTable(latest, "claude");
-    var hist = "";
-    days.forEach(function (d) {
-      hist += '<div class="day-head"><b>' + d.date + "</b> · " + sideHtml(d.side) +
-              (d.source === "backtest" ? '<span class="tag">backtest</span>' : '<span class="tag">live</span>') + "</div>" +
-              '<div class="day-head">RJ Scanner</div>' + picksTable(d, "rj") +
-              '<div class="day-head">Claude Scanner</div>' + picksTable(d, "claude");
-    });
-    document.getElementById("history").innerHTML = hist;
   })
-  .catch(function (e) {
-    document.getElementById("latest").innerHTML = '<p class="err">Could not load results.json yet.</p>';
+  .catch(function () {
+    document.getElementById("snapshot").innerHTML = '<span class="err">Could not load results.json yet.</span>';
   });
 </script>
 </body>

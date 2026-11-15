@@ -331,14 +331,48 @@ def evaluate(date, daily, m5, nifty_d, nifty_5, sectors, syms):
             "vwap_dist": round(float(vwap_dist), 3),
             "sector_strength": round(float(sec_strength), 3),
             "sector": sec, "rsi": (round(float(rsi), 2) if rsi is not None else None),
-            "close": close,
+            "close": close, "move_raw": round(float(move), 2),
+            "orh": st["orh"], "orl": st["orl"],
         })
+
+    # ---- display helpers (entry / SL / T1 reference levels, failed names)
+    def levels(r):
+        entry = r["entry"]
+        if long_side:
+            sl = r["orl"]
+            if entry - sl <= 0:
+                sl = round(entry * 0.98, 2)
+            return sl, round(entry + 2 * (entry - sl), 2)
+        sl = r["orh"]
+        if sl - entry <= 0:
+            sl = round(entry * 1.02, 2)
+        return sl, round(entry - 2 * (sl - entry), 2)
+
+    def disp(r, passed, failed_names=None):
+        sl, t1 = levels(r)
+        d = {"symbol": r["symbol"], "entry": r["entry"], "passed": passed,
+             "move_pct": r["move_raw"], "sl": sl, "t1": t1}
+        if failed_names is not None:
+            d["failed"] = failed_names
+        return d
+
+    A_NAMES = {"volume": "volume 2x", "pwh": "previous week high",
+               "pwl": "previous week low", "pdh": "previous day high",
+               "pdl": "previous day low", "ema": "EMA 10/20",
+               "sector": "sector top 5", "vwap": "VWAP",
+               "orange": "opening range", "gap": "gap under 3%",
+               "move": "move under 2.5%"}
 
     # ---- Scanner A: RJ's original criteria, 0 fails among the 10 checkable.
     a_rows = [r for r in rows if len(r["fails"]) == 0]
     a_rows.sort(key=lambda r: (-r["sector_strength"], -r["vwap_dist"]))
-    a_picks = [{"symbol": r["symbol"], "entry": r["entry"], "passed": 10}
-               for r in a_rows[:3]]
+    a_pick_syms = {r["symbol"] for r in a_rows[:3]}
+    a_picks = [disp(r, 10) for r in a_rows[:3]]
+    a_near_pool = [r for r in rows if r["symbol"] not in a_pick_syms]
+    a_near_pool.sort(key=lambda r: (len(r["fails"]), -r["sector_strength"]))
+    a_near = [disp(r, 10 - len(r["fails"]),
+                   [A_NAMES.get(f, f) for f in r["fails"]])
+              for r in a_near_pool[:3]]
 
     # ---- Scanner B: V2-Quality pool -> quality gate -> cap 3 -> RSI filter.
     pool = []
@@ -360,18 +394,62 @@ def evaluate(date, daily, m5, nifty_d, nifty_5, sectors, syms):
     gated = [r for r in pool
              if r["sector_strength"] >= 1.0 and r["vwap_dist"] >= 0.5]
     gated.sort(key=lambda r: -r["q"])
-    b_picks = []
+    b_pick_rows = []
     for r in gated[:3]:
         if r["rsi"] is not None:
             if long_side and r["rsi"] > 80:
                 continue
             if (not long_side) and r["rsi"] < 20:
                 continue
-        b_picks.append({"symbol": r["symbol"], "entry": r["entry"], "passed": 10})
+        b_pick_rows.append(r)
+    b_pick_syms = {r["symbol"] for r in b_pick_rows}
+
+    # Scanner B judged by its own 10 checkable checks (market direction is
+    # the 10th and is the same for every stock that day).
+    def b_checks(r):
+        return {
+            "volume 1x": r["vol_ratio"] >= 1.0,
+            "previous day high" if long_side else "previous day low":
+                "pdh" not in r["fails"] and "pdl" not in r["fails"],
+            "EMA 10/20": "ema" not in r["fails"],
+            "opening range": "orange" not in r["fails"],
+            "gap under 3%": "gap" not in r["fails"],
+            "move under 2.5%": "move" not in r["fails"],
+            "VWAP distance 0.5%": r["vwap_dist"] >= 0.5,
+            "sector strength 1%": r["sector_strength"] >= 1.0,
+            "RSI limit": (r["rsi"] is None or
+                          (r["rsi"] <= 80 if long_side else r["rsi"] >= 20)),
+        }
+
+    def b_disp(r):
+        ch = b_checks(r)
+        passed = 1 + sum(1 for v in ch.values() if v)
+        failed = [k for k, v in ch.items() if not v]
+        return disp(r, passed, failed)
+
+    b_picks = []
+    for r in b_pick_rows:
+        d = b_disp(r)
+        d.pop("failed", None)
+        d["passed"] = 10
+        b_picks.append(d)
+    pool_syms = {r["symbol"] for r in pool}
+    b_near_rows = [r for r in pool if r["symbol"] not in b_pick_syms]
+    b_near_rows.sort(key=lambda r: -r.get("q", 0))
+    b_near = [b_disp(r) for r in b_near_rows[:3]]
+    if len(b_near) < 3:
+        rest = [r for r in rows
+                if r["symbol"] not in b_pick_syms and r["symbol"] not in pool_syms]
+        rest.sort(key=lambda r: (-sum(1 for v in b_checks(r).values() if v),
+                                 -r["sector_strength"]))
+        for r in rest:
+            if len(b_near) >= 3:
+                break
+            b_near.append(b_disp(r))
 
     return {"date": ds, "side": side, "nifty_move_pct": round(float(nmove), 2),
-            "rj": {"picks": a_picks, "no_pick": len(a_picks) == 0},
-            "claude": {"picks": b_picks, "no_pick": len(b_picks) == 0},
+            "rj": {"picks": a_picks, "near": a_near, "no_pick": len(a_picks) == 0},
+            "claude": {"picks": b_picks, "near": b_near, "no_pick": len(b_picks) == 0},
             "_rows": rows}
 
 
