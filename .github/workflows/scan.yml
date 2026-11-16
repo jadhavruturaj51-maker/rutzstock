@@ -1,11 +1,13 @@
 name: Daily 9:50 F&O scan
 
-# 04:20 UTC = 09:50 IST, Monday to Friday.
-# GitHub may start scheduled runs a few minutes late; scanner.py waits for
-# the 09:45 candle itself, so small delays are fine.
+# Start at 04:13 UTC = 09:43 IST, Monday to Friday — deliberately BEFORE
+# 09:50. GitHub often starts scheduled runs minutes late; starting early
+# absorbs that delay. scanner.py waits for the 09:45 candle itself, so the
+# picks are still computed from exactly the 09:50 decision point, and the
+# results normally land on the site ~09:52-09:54 IST.
 on:
   schedule:
-    - cron: "20 4 * * 1-5"
+    - cron: "13 4 * * 1-5"
   workflow_dispatch: {}
 
 permissions:
