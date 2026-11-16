@@ -2,10 +2,15 @@
 """
 F&O 9:50 Scanner - independent version (runs on GitHub Actions, free).
 
-Two scanners, evaluated every trading day at 9:50 IST on all NSE F&O stocks:
+Three scanners, evaluated every trading day at 9:50 IST on all NSE F&O stocks:
 
   Scanner A "RJ Scanner"     - RJ's original 12 criteria, unchanged.
   Scanner B "Muse Scanner" - V2-Quality rules + RSI extreme exclusion.
+  Scanner C "One-Direction"  - Scanner B's final picks, filtered by two
+                               clean-trend gates (no replacement picks):
+                               efficiency ratio of the 09:15-09:45 morning
+                               move >= 0.5, and the signed move by 9:50
+                               within 0.8%-2.0%.
 
 Data source: Yahoo Finance (free) via yfinance - the same source the
 backtests were validated on. Criteria 10 (OI buildup) and 11 (no event
@@ -154,12 +159,22 @@ def day_stats(intr_day):
     vsum = float(early["Volume"].sum())
     vwap = float((tp * early["Volume"]).sum() / vsum) if vsum > 0 else float(tp.mean())
     orng = intr_day[np.isin(m, list(ORNG))]
+    # Kaufman efficiency ratio of the morning move: |C - O| / sum |changes|
+    # over [open of the 09:15 candle, closes of the 09:15..09:45 candles].
+    c915 = intr_day[m == "09:15"]
+    er = None
+    if len(c915) and len(early):
+        pts = [float(c915["Open"].iloc[0])] + [float(x) for x in early["Close"]]
+        path = sum(abs(pts[i + 1] - pts[i]) for i in range(len(pts) - 1))
+        if path > 0:
+            er = abs(pts[-1] - pts[0]) / path
     return {
         "p950": float(c945["Close"].iloc[0]),
         "open": float(intr_day["Open"].iloc[0]),
         "vol_win": float(intr_day[np.isin(m, list(WIN))]["Volume"].sum()),
         "vwap": vwap,
         "orh": float(orng["High"].max()), "orl": float(orng["Low"].min()),
+        "er": er,
     }
 
 
@@ -189,8 +204,8 @@ def ema_rsi_at(intr, ds):
 
 # ---------------------------------------------------------------- evaluation
 def evaluate(date, daily, m5, nifty_d, nifty_5, sectors, syms):
-    """Run both scanners for one trading date. Returns a day dict or None
-    when the date is not a trading day / data is missing."""
+    """Run all three scanners for one trading date. Returns a day dict or
+    None when the date is not a trading day / data is missing."""
     ds = date.strftime("%Y-%m-%d")
     ref = daily.get("RELIANCE.NS")
     if ref is None:
@@ -332,6 +347,8 @@ def evaluate(date, daily, m5, nifty_d, nifty_5, sectors, syms):
             "sector_strength": round(float(sec_strength), 3),
             "sector": sec, "rsi": (round(float(rsi), 2) if rsi is not None else None),
             "close": close, "move_raw": round(float(move), 2),
+            "move_signed": round(float(sgn * move), 3),
+            "er": (round(float(st["er"]), 4) if st.get("er") is not None else None),
             "orh": st["orh"], "orl": st["orl"],
         })
 
@@ -447,9 +464,55 @@ def evaluate(date, daily, m5, nifty_d, nifty_5, sectors, syms):
                 break
             b_near.append(b_disp(r))
 
+    # ---- Scanner C: Scanner B's final picks + two clean-trend gates,
+    # no replacement picks: (a) efficiency ratio of the 09:15-09:45 morning
+    # move >= 0.5; (b) signed move by 9:50 within 0.8%-2.0% inclusive.
+    def c_checks(r):
+        ch = {}
+        for k, v in b_checks(r).items():
+            if k == "move under 2.5%":
+                ch["move band 0.8-2.0%"] = 0.8 <= r["move_signed"] <= 2.0
+            else:
+                ch[k] = v
+        ch["efficiency ratio 0.5+"] = r.get("er") is not None and r["er"] >= 0.5
+        return ch
+
+    def c_disp(r):
+        # failed names from c_checks (accurate), passed count on the
+        # Scanner B convention (the 10 checkable checks), like b_disp.
+        ch = b_checks(r)
+        passed = 1 + sum(1 for v in ch.values() if v)
+        failed = [k for k, v in c_checks(r).items() if not v]
+        return disp(r, passed, failed)
+
+    c_pick_rows = [r for r in b_pick_rows
+                   if r.get("er") is not None and r["er"] >= 0.5
+                   and 0.8 <= r["move_signed"] <= 2.0]
+    c_pick_syms = {r["symbol"] for r in c_pick_rows}
+    c_picks = []
+    for r in c_pick_rows:
+        d = c_disp(r)
+        d.pop("failed", None)
+        d["passed"] = 10
+        c_picks.append(d)
+    c_near_rows = [r for r in pool if r["symbol"] not in c_pick_syms]
+    c_near_rows.sort(key=lambda r: (-sum(1 for v in c_checks(r).values() if v),
+                                    -r.get("q", 0)))
+    c_near = [c_disp(r) for r in c_near_rows[:3]]
+    if len(c_near) < 3:
+        rest = [r for r in rows
+                if r["symbol"] not in c_pick_syms and r["symbol"] not in pool_syms]
+        rest.sort(key=lambda r: (-sum(1 for v in c_checks(r).values() if v),
+                                 -r["sector_strength"]))
+        for r in rest:
+            if len(c_near) >= 3:
+                break
+            c_near.append(c_disp(r))
+
     return {"date": ds, "side": side, "nifty_move_pct": round(float(nmove), 2),
             "rj": {"picks": a_picks, "near": a_near, "no_pick": len(a_picks) == 0},
             "claude": {"picks": b_picks, "near": b_near, "no_pick": len(b_picks) == 0},
+            "trend": {"picks": c_picks, "near": c_near, "no_pick": len(c_picks) == 0},
             "_rows": rows}
 
 
@@ -462,8 +525,8 @@ def load_results():
 
 def scoreboard(days):
     out = {}
-    for key in ("rj", "claude"):
-        picks = [p for d in days for p in d[key]["picks"]]
+    for key in ("rj", "claude", "trend"):
+        picks = [p for d in days for p in (d.get(key) or {}).get("picks", [])]
         scored = [p for p in picks if p.get("return_pct") is not None]
         out[key] = {
             "days": len(days),
@@ -491,8 +554,8 @@ def score_pending(store, daily):
     for d in store["days"]:
         sgn = 1 if d["side"] == "LONG" else -1
         date = pd.Timestamp(d["date"])
-        for key in ("rj", "claude"):
-            for p in d[key]["picks"]:
+        for key in ("rj", "claude", "trend"):
+            for p in (d.get(key) or {}).get("picks", []):
                 if p.get("return_pct") is not None:
                     continue
                 t = p["symbol"] + ".NS"
@@ -507,8 +570,8 @@ def record_day(store, day, source, rows_by_symbol):
     sgn = 1 if day["side"] == "LONG" else -1
     entry = {"date": day["date"], "source": source, "side": day["side"],
              "nifty_move_pct": day["nifty_move_pct"],
-             "rj": day["rj"], "claude": day["claude"]}
-    for key in ("rj", "claude"):
+             "rj": day["rj"], "claude": day["claude"], "trend": day["trend"]}
+    for key in ("rj", "claude", "trend"):
         for p in entry[key]["picks"]:
             r = rows_by_symbol.get(p["symbol"])
             if r and r.get("close"):
@@ -597,6 +660,7 @@ def main():
     print(f"{day['date']} side={day['side']} nifty={day['nifty_move_pct']:+.2f}%")
     print("RJ Scanner picks:    ", [p["symbol"] for p in day["rj"]["picks"]] or "no pick")
     print("Claude Scanner picks:", [p["symbol"] for p in day["claude"]["picks"]] or "no pick")
+    print("One-Direction picks: ", [p["symbol"] for p in day["trend"]["picks"]] or "no pick")
 
     if not args.dry_run:
         source = "live" if live else ("backtest" if args.backfill else "live")
@@ -608,8 +672,8 @@ def main():
             # they are scored properly by the next run
             for d in store["days"]:
                 if d["date"] == day["date"]:
-                    for key in ("rj", "claude"):
-                        for p in d[key]["picks"]:
+                    for key in ("rj", "claude", "trend"):
+                        for p in (d.get(key) or {}).get("picks", []):
                             p.pop("close", None)
                             p["return_pct"] = None
         save_results(store)

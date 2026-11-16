@@ -72,12 +72,12 @@
   <h1>Rutzstock <span style="color:#6b7280;font-size:13.5px;font-weight:600;">— F&amp;O criteria · 9:50 list</span></h1>
   <div class="snapshot" id="snapshot">Loading…</div>
 
-  <h2>Scoreboard <span class="who">— RJ Scanner vs Muse Scanner</span></h2>
+  <h2>Scoreboard <span class="who">— RJ Scanner vs Muse Scanner vs One-Direction</span></h2>
   <div class="scores" id="scoreboard"></div>
 
   <div id="scanners"></div>
 
-  <h2>The two scanners</h2>
+  <h2>The three scanners</h2>
   <div class="card">
     <div class="card-head"><b>Scanner A — RJ Scanner</b> (original criteria)</div>
     <ul class="crit">
@@ -96,6 +96,13 @@
       <li>Quality gate: sector strength at least 1.0% in the trade direction AND VWAP distance at least 0.5%</li>
       <li>RSI filter: LONG needs 15m RSI(14) at 9:50 of 80 or less; SHORT needs 20 or more</li>
       <li>Ranked by sector strength + VWAP distance, max 3 per day</li>
+    </ul>
+    <div class="card-head"><b>Scanner C — One-Direction</b> (Scanner B + clean-trend gates)</div>
+    <ul class="crit">
+      <li>Same base as Scanner B (V2-Quality + RSI), plus two extra gates — a stock is dropped, never swapped for another</li>
+      <li>Efficiency ratio of the 9:15–9:45 morning move at least 0.5 (clean, straight morning move — not zigzag)</li>
+      <li>Move by 9:50 between 0.8% and 2.0% (not under-extended, not over-extended)</li>
+      <li>Max 3 per day, no replacement picks</li>
     </ul>
   </div>
 
@@ -210,10 +217,12 @@ fetch("results.json", { cache: "no-store" })
       (data.updated_at ? " · Last updated: " + new Date(data.updated_at).toLocaleString("en-IN", { timeZone: "Asia/Kolkata" }) + " IST" : "");
     var sb = data.scoreboard || {};
     document.getElementById("scoreboard").innerHTML =
-      scoreCard("Scanner A — RJ Scanner", sb.rj) + scoreCard("Scanner B — Muse Scanner", sb.claude);
+      scoreCard("Scanner A — RJ Scanner", sb.rj) + scoreCard("Scanner B — Muse Scanner", sb.claude) +
+      scoreCard("Scanner C — One-Direction", sb.trend);
     document.getElementById("scanners").innerHTML =
       scannerSection(days, "rj", "Scanner A — RJ Scanner") +
-      scannerSection(days, "claude", "Scanner B — Muse Scanner");
+      scannerSection(days, "claude", "Scanner B — Muse Scanner") +
+      scannerSection(days, "trend", "Scanner C — One-Direction");
     if (days.length) {
       document.getElementById("footdays").textContent =
         "Days: " + days.map(function (d) { return d.date; }).reverse().join(", ") + ".";

@@ -5,12 +5,12 @@ It does **not** depend on Muse or any paid service:
 
 - **GitHub Actions** runs `scanner.py` every trading day at **9:50 am IST**
   (Mon–Fri) on GitHub's free runners.
-- The scanner checks all **NSE Futures & Options stocks** against two
+- The scanner checks all **NSE Futures & Options stocks** against three
   criteria sets and writes the result to `docs/results.json`.
 - **GitHub Pages** serves `docs/index.html`, which renders the picks,
   the running scoreboard and the full history.
 
-## The two scanners
+## The three scanners
 
 - **Scanner A — "RJ Scanner":** the original 12 criteria, unchanged
   (volume ≥ 2x, previous-week + previous-day breakouts, EMA10/EMA20,
@@ -19,6 +19,10 @@ It does **not** depend on Muse or any paid service:
   previous-week/sector hard gates, VWAP distance ≥ 0.3% pool, quality gate
   sector strength ≥ 1.0% + VWAP distance ≥ 0.5%) plus the RSI extreme
   exclusion (LONG: 15m RSI ≤ 80, SHORT: RSI ≥ 20).
+- **Scanner C — "One-Direction":** Scanner B's final picks, filtered by
+  two clean-trend gates with no replacement picks: efficiency ratio of
+  the 9:15–9:45 morning move ≥ 0.5 (a clean, straight move, not zigzag),
+  and the signed move by 9:50 within 0.8%–2.0%.
 
 Both: market direction decides the side, max 3 picks/day, ranked by sector
 strength. A no-pick day is a valid result.
@@ -56,7 +60,7 @@ python scanner.py --date 2026-11-13 --backfill   # also record it (marked "backt
 
 ## How results are stored
 
-`docs/results.json` holds every scanned day (both scanners' picks, 9:50
+`docs/results.json` holds every scanned day (all three scanners' picks, 9:50
 entry prices, and returns to that day's close, filled in by the next run)
 plus the running scoreboard. The daily commit from the workflow also keeps
 the schedule active.
