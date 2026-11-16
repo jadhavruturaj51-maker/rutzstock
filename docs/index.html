@@ -72,50 +72,9 @@
   <h1>Rutzstock <span style="color:#6b7280;font-size:13.5px;font-weight:600;">— F&amp;O criteria · 9:50 list</span></h1>
   <div class="snapshot" id="snapshot">Loading…</div>
 
-  <h2>Scoreboard <span class="who">— RJ Scanner vs Muse Scanner vs One-Direction</span></h2>
-  <div class="scores" id="scoreboard"></div>
-
   <div id="scanners"></div>
 
-  <h2>The three scanners</h2>
-  <div class="card">
-    <div class="card-head"><b>Scanner A — RJ Scanner</b> (original criteria)</div>
-    <ul class="crit">
-      <li>Market direction decides the side (bullish = LONG only, bearish = SHORT only)</li>
-      <li>Volume 9:20–9:50 at least 2x the 10-day average</li>
-      <li>Breakout above Previous Week High and Previous Day High</li>
-      <li>15m chart: price above EMA10 and EMA20</li>
-      <li>Stock's sector in today's top 5 sectors</li>
-      <li>Price above VWAP and above the first 15-min opening range</li>
-      <li>Gap less than 3%; stock has not already moved more than 2.5% by 9:50</li>
-    </ul>
-    <div class="card-head"><b>Scanner B — Muse Scanner</b> (V2-Quality + RSI)</div>
-    <ul class="crit">
-      <li>Same base: market direction, Previous Day breakout, EMA10/EMA20, opening range, gap &lt; 3%, move &lt; 2.5%</li>
-      <li>Volume at least 1.0x the 10-day average (not 2x); no Previous-Week or sector top-5 hard gates</li>
-      <li>Quality gate: sector strength at least 1.0% in the trade direction AND VWAP distance at least 0.5%</li>
-      <li>RSI filter: LONG needs 15m RSI(14) at 9:50 of 80 or less; SHORT needs 20 or more</li>
-      <li>Ranked by sector strength + VWAP distance, max 3 per day</li>
-    </ul>
-    <div class="card-head"><b>Scanner C — One-Direction</b> (Scanner B + clean-trend gates)</div>
-    <ul class="crit">
-      <li>Same base as Scanner B (V2-Quality + RSI), plus two extra gates — a stock is dropped, never swapped for another</li>
-      <li>Efficiency ratio of the 9:15–9:45 morning move at least 0.5 (clean, straight morning move — not zigzag)</li>
-      <li>Move by 9:50 between 0.8% and 2.0% (not under-extended, not over-extended)</li>
-      <li>Max 3 per day, no replacement picks</li>
-    </ul>
-  </div>
-
-  <div class="foot" id="footdays"></div>
-  <div class="foot">
-    Top 3 per day by checks passed are shown for each scanner; on a no-pick day these are the
-    closest stocks, with the checks they failed listed under the levels. PASSED is out of 12 criteria —
-    10 are checked from price/volume data; OI buildup and same-day events cannot be verified from the
-    free data source (Yahoo Finance), exactly as in the backtests. REF LEVELS: entry = price at 9:50,
-    SL = opening-range low (LONG) / high (SHORT), T1 = target at 2x the SL distance. Returns in the
-    scoreboard are measured from the 9:50 entry to that day's close. Days marked
-    <span class="tag">backtest</span> were computed later from historical data; unmarked days are live 9:50 scans.
-  </div>
+  <div class="foot"><a href="backtest.html" style="color:#6b7280;">Backtest results →</a></div>
   <div class="foot">own risk, not advice. This scan is for information only; the decisions and the losses are yours. · <a href="#" id="locklink" style="color:#6b7280;">Lock site</a></div>
 </div>
 
@@ -127,11 +86,6 @@ function sideHtml(side) {
 function fmtMove(v) {
   if (v === null || v === undefined) return "—";
   return (v > 0 ? "+" : "") + Number(v).toFixed(2) + "%";
-}
-function fmtPct(v) {
-  if (v === null || v === undefined) return "—";
-  var cls = v > 0 ? "pos" : (v < 0 ? "neg" : "");
-  return '<span class="' + cls + '">' + (v > 0 ? "+" : "") + Number(v).toFixed(2) + "%</span>";
 }
 function stockRows(day, rows, isPick) {
   var out = "";
@@ -162,50 +116,6 @@ function dayCard(day, key, title) {
   else html += '<div class="nopick">No stocks to show.</div>';
   return html + "</div>";
 }
-function historyTable(days, key) {
-  var out = "<table><thead><tr><th>Date</th><th>Stock</th><th>Side</th><th>Passed</th><th>Day</th></tr></thead><tbody>";
-  days.forEach(function (d) {
-    var s = d[key];
-    var has = s.picks && s.picks.length;
-    var rows = has ? s.picks : (s.near || []);
-    if (!rows.length) {
-      out += "<tr><td>" + d.date + "</td><td class='nopick'>—</td><td>" + sideHtml(d.side) +
-             "</td><td>—</td><td class='nopick'>no pick</td></tr>";
-      return;
-    }
-    rows.forEach(function (p) {
-      out += "<tr><td>" + d.date + "</td><td class='sym'>" + esc(p.symbol) + "</td><td>" + sideHtml(d.side) +
-             "</td><td>" + p.passed + "/12</td><td>" +
-             (has ? '<span class="pick-badge">PICK</span>' : '<span class="nopick">no pick</span>') + "</td></tr>";
-    });
-  });
-  return out + "</tbody></table>";
-}
-function scoreCard(title, sb) {
-  if (!sb) return "";
-  return '<div class="score"><h3>' + title + "</h3>" +
-    '<div class="row"><span>Days scanned</span><b>' + sb.days + "</b></div>" +
-    '<div class="row"><span>Total picks</span><b>' + sb.picks + "</b></div>" +
-    '<div class="row"><span>% positive (to close)</span><b>' + (sb.pct_positive === null ? "—" : sb.pct_positive + "%") + "</b></div>" +
-    '<div class="row"><span>Avg return (9:50 → close)</span><b>' + (sb.avg_return === null ? "—" : fmtPct(sb.avg_return)) + "</b></div></div>";
-}
-function scannerSection(days, key, title) {
-  if (!days.length) return "";
-  var latest = days[0];
-  var html = "<h2>" + title + '</h2><h2 style="margin-top:0;font-size:13.5px;color:#6b7280;">Today / latest run</h2>' +
-             dayCard(latest, key, title);
-  if (!(latest[key].picks || []).length) {
-    for (var i = 1; i < days.length; i++) {
-      if ((days[i][key].picks || []).length) {
-        html += '<h2 style="font-size:13.5px;color:#6b7280;">Last list with stocks</h2>' + dayCard(days[i], key, title);
-        break;
-      }
-    }
-  }
-  html += '<h2 style="font-size:13.5px;color:#6b7280;">History — past lists</h2><div class="card">' +
-          historyTable(days, key) + "</div>";
-  return html;
-}
 function loadData() {
 fetch("results.json", { cache: "no-store" })
   .then(function (r) { return r.json(); })
@@ -215,18 +125,15 @@ fetch("results.json", { cache: "no-store" })
       "Data snapshot: " + (days.length ? days[0].date : "—") +
       " (refreshed automatically every trading day at 9:50 am IST)" +
       (data.updated_at ? " · Last updated: " + new Date(data.updated_at).toLocaleString("en-IN", { timeZone: "Asia/Kolkata" }) + " IST" : "");
-    var sb = data.scoreboard || {};
-    document.getElementById("scoreboard").innerHTML =
-      scoreCard("Scanner A — RJ Scanner", sb.rj) + scoreCard("Scanner B — Muse Scanner", sb.claude) +
-      scoreCard("Scanner C — One-Direction", sb.trend);
-    document.getElementById("scanners").innerHTML =
-      scannerSection(days, "rj", "Scanner A — RJ Scanner") +
-      scannerSection(days, "claude", "Scanner B — Muse Scanner") +
-      scannerSection(days, "trend", "Scanner C — One-Direction");
-    if (days.length) {
-      document.getElementById("footdays").textContent =
-        "Days: " + days.map(function (d) { return d.date; }).reverse().join(", ") + ".";
+    if (!days.length) {
+      document.getElementById("scanners").innerHTML = '<div class="nopick">No scan data yet.</div>';
+      return;
     }
+    var latest = days[0];
+    document.getElementById("scanners").innerHTML =
+      "<h2>Scanner A — RJ Scanner</h2>" + dayCard(latest, "rj", "Scanner A — RJ Scanner") +
+      "<h2>Scanner B — Muse Scanner</h2>" + dayCard(latest, "claude", "Scanner B — Muse Scanner") +
+      "<h2>Scanner C — One-Direction</h2>" + dayCard(latest, "trend", "Scanner C — One-Direction");
   })
   .catch(function () {
     document.getElementById("snapshot").innerHTML = '<span class="err">Could not load results.json yet.</span>';
