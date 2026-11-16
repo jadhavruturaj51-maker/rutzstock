@@ -1,6 +1,148 @@
 {
  "days": [
   {
+   "date": "2026-11-16",
+   "source": "live",
+   "side": "LONG",
+   "nifty_move_pct": 0.68,
+   "rj": {
+    "picks": [],
+    "near": [
+     {
+      "symbol": "INDUSTOWER",
+      "entry": 401.45,
+      "passed": 9,
+      "move_pct": 1.38,
+      "sl": 395.45,
+      "t1": 413.45,
+      "failed": [
+       "volume 2x"
+      ]
+     },
+     {
+      "symbol": "APOLLOHOSP",
+      "entry": 8667.0,
+      "passed": 9,
+      "move_pct": 1.65,
+      "sl": 8558.5,
+      "t1": 8884.0,
+      "failed": [
+       "volume 2x"
+      ]
+     },
+     {
+      "symbol": "MAXHEALTH",
+      "entry": 986.55,
+      "passed": 9,
+      "move_pct": 4.17,
+      "sl": 950.0,
+      "t1": 1059.65,
+      "failed": [
+       "move under 2.5%"
+      ]
+     }
+    ],
+    "no_pick": true
+   },
+   "claude": {
+    "picks": [
+     {
+      "symbol": "FORTIS",
+      "entry": 779.85,
+      "passed": 10,
+      "move_pct": 2.07,
+      "sl": 764.45,
+      "t1": 810.65,
+      "return_pct": null
+     },
+     {
+      "symbol": "AUROPHARMA",
+      "entry": 1845.6,
+      "passed": 10,
+      "move_pct": 1.23,
+      "sl": 1817.0,
+      "t1": 1902.8,
+      "return_pct": null
+     }
+    ],
+    "near": [
+     {
+      "symbol": "LTF",
+      "entry": 283.22,
+      "passed": 9,
+      "move_pct": 2.08,
+      "sl": 275.55,
+      "t1": 298.56,
+      "failed": [
+       "sector strength 1%"
+      ]
+     },
+     {
+      "symbol": "UJJIVANSFB",
+      "entry": 61.85,
+      "passed": 9,
+      "move_pct": 2.06,
+      "sl": 60.38,
+      "t1": 64.79,
+      "failed": [
+       "sector strength 1%"
+      ]
+     },
+     {
+      "symbol": "KARURVYSYA",
+      "entry": 388.85,
+      "passed": 9,
+      "move_pct": 1.91,
+      "sl": 378.85,
+      "t1": 408.85,
+      "failed": [
+       "sector strength 1%"
+      ]
+     }
+    ],
+    "no_pick": false
+   },
+   "trend": {
+    "picks": [],
+    "near": [
+     {
+      "symbol": "FORTIS",
+      "entry": 779.85,
+      "passed": 10,
+      "move_pct": 2.07,
+      "sl": 764.45,
+      "t1": 810.65,
+      "failed": [
+       "move band 0.8-2.0%"
+      ]
+     },
+     {
+      "symbol": "AUROPHARMA",
+      "entry": 1845.6,
+      "passed": 10,
+      "move_pct": 1.23,
+      "sl": 1817.0,
+      "t1": 1902.8,
+      "failed": [
+       "efficiency ratio 0.5+"
+      ]
+     },
+     {
+      "symbol": "KARURVYSYA",
+      "entry": 388.85,
+      "passed": 9,
+      "move_pct": 1.91,
+      "sl": 378.85,
+      "t1": 408.85,
+      "failed": [
+       "sector strength 1%"
+      ]
+     }
+    ],
+    "no_pick": true
+   }
+  },
+  {
    "date": "2026-11-13",
    "source": "backtest",
    "side": "SHORT",
@@ -1132,7 +1274,7 @@
  ],
  "scoreboard": {
   "rj": {
-   "days": 7,
+   "days": 8,
    "picks": 11,
    "scored": 11,
    "positive": 6,
@@ -1140,15 +1282,15 @@
    "avg_return": 0.36
   },
   "claude": {
-   "days": 7,
-   "picks": 8,
+   "days": 8,
+   "picks": 10,
    "scored": 8,
    "positive": 8,
    "pct_positive": 100.0,
    "avg_return": 2.08
   },
   "trend": {
-   "days": 7,
+   "days": 8,
    "picks": 5,
    "scored": 5,
    "positive": 5,
@@ -1156,5 +1298,5 @@
    "avg_return": 2.64
   }
  },
- "updated_at": "2026-11-16T08:48:13+05:30"
+ "updated_at": "2026-11-16T10:04:17+05:30"
 }
