@@ -1,6 +1,171 @@
 {
  "days": [
   {
+   "date": "2026-11-17",
+   "source": "live",
+   "side": "LONG",
+   "nifty_move_pct": 0.27,
+   "rj": {
+    "picks": [
+     {
+      "symbol": "ANGELONE",
+      "entry": 355.6,
+      "passed": 10,
+      "move_pct": 2.14,
+      "sl": 344.6,
+      "t1": 377.6,
+      "return_pct": null
+     },
+     {
+      "symbol": "BLUESTARCO",
+      "entry": 1647.0,
+      "passed": 10,
+      "move_pct": 1.42,
+      "sl": 1583.7,
+      "t1": 1773.6,
+      "return_pct": null
+     }
+    ],
+    "near": [
+     {
+      "symbol": "DLF",
+      "entry": 771.35,
+      "passed": 9,
+      "move_pct": 2.2,
+      "sl": 754.05,
+      "t1": 805.95,
+      "failed": [
+       "volume 2x"
+      ]
+     },
+     {
+      "symbol": "CANBK",
+      "entry": 135.89,
+      "passed": 9,
+      "move_pct": 2.64,
+      "sl": 132.2,
+      "t1": 143.27,
+      "failed": [
+       "move under 2.5%"
+      ]
+     },
+     {
+      "symbol": "360ONE",
+      "entry": 1203.0,
+      "passed": 9,
+      "move_pct": 2.23,
+      "sl": 1178.2,
+      "t1": 1252.6,
+      "failed": [
+       "previous week high"
+      ]
+     }
+    ],
+    "no_pick": false
+   },
+   "claude": {
+    "picks": [
+     {
+      "symbol": "OBEROIRLTY",
+      "entry": 1824.8,
+      "passed": 10,
+      "move_pct": 1.51,
+      "sl": 1768.4,
+      "t1": 1937.6,
+      "return_pct": null
+     }
+    ],
+    "near": [
+     {
+      "symbol": "ANGELONE",
+      "entry": 355.6,
+      "passed": 9,
+      "move_pct": 2.14,
+      "sl": 344.6,
+      "t1": 377.6,
+      "failed": [
+       "sector strength 1%"
+      ]
+     },
+     {
+      "symbol": "IRFC",
+      "entry": 83.68,
+      "passed": 9,
+      "move_pct": 1.91,
+      "sl": 81.66,
+      "t1": 87.72,
+      "failed": [
+       "sector strength 1%"
+      ]
+     },
+     {
+      "symbol": "BLUESTARCO",
+      "entry": 1647.0,
+      "passed": 8,
+      "move_pct": 1.42,
+      "sl": 1583.7,
+      "t1": 1773.6,
+      "failed": [
+       "sector strength 1%",
+       "RSI limit"
+      ]
+     }
+    ],
+    "no_pick": false
+   },
+   "trend": {
+    "picks": [
+     {
+      "symbol": "OBEROIRLTY",
+      "entry": 1824.8,
+      "passed": 10,
+      "move_pct": 1.51,
+      "sl": 1768.4,
+      "t1": 1937.6,
+      "return_pct": null
+     }
+    ],
+    "near": [
+     {
+      "symbol": "IRFC",
+      "entry": 83.68,
+      "passed": 9,
+      "move_pct": 1.91,
+      "sl": 81.66,
+      "t1": 87.72,
+      "failed": [
+       "sector strength 1%"
+      ]
+     },
+     {
+      "symbol": "ANGELONE",
+      "entry": 355.6,
+      "passed": 9,
+      "move_pct": 2.14,
+      "sl": 344.6,
+      "t1": 377.6,
+      "failed": [
+       "move band 0.8-2.0%",
+       "sector strength 1%"
+      ]
+     },
+     {
+      "symbol": "BLUESTARCO",
+      "entry": 1647.0,
+      "passed": 8,
+      "move_pct": 1.42,
+      "sl": 1583.7,
+      "t1": 1773.6,
+      "failed": [
+       "sector strength 1%",
+       "RSI limit"
+      ]
+     }
+    ],
+    "no_pick": false
+   }
+  },
+  {
    "date": "2026-11-16",
    "source": "live",
    "side": "LONG",
@@ -53,7 +218,8 @@
       "move_pct": 2.07,
       "sl": 764.45,
       "t1": 810.65,
-      "return_pct": null
+      "return_pct": 2.99,
+      "close": 803.2
      },
      {
       "symbol": "AUROPHARMA",
@@ -62,7 +228,8 @@
       "move_pct": 1.23,
       "sl": 1817.0,
       "t1": 1902.8,
-      "return_pct": null
+      "return_pct": -2.8,
+      "close": 1794.0
      }
     ],
     "near": [
@@ -1274,29 +1441,29 @@
  ],
  "scoreboard": {
   "rj": {
-   "days": 8,
-   "picks": 11,
+   "days": 9,
+   "picks": 13,
    "scored": 11,
    "positive": 6,
    "pct_positive": 54.5,
    "avg_return": 0.36
   },
   "claude": {
-   "days": 8,
-   "picks": 10,
-   "scored": 8,
-   "positive": 8,
-   "pct_positive": 100.0,
-   "avg_return": 2.08
+   "days": 9,
+   "picks": 11,
+   "scored": 10,
+   "positive": 9,
+   "pct_positive": 90.0,
+   "avg_return": 1.68
   },
   "trend": {
-   "days": 8,
-   "picks": 5,
+   "days": 9,
+   "picks": 6,
    "scored": 5,
    "positive": 5,
    "pct_positive": 100.0,
    "avg_return": 2.64
   }
  },
- "updated_at": "2026-11-16T10:04:17+05:30"
+ "updated_at": "2026-11-17T09:59:49+05:30"
 }
