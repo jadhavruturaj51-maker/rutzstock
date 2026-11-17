@@ -26,8 +26,8 @@
   .sym { font-weight: 600; }
   .side-long { color: var(--green); font-weight: 700; }
   .side-short { color: var(--red); font-weight: 700; }
-  .levels { white-space: nowrap; }
-  .failed { display: block; color: var(--dim); font-size: 12px; white-space: normal; }
+  .failedcell { color: var(--dim); font-size: 12.5px; white-space: normal; }
+  tr.near td { color: var(--dim); }
   .pick-badge { background: var(--badge); color: var(--badge-txt); font-weight: 700;
                 font-size: 11.5px; padding: 2px 10px; border-radius: 20px; }
   .nopick { color: var(--dim); font-size: 12.5px; }
@@ -55,7 +55,7 @@
   .gate-box button { width: 100%; padding: 10px; font-size: 15px; font-weight: 700;
                      background: #111827; color: #fff; border: 0; border-radius: 8px; cursor: pointer; }
   .gate-err { color: var(--red); font-size: 12.5px; margin-top: 8px; min-height: 16px; }
-  @media (max-width: 560px) { .levels { white-space: normal; } td, th { padding-right: 4px; } }
+  @media (max-width: 560px) { td, th { padding-right: 4px; } }
 </style>
 </head>
 <body>
@@ -109,12 +109,11 @@
 
   <div class="foot" id="footdays"></div>
   <div class="foot">
-    Top 3 per day by checks passed are shown for each scanner; on a no-pick day these are the
-    closest stocks, with the checks they failed listed under the levels. PASSED is out of 12 criteria —
+    Picks are shown for each scanner, followed by the closest stocks that were not picked
+    (dimmed rows), with the checks they failed shown in the Failed column. PASSED is out of 12 criteria —
     10 are checked from price/volume data; OI buildup and same-day events cannot be verified from the
-    free data source (Yahoo Finance), exactly as in the backtests. REF LEVELS: entry = price at 9:50,
-    SL = opening-range low (LONG) / high (SHORT), T1 = target at 2x the SL distance. Returns in the
-    scoreboard are measured from the 9:50 entry to that day's close. Days marked
+    free data source (Yahoo Finance), exactly as in the backtests. Returns in the
+    scoreboard are measured from the 9:50 price to that day's close. Days marked
     <span class="tag">backtest</span> were computed later from historical data; unmarked days are live 9:50 scans.
   </div>
   <div class="foot">own risk, not advice. This scan is for information only; the decisions and the losses are yours. · <a href="#" id="locklink" style="color:#6b7280;">Lock site</a></div>
@@ -134,50 +133,51 @@ function fmtPct(v) {
   var cls = v > 0 ? "pos" : (v < 0 ? "neg" : "");
   return '<span class="' + cls + '">' + (v > 0 ? "+" : "") + Number(v).toFixed(2) + "%</span>";
 }
-function stockRows(day, rows, isPick) {
+function stockRow(day, p, isPick) {
+  var failed = (!isPick && p.failed && p.failed.length) ? esc(p.failed.join(", ")) : "—";
+  return "<tr" + (isPick ? "" : " class='near'") + "><td class='sym'>" + esc(p.symbol) + "</td><td>" + sideHtml(day.side) +
+         "</td><td>" + fmtMove(p.move_pct) + "</td><td>" + p.passed + "/12</td>" +
+         "<td class='failedcell'>" + failed + "</td></tr>";
+}
+function stockRows(day, s) {
   var out = "";
-  rows.forEach(function (p) {
-    var lv = "entry " + Number(p.entry).toFixed(2) + " · SL " + Number(p.sl).toFixed(2) + " · T1 " + Number(p.t1).toFixed(2);
-    if (!isPick && p.failed && p.failed.length) {
-      lv += '<span class="failed">failed: ' + p.failed.join(", ") + "</span>";
-    }
-    out += "<tr><td class='sym'>" + esc(p.symbol) + "</td><td>" + sideHtml(day.side) +
-           "</td><td>" + fmtMove(p.move_pct) + "</td><td>" + p.passed + "/12</td>" +
-           "<td class='levels'>" + lv + "</td></tr>";
-  });
+  (s.picks || []).forEach(function (p) { out += stockRow(day, p, true); });
+  (s.near || []).forEach(function (p) { out += stockRow(day, p, false); });
   return out;
 }
-function stockTable(day, rows, isPick) {
-  return "<table><thead><tr><th>Stock</th><th>Side</th><th>Move</th><th>Passed</th><th>Ref levels</th></tr></thead><tbody>" +
-         stockRows(day, rows, isPick) + "</tbody></table>";
+function stockTable(day, s) {
+  return "<table><thead><tr><th>Stock</th><th>Side</th><th>Move</th><th>Passed</th><th>Failed</th></tr></thead><tbody>" +
+         stockRows(day, s) + "</tbody></table>";
 }
 function dayCard(day, key, title) {
   var s = day[key];
   var has = s.picks && s.picks.length;
-  var rows = has ? s.picks : (s.near || []);
+  var hasRows = (s.picks && s.picks.length) || (s.near && s.near.length);
   var status = has ? "PICK — " + s.picks.length + " stock" + (s.picks.length > 1 ? "s" : "")
                    : "no pick (no stock passed all checks)";
   var html = '<div class="card"><div class="card-head">' + day.date + ' — <span class="status">' + status + "</span>" +
              (day.source === "backtest" ? '<span class="tag">backtest</span>' : '<span class="tag">live</span>') + "</div>";
-  if (rows.length) html += stockTable(day, rows, has);
+  if (hasRows) html += stockTable(day, s);
   else html += '<div class="nopick">No stocks to show.</div>';
   return html + "</div>";
 }
 function historyTable(days, key) {
-  var out = "<table><thead><tr><th>Date</th><th>Stock</th><th>Side</th><th>Passed</th><th>Day</th></tr></thead><tbody>";
+  var out = "<table><thead><tr><th>Date</th><th>Stock</th><th>Side</th><th>Passed</th><th>Day</th><th>Failed</th></tr></thead><tbody>";
   days.forEach(function (d) {
     var s = d[key];
     var has = s.picks && s.picks.length;
     var rows = has ? s.picks : (s.near || []);
     if (!rows.length) {
       out += "<tr><td>" + d.date + "</td><td class='nopick'>—</td><td>" + sideHtml(d.side) +
-             "</td><td>—</td><td class='nopick'>no pick</td></tr>";
+             "</td><td>—</td><td class='nopick'>no pick</td><td>—</td></tr>";
       return;
     }
     rows.forEach(function (p) {
+      var failed = (!has && p.failed && p.failed.length) ? esc(p.failed.join(", ")) : "—";
       out += "<tr><td>" + d.date + "</td><td class='sym'>" + esc(p.symbol) + "</td><td>" + sideHtml(d.side) +
              "</td><td>" + p.passed + "/12</td><td>" +
-             (has ? '<span class="pick-badge">PICK</span>' : '<span class="nopick">no pick</span>') + "</td></tr>";
+             (has ? '<span class="pick-badge">PICK</span>' : '<span class="nopick">no pick</span>') + "</td>" +
+             "<td class='failedcell'>" + failed + "</td></tr>";
     });
   });
   return out + "</tbody></table>";
