@@ -873,6 +873,14 @@ def main():
     store = load_results()
     if not args.dry_run:
         score_pending(store, daily)
+    if live and any(d["date"] == date.strftime("%Y-%m-%d")
+                    and d.get("source") == "live" for d in store["days"]):
+        # An earlier trigger of today's scan already recorded the day
+        # (backup schedule entries) - do not re-evaluate or overwrite it.
+        if not args.dry_run:
+            save_results(store)
+        print("Today already recorded by an earlier live run - nothing to do.")
+        return
 
     # Events check (criterion 11) starts Day 4, 2026-11-19 (RJ's call).
     day = evaluate(date, daily, m5, nifty_d, nifty_5, sectors, syms,
