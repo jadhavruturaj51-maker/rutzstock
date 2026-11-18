@@ -13,9 +13,12 @@ Three scanners, evaluated every trading day at 9:50 IST on all NSE F&O stocks:
                                within 0.8%-2.0%.
 
 Data source: Yahoo Finance (free) via yfinance - the same source the
-backtests were validated on. Criteria 10 (OI buildup) and 11 (no event
-today) cannot be checked from this free source, so PASSED is reported
-out of the 10 checkable criteria, shown as x/12 like the backtests.
+backtests were validated on. Criterion 11 (no event today) cannot be
+checked from free sources. Criterion 10 (OI buildup) is checked on LIVE
+runs only, from Moneycontrol's live OI change for the near-month future
+(finalist stocks only); when it cannot be fetched it stays unchecked.
+PASSED is shown as x/12 - the maximum is 11/12 on a live run with OI
+checked, otherwise 10/12, as in the backtests.
 
 Definitions (identical to the validated backtest code):
   - "9:50 price" = close of the 09:45 five-minute candle.
@@ -38,7 +41,7 @@ Usage:
   python scanner.py --date 2026-11-13 --dry-run
                                          print only, write nothing
 """
-import argparse, csv, io, json, os, sys, time
+import argparse, csv, io, json, os, re, sys, time
 from datetime import datetime
 from zoneinfo import ZoneInfo
 
@@ -52,10 +55,55 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 RESULTS = os.path.join(HERE, "docs", "results.json")
 SYMBOLS_FILE = os.path.join(HERE, "fo_symbols.txt")
 SECTORS_FILE = os.path.join(HERE, "sectors.json")
+MC_CODES_FILE = os.path.join(HERE, "mc_codes.json")
 
 WIN = {"09:20", "09:25", "09:30", "09:35", "09:40", "09:45"}   # volume window
 EARLY = {"09:15", "09:20", "09:25", "09:30", "09:35", "09:40", "09:45"}
 ORNG = {"09:15", "09:20", "09:25"}                              # opening range
+
+
+# ---------------------------------------------------------------- OI (live)
+_MC_CODES = None
+_MC_SESSION = None
+
+
+def _mc_codes():
+    global _MC_CODES
+    if _MC_CODES is None:
+        try:
+            _MC_CODES = json.load(open(MC_CODES_FILE))
+        except Exception:
+            _MC_CODES = {}
+    return _MC_CODES
+
+
+def fetch_oi_chg_pct(symbol):
+    """Live OI change % of the symbol's near-month future, from
+    Moneycontrol (free, no login). Positive = OI buildup today.
+    Returns None when the value cannot be fetched or parsed."""
+    global _MC_SESSION
+    info = _mc_codes().get(symbol)
+    if not info:
+        return None
+    if _MC_SESSION is None:
+        _MC_SESSION = requests.Session()
+        _MC_SESSION.headers.update({"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36"})
+    for slug in info.get("slugs", []):
+        url = ("https://www.moneycontrol.com/india/fnoquote/%s/%s"
+               % (slug, info["code"]))
+        for _try in range(2):
+            try:
+                r = _MC_SESSION.get(url, timeout=20)
+                if r.status_code != 200:
+                    break
+                text = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", r.text))
+                m = re.search(r"Open Int\. Chg % (-?[\d.]+)", text)
+                if m:
+                    return float(m.group(1))
+                break
+            except Exception:
+                time.sleep(1)
+    return None
 
 
 # ---------------------------------------------------------------- universe
@@ -203,7 +251,7 @@ def ema_rsi_at(intr, ds):
 
 
 # ---------------------------------------------------------------- evaluation
-def evaluate(date, daily, m5, nifty_d, nifty_5, sectors, syms):
+def evaluate(date, daily, m5, nifty_d, nifty_5, sectors, syms, live_oi=False):
     """Run all three scanners for one trading date. Returns a day dict or
     None when the date is not a trading day / data is missing."""
     ds = date.strftime("%Y-%m-%d")
@@ -352,6 +400,33 @@ def evaluate(date, daily, m5, nifty_d, nifty_5, sectors, syms):
             "orh": st["orh"], "orl": st["orl"],
         })
 
+    # ---- live OI state (criterion 10); only fetched on live runs, and
+    # only for finalist / displayed rows (bounded fetch budget per run).
+    oi_cache = {}
+    oi_budget = [25]
+
+    def oi_state(sym, fetch=False):
+        if not live_oi:
+            return "na", None
+        if sym in oi_cache:
+            v = oi_cache[sym]
+        elif fetch and oi_budget[0] > 0:
+            oi_budget[0] -= 1
+            v = fetch_oi_chg_pct(sym)
+            oi_cache[sym] = v
+        else:
+            return "na", None
+        if v is None:
+            return "na", None
+        return ("pass" if v > 0 else "fail"), v
+
+    def with_oi(d, sym):
+        st, v = oi_state(sym)
+        d["oi"] = st
+        if v is not None:
+            d["oi_chg_pct"] = round(float(v), 2)
+        return d
+
     # ---- display helpers (entry / SL / T1 reference levels, failed names)
     def levels(r):
         entry = r["entry"]
@@ -383,13 +458,35 @@ def evaluate(date, daily, m5, nifty_d, nifty_5, sectors, syms):
     # ---- Scanner A: RJ's original criteria, 0 fails among the 10 checkable.
     a_rows = [r for r in rows if len(r["fails"]) == 0]
     a_rows.sort(key=lambda r: (-r["sector_strength"], -r["vwap_dist"]))
-    a_pick_syms = {r["symbol"] for r in a_rows[:3]}
-    a_picks = [disp(r, 10) for r in a_rows[:3]]
+    a_pick_rows = []
+    for r in a_rows:
+        if len(a_pick_rows) >= 3:
+            break
+        _st, _ = oi_state(r["symbol"], fetch=True)
+        if _st == "fail":
+            continue
+        a_pick_rows.append(r)
+    a_pick_syms = {r["symbol"] for r in a_pick_rows}
+    a_picks = []
+    for r in a_pick_rows:
+        _st, _ = oi_state(r["symbol"])
+        d = disp(r, 11 if _st == "pass" else 10)
+        if live_oi:
+            d = with_oi(d, r["symbol"])
+        a_picks.append(d)
     a_near_pool = [r for r in rows if r["symbol"] not in a_pick_syms]
     a_near_pool.sort(key=lambda r: (len(r["fails"]), -r["sector_strength"]))
-    a_near = [disp(r, 10 - len(r["fails"]),
-                   [A_NAMES.get(f, f) for f in r["fails"]])
-              for r in a_near_pool[:3]]
+    a_near = []
+    for r in a_near_pool[:3]:
+        _st, _ = oi_state(r["symbol"], fetch=True)
+        _names = [A_NAMES.get(f, f) for f in r["fails"]]
+        if _st == "fail":
+            _names.append("OI buildup")
+        _total = 11 if _st != "na" else 10
+        d = disp(r, _total - len(_names), _names)
+        if live_oi:
+            d = with_oi(d, r["symbol"])
+        a_near.append(d)
 
     # ---- Scanner B: V2-Quality pool -> quality gate -> cap 3 -> RSI filter.
     pool = []
@@ -412,19 +509,24 @@ def evaluate(date, daily, m5, nifty_d, nifty_5, sectors, syms):
              if r["sector_strength"] >= 1.0 and r["vwap_dist"] >= 0.5]
     gated.sort(key=lambda r: -r["q"])
     b_pick_rows = []
-    for r in gated[:3]:
+    for r in gated:
+        if len(b_pick_rows) >= 3:
+            break
         if r["rsi"] is not None:
             if long_side and r["rsi"] > 80:
                 continue
             if (not long_side) and r["rsi"] < 20:
                 continue
+        _st, _ = oi_state(r["symbol"], fetch=True)
+        if _st == "fail":
+            continue
         b_pick_rows.append(r)
     b_pick_syms = {r["symbol"] for r in b_pick_rows}
 
     # Scanner B judged by its own 10 checkable checks (market direction is
     # the 10th and is the same for every stock that day).
     def b_checks(r):
-        return {
+        ch = {
             "volume 1x": r["vol_ratio"] >= 1.0,
             "previous day high" if long_side else "previous day low":
                 "pdh" not in r["fails"] and "pdl" not in r["fails"],
@@ -437,32 +539,44 @@ def evaluate(date, daily, m5, nifty_d, nifty_5, sectors, syms):
             "RSI limit": (r["rsi"] is None or
                           (r["rsi"] <= 80 if long_side else r["rsi"] >= 20)),
         }
+        if live_oi:
+            _st, _ = oi_state(r["symbol"])
+            ch["OI buildup"] = (True if _st == "pass" else
+                                False if _st == "fail" else None)
+        return ch
 
     def b_disp(r):
         ch = b_checks(r)
         passed = 1 + sum(1 for v in ch.values() if v)
-        failed = [k for k, v in ch.items() if not v]
-        return disp(r, passed, failed)
+        failed = [k for k, v in ch.items() if v is False]
+        d = disp(r, passed, failed)
+        if live_oi:
+            d = with_oi(d, r["symbol"])
+        return d
 
     b_picks = []
     for r in b_pick_rows:
         d = b_disp(r)
         d.pop("failed", None)
-        d["passed"] = 10
+        _st, _ = oi_state(r["symbol"])
+        d["passed"] = 11 if _st == "pass" else 10
         b_picks.append(d)
     pool_syms = {r["symbol"] for r in pool}
     b_near_rows = [r for r in pool if r["symbol"] not in b_pick_syms]
     b_near_rows.sort(key=lambda r: -r.get("q", 0))
-    b_near = [b_disp(r) for r in b_near_rows[:3]]
-    if len(b_near) < 3:
+    b_near_chosen = list(b_near_rows[:3])
+    if len(b_near_chosen) < 3:
         rest = [r for r in rows
                 if r["symbol"] not in b_pick_syms and r["symbol"] not in pool_syms]
         rest.sort(key=lambda r: (-sum(1 for v in b_checks(r).values() if v),
                                  -r["sector_strength"]))
         for r in rest:
-            if len(b_near) >= 3:
+            if len(b_near_chosen) >= 3:
                 break
-            b_near.append(b_disp(r))
+            b_near_chosen.append(r)
+    for r in b_near_chosen:
+        oi_state(r["symbol"], fetch=True)
+    b_near = [b_disp(r) for r in b_near_chosen]
 
     # ---- Scanner C: Scanner B's final picks + two clean-trend gates,
     # no replacement picks: (a) efficiency ratio of the 09:15-09:45 morning
@@ -482,8 +596,11 @@ def evaluate(date, daily, m5, nifty_d, nifty_5, sectors, syms):
         # Scanner B convention (the 10 checkable checks), like b_disp.
         ch = b_checks(r)
         passed = 1 + sum(1 for v in ch.values() if v)
-        failed = [k for k, v in c_checks(r).items() if not v]
-        return disp(r, passed, failed)
+        failed = [k for k, v in c_checks(r).items() if v is False]
+        d = disp(r, passed, failed)
+        if live_oi:
+            d = with_oi(d, r["symbol"])
+        return d
 
     c_pick_rows = [r for r in b_pick_rows
                    if r.get("er") is not None and r["er"] >= 0.5
@@ -493,21 +610,25 @@ def evaluate(date, daily, m5, nifty_d, nifty_5, sectors, syms):
     for r in c_pick_rows:
         d = c_disp(r)
         d.pop("failed", None)
-        d["passed"] = 10
+        _st, _ = oi_state(r["symbol"])
+        d["passed"] = 11 if _st == "pass" else 10
         c_picks.append(d)
     c_near_rows = [r for r in pool if r["symbol"] not in c_pick_syms]
     c_near_rows.sort(key=lambda r: (-sum(1 for v in c_checks(r).values() if v),
                                     -r.get("q", 0)))
-    c_near = [c_disp(r) for r in c_near_rows[:3]]
-    if len(c_near) < 3:
+    c_near_chosen = list(c_near_rows[:3])
+    if len(c_near_chosen) < 3:
         rest = [r for r in rows
                 if r["symbol"] not in c_pick_syms and r["symbol"] not in pool_syms]
         rest.sort(key=lambda r: (-sum(1 for v in c_checks(r).values() if v),
                                  -r["sector_strength"]))
         for r in rest:
-            if len(c_near) >= 3:
+            if len(c_near_chosen) >= 3:
                 break
-            c_near.append(c_disp(r))
+            c_near_chosen.append(r)
+    for r in c_near_chosen:
+        oi_state(r["symbol"], fetch=True)
+    c_near = [c_disp(r) for r in c_near_chosen]
 
     return {"date": ds, "side": side, "nifty_move_pct": round(float(nmove), 2),
             "rj": {"picks": a_picks, "near": a_near, "no_pick": len(a_picks) == 0},
@@ -649,7 +770,8 @@ def main():
     if not args.dry_run:
         score_pending(store, daily)
 
-    day = evaluate(date, daily, m5, nifty_d, nifty_5, sectors, syms)
+    day = evaluate(date, daily, m5, nifty_d, nifty_5, sectors, syms,
+                   live_oi=live)
     if day is None:
         print("Not a trading day (or insufficient data) for", date.strftime("%Y-%m-%d"))
         if not args.dry_run:

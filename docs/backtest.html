@@ -112,8 +112,9 @@
   <div class="foot">
     Picks are shown for each scanner, followed by the closest stocks that were not picked
     (dimmed rows), with the checks they failed shown in the Failed column. PASSED is out of 12 criteria —
-    10 are checked from price/volume data; OI buildup and same-day events cannot be verified from the
-    free data source (Yahoo Finance), exactly as in the backtests; they are marked "not checked" in the Failed column. Returns in the
+    10 are checked from price/volume data; on live scan days OI buildup is also checked, from Moneycontrol's
+    live OI data, so the maximum on those days is 11/12; same-day events cannot be verified from free
+    data. Unchecked criteria are marked "not checked" in the Failed column. Returns in the
     scoreboard are measured from the 9:50 price to that day's close. Days marked
     <span class="tag">backtest</span> were computed later from historical data; unmarked days are live 9:50 scans.
   </div>
@@ -137,7 +138,8 @@ function fmtPct(v) {
 function failedHtml(p, isPick) {
   var parts = [];
   if (!isPick && p.failed && p.failed.length) parts.push(esc(p.failed.join(", ")));
-  parts.push('<span class="nc">OI, events (not checked)</span>');
+  var nc = (p.oi === "pass" || p.oi === "fail") ? "events (not checked)" : "OI, events (not checked)";
+  parts.push('<span class="nc">' + nc + "</span>");
   return parts.join(" · ");
 }
 function stockRow(day, p, isPick) {

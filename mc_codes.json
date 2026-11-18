@@ -1,0 +1,1489 @@
+{
+ "360ONE": {
+  "code": "IIFLW54277",
+  "slugs": [
+   "360one",
+   "360onewam"
+  ]
+ },
+ "ABB": {
+  "code": "ABB",
+  "slugs": [
+   "abb",
+   "abbindia"
+  ]
+ },
+ "ABCAPITAL": {
+  "code": "ABC07",
+  "slugs": [
+   "abcapital",
+   "adityabirlacapital"
+  ]
+ },
+ "ADANIENSOL": {
+  "code": "AT18",
+  "slugs": [
+   "adaniensol",
+   "adanienergysolutions"
+  ]
+ },
+ "ADANIENT": {
+  "code": "AE01",
+  "slugs": [
+   "adanient",
+   "adanienterprises"
+  ]
+ },
+ "ADANIGREEN": {
+  "code": "ADANI54145",
+  "slugs": [
+   "adanigreen",
+   "adanigreenenergylimited"
+  ]
+ },
+ "ADANIPORTS": {
+  "code": "MPS",
+  "slugs": [
+   "adaniports",
+   "adaniportsspecialeconomiczone"
+  ]
+ },
+ "ADANIPOWER": {
+  "code": "AP26",
+  "slugs": [
+   "adanipower"
+  ]
+ },
+ "ALKEM": {
+  "code": "AL16",
+  "slugs": [
+   "alkem",
+   "alkemlaboratories"
+  ]
+ },
+ "AMBER": {
+  "code": "AEI01",
+  "slugs": [
+   "amber",
+   "amberenterprisesindialimited"
+  ]
+ },
+ "AMBUJACEM": {
+  "code": "GAC",
+  "slugs": [
+   "ambujacem",
+   "ambujacements"
+  ]
+ },
+ "ANANDRATHI": {
+  "code": "ARW",
+  "slugs": [
+   "anandrathi",
+   "anandrathiwealth"
+  ]
+ },
+ "ANGELONE": {
+  "code": "ABL03",
+  "slugs": [
+   "angelone"
+  ]
+ },
+ "APLAPOLLO": {
+  "code": "BT09",
+  "slugs": [
+   "aplapollo",
+   "aplapollotubes"
+  ]
+ },
+ "APOLLOHOSP": {
+  "code": "AHE",
+  "slugs": [
+   "apollohosp",
+   "apollohospitalsenterprises"
+  ]
+ },
+ "ASHOKLEY": {
+  "code": "AL",
+  "slugs": [
+   "ashokley",
+   "ashokleyland"
+  ]
+ },
+ "ASIANPAINT": {
+  "code": "API",
+  "slugs": [
+   "asianpaint",
+   "asianpaints"
+  ]
+ },
+ "ASTRAL": {
+  "code": "APT02",
+  "slugs": [
+   "astral",
+   "astrallimited"
+  ]
+ },
+ "ATHERENERG": {
+  "code": "AEL10",
+  "slugs": [
+   "atherenerg",
+   "atherenergy"
+  ]
+ },
+ "AUBANK": {
+  "code": "ASF03",
+  "slugs": [
+   "aubank",
+   "ausmallfinancebank"
+  ]
+ },
+ "AUROPHARMA": {
+  "code": "AP",
+  "slugs": [
+   "auropharma",
+   "aurobindopharma"
+  ]
+ },
+ "AXISBANK": {
+  "code": "UTI10",
+  "slugs": [
+   "axisbank"
+  ]
+ },
+ "BAJAJ-AUTO": {
+  "code": "BA06",
+  "slugs": [
+   "bajaj-auto",
+   "bajajauto"
+  ]
+ },
+ "BAJAJFINSV": {
+  "code": "BF04",
+  "slugs": [
+   "bajajfinsv",
+   "bajajfinserv"
+  ]
+ },
+ "BAJFINANCE": {
+  "code": "BAF",
+  "slugs": [
+   "bajfinance",
+   "bajajfinance"
+  ]
+ },
+ "BANDHANBNK": {
+  "code": "BB09",
+  "slugs": [
+   "bandhanbnk",
+   "bandhanbank"
+  ]
+ },
+ "BANKBARODA": {
+  "code": "BOB",
+  "slugs": [
+   "bankbaroda"
+  ]
+ },
+ "BANKINDIA": {
+  "code": "BOI",
+  "slugs": [
+   "bankindia"
+  ]
+ },
+ "BDL": {
+  "code": "BDL01",
+  "slugs": [
+   "bdl",
+   "bharatdynamics"
+  ]
+ },
+ "BEL": {
+  "code": "BE03",
+  "slugs": [
+   "bel",
+   "bharatelectronics"
+  ]
+ },
+ "BHARATFORG": {
+  "code": "BFC",
+  "slugs": [
+   "bharatforg",
+   "bharatforge"
+  ]
+ },
+ "BHARTIARTL": {
+  "code": "BTV",
+  "slugs": [
+   "bhartiartl",
+   "bhartiairtel"
+  ]
+ },
+ "BHEL": {
+  "code": "BHE",
+  "slugs": [
+   "bhel",
+   "bharatheavyelectricals"
+  ]
+ },
+ "BIOCON": {
+  "code": "BL03",
+  "slugs": [
+   "biocon"
+  ]
+ },
+ "BLUESTARCO": {
+  "code": "BS",
+  "slugs": [
+   "bluestarco",
+   "bluestar"
+  ]
+ },
+ "BOSCHLTD": {
+  "code": "MIC",
+  "slugs": [
+   "boschltd",
+   "bosch"
+  ]
+ },
+ "BPCL": {
+  "code": "BPC",
+  "slugs": [
+   "bpcl",
+   "bharatpetroleumcorporation"
+  ]
+ },
+ "BRITANNIA": {
+  "code": "BI",
+  "slugs": [
+   "britannia",
+   "britanniaindustries"
+  ]
+ },
+ "BSE": {
+  "code": "B03",
+  "slugs": [
+   "bse",
+   "bselimited"
+  ]
+ },
+ "CAMS": {
+  "code": "CAM",
+  "slugs": [
+   "cams",
+   "computeragemanagementservices"
+  ]
+ },
+ "CANBK": {
+  "code": "CB06",
+  "slugs": [
+   "canbk",
+   "canarabank"
+  ]
+ },
+ "CDSL": {
+  "code": "CDS",
+  "slugs": [
+   "cdsl",
+   "centraldepositoryservices"
+  ]
+ },
+ "CGPOWER": {
+  "code": "CG",
+  "slugs": [
+   "cgpower",
+   "cgpowerindustrialsolutions"
+  ]
+ },
+ "CHOLAFIN": {
+  "code": "CIF01",
+  "slugs": [
+   "cholafin",
+   "cholamandalaminvestmentfinancecompany"
+  ]
+ },
+ "CIPLA": {
+  "code": "C",
+  "slugs": [
+   "cipla"
+  ]
+ },
+ "COALINDIA": {
+  "code": "CI29",
+  "slugs": [
+   "coalindia"
+  ]
+ },
+ "COCHINSHIP": {
+  "code": "CS17",
+  "slugs": [
+   "cochinship",
+   "cochinshipyard"
+  ]
+ },
+ "COFORGE": {
+  "code": "NII02",
+  "slugs": [
+   "coforge"
+  ]
+ },
+ "COLPAL": {
+  "code": "CPI",
+  "slugs": [
+   "colpal",
+   "colgatepalmoliveindia"
+  ]
+ },
+ "CONCOR": {
+  "code": "CCI",
+  "slugs": [
+   "concor",
+   "containercorporationindia"
+  ]
+ },
+ "COROMANDEL": {
+  "code": "CF06",
+  "slugs": [
+   "coromandel",
+   "coromandelinternational"
+  ]
+ },
+ "CROMPTON": {
+  "code": "CGC01",
+  "slugs": [
+   "crompton",
+   "cromptongreavesconsumerelectrical"
+  ]
+ },
+ "CUB": {
+  "code": "CUB",
+  "slugs": [
+   "cub",
+   "cityunionbank"
+  ]
+ },
+ "CUMMINSIND": {
+  "code": "CI02",
+  "slugs": [
+   "cumminsind",
+   "cumminsindia"
+  ]
+ },
+ "DABUR": {
+  "code": "DI",
+  "slugs": [
+   "dabur",
+   "daburindia"
+  ]
+ },
+ "DATAPATTNS": {
+  "code": "DPI01",
+  "slugs": [
+   "datapattns",
+   "datapatternsindia"
+  ]
+ },
+ "DELHIVERY": {
+  "code": "D05",
+  "slugs": [
+   "delhivery"
+  ]
+ },
+ "DIVISLAB": {
+  "code": "DL03",
+  "slugs": [
+   "divislab",
+   "divislaboratories"
+  ]
+ },
+ "DIXON": {
+  "code": "DT07",
+  "slugs": [
+   "dixon",
+   "dixontechnologies"
+  ]
+ },
+ "DLF": {
+  "code": "D04",
+  "slugs": [
+   "dlf"
+  ]
+ },
+ "DMART": {
+  "code": "AS28",
+  "slugs": [
+   "dmart",
+   "avenuesupermarts"
+  ]
+ },
+ "DRREDDY": {
+  "code": "DRL",
+  "slugs": [
+   "drreddy",
+   "drreddyslaboratories"
+  ]
+ },
+ "EICHERMOT": {
+  "code": "EM",
+  "slugs": [
+   "eichermot",
+   "eichermotors"
+  ]
+ },
+ "ENRIN": {
+  "code": "SEI11",
+  "slugs": [
+   "enrin",
+   "siemensenergyindia"
+  ]
+ },
+ "ETERNAL": {
+  "code": "Z01",
+  "slugs": [
+   "eternal"
+  ]
+ },
+ "FEDERALBNK": {
+  "code": "FB",
+  "slugs": [
+   "federalbnk",
+   "federalbank"
+  ]
+ },
+ "FORCEMOT": {
+  "code": "BT",
+  "slugs": [
+   "forcemot",
+   "forcemotors"
+  ]
+ },
+ "FORTIS": {
+  "code": "FH",
+  "slugs": [
+   "fortis",
+   "fortishealthcare"
+  ]
+ },
+ "GAIL": {
+  "code": "GAI",
+  "slugs": [
+   "gail",
+   "gailindia"
+  ]
+ },
+ "GLENMARK": {
+  "code": "GP08",
+  "slugs": [
+   "glenmark",
+   "glenmarkpharma"
+  ]
+ },
+ "GMRAIRPORT": {
+  "code": "GI27",
+  "slugs": [
+   "gmrairport",
+   "gmrairports"
+  ]
+ },
+ "GODFRYPHLP": {
+  "code": "GPI",
+  "slugs": [
+   "godfryphlp",
+   "godfreyphillipsindia"
+  ]
+ },
+ "GODREJCP": {
+  "code": "GCP",
+  "slugs": [
+   "godrejcp",
+   "godrejconsumerproducts"
+  ]
+ },
+ "GODREJPROP": {
+  "code": "GP11",
+  "slugs": [
+   "godrejprop",
+   "godrejproperties"
+  ]
+ },
+ "GRASIM": {
+  "code": "GI01",
+  "slugs": [
+   "grasim",
+   "grasimindustries"
+  ]
+ },
+ "GVT&D": {
+  "code": "GEC",
+  "slugs": [
+   "gvt&d",
+   "gevernovatdindia"
+  ]
+ },
+ "HAL": {
+  "code": "HAL",
+  "slugs": [
+   "hal",
+   "hindustanaeronautics"
+  ]
+ },
+ "HAVELLS": {
+  "code": "HI01",
+  "slugs": [
+   "havells",
+   "havellsindia"
+  ]
+ },
+ "HCLTECH": {
+  "code": "HCL02",
+  "slugs": [
+   "hcltech",
+   "hcltechnologies"
+  ]
+ },
+ "HDFCAMC": {
+  "code": "HAM02",
+  "slugs": [
+   "hdfcamc",
+   "hdfcassetmanagementcompany"
+  ]
+ },
+ "HDFCBANK": {
+  "code": "HDF01",
+  "slugs": [
+   "hdfcbank"
+  ]
+ },
+ "HDFCLIFE": {
+  "code": "HSL01",
+  "slugs": [
+   "hdfclife",
+   "hdfclifeinsurancecompany"
+  ]
+ },
+ "HEROMOTOCO": {
+  "code": "HHM",
+  "slugs": [
+   "heromotoco",
+   "heromotocorp"
+  ]
+ },
+ "HINDALCO": {
+  "code": "H",
+  "slugs": [
+   "hindalco",
+   "hindalcoindustries"
+  ]
+ },
+ "HINDPETRO": {
+  "code": "HPC",
+  "slugs": [
+   "hindpetro",
+   "hindustanpetroleumcorporation"
+  ]
+ },
+ "HINDUNILVR": {
+  "code": "HL",
+  "slugs": [
+   "hindunilvr",
+   "hindustanunilever"
+  ]
+ },
+ "HINDZINC": {
+  "code": "HZ",
+  "slugs": [
+   "hindzinc",
+   "hindustanzinc"
+  ]
+ },
+ "HYUNDAI": {
+  "code": "HMI01",
+  "slugs": [
+   "hyundai",
+   "hyundaimotorindia"
+  ]
+ },
+ "ICICIBANK": {
+  "code": "ICI02",
+  "slugs": [
+   "icicibank"
+  ]
+ },
+ "ICICIGI": {
+  "code": "ILG",
+  "slugs": [
+   "icicigi",
+   "icicilombardgeneralinsurancecompany"
+  ]
+ },
+ "ICICILIFE": {
+  "code": "IPL01",
+  "slugs": [
+   "icicilife",
+   "icicilifeinsurance"
+  ]
+ },
+ "IDEA": {
+  "code": "IC8",
+  "slugs": [
+   "idea",
+   "vodafoneidea"
+  ]
+ },
+ "IDFCFIRSTB": {
+  "code": "IDF01",
+  "slugs": [
+   "idfcfirstb",
+   "idfcfirstbank"
+  ]
+ },
+ "IEX": {
+  "code": "IEE",
+  "slugs": [
+   "iex",
+   "indianenergyexchange"
+  ]
+ },
+ "INDHOTEL": {
+  "code": "IHC",
+  "slugs": [
+   "indhotel",
+   "indianhotelscompany"
+  ]
+ },
+ "INDIANB": {
+  "code": "IB04",
+  "slugs": [
+   "indianb",
+   "indianbank"
+  ]
+ },
+ "INDIGO": {
+  "code": "IA05",
+  "slugs": [
+   "indigo",
+   "interglobeaviation"
+  ]
+ },
+ "INDUSINDBK": {
+  "code": "IIB",
+  "slugs": [
+   "indusindbk",
+   "indusindbank"
+  ]
+ },
+ "INDUSTOWER": {
+  "code": "BI26",
+  "slugs": [
+   "industower",
+   "industowers"
+  ]
+ },
+ "INFY": {
+  "code": "IT",
+  "slugs": [
+   "infy",
+   "infosys"
+  ]
+ },
+ "INOXWIND": {
+  "code": "IW",
+  "slugs": [
+   "inoxwind"
+  ]
+ },
+ "IOC": {
+  "code": "IOC",
+  "slugs": [
+   "ioc",
+   "indianoilcorporation"
+  ]
+ },
+ "IREDA": {
+  "code": "IREDAL",
+  "slugs": [
+   "ireda",
+   "indianrenewableenergydevelopmentagency"
+  ]
+ },
+ "IRFC": {
+  "code": "IRF",
+  "slugs": [
+   "irfc",
+   "indianrailwayfinancecorporation"
+  ]
+ },
+ "ITC": {
+  "code": "ITC",
+  "slugs": [
+   "itc"
+  ]
+ },
+ "JINDALSTEL": {
+  "code": "JSP",
+  "slugs": [
+   "jindalstel",
+   "jindalsteel"
+  ]
+ },
+ "JIOFIN": {
+  "code": "JFS",
+  "slugs": [
+   "jiofin",
+   "jiofinancialservices"
+  ]
+ },
+ "JSWENERGY": {
+  "code": "JE02",
+  "slugs": [
+   "jswenergy"
+  ]
+ },
+ "JSWSTEEL": {
+  "code": "JVS",
+  "slugs": [
+   "jswsteel"
+  ]
+ },
+ "JUBLFOOD": {
+  "code": "JF04",
+  "slugs": [
+   "jublfood",
+   "jubilantfoodworks"
+  ]
+ },
+ "KALYANKJIL": {
+  "code": "KJI01",
+  "slugs": [
+   "kalyankjil",
+   "kalyanjewellersindia"
+  ]
+ },
+ "KARURVYSYA": {
+  "code": "KVB",
+  "slugs": [
+   "karurvysya",
+   "karurvysyabank"
+  ]
+ },
+ "KAYNES": {
+  "code": "KTI05",
+  "slugs": [
+   "kaynes",
+   "kaynestechnologyindia"
+  ]
+ },
+ "KEI": {
+  "code": "KEI",
+  "slugs": [
+   "kei",
+   "keiindustries"
+  ]
+ },
+ "KFINTECH": {
+  "code": "KT06",
+  "slugs": [
+   "kfintech",
+   "kfintechnologies"
+  ]
+ },
+ "KOTAKBANK": {
+  "code": "KMF",
+  "slugs": [
+   "kotakbank",
+   "kotakmahindrabank"
+  ]
+ },
+ "KPITTECH": {
+  "code": "KPITT54265",
+  "slugs": [
+   "kpittech",
+   "kpittechnologies"
+  ]
+ },
+ "LAURUSLABS": {
+  "code": "LL06",
+  "slugs": [
+   "lauruslabs"
+  ]
+ },
+ "LICHSGFIN": {
+  "code": "LIC",
+  "slugs": [
+   "lichsgfin",
+   "lichousingfinance"
+  ]
+ },
+ "LICI": {
+  "code": "LIC09",
+  "slugs": [
+   "lici",
+   "lifeinsurancecorporationindia"
+  ]
+ },
+ "LODHA": {
+  "code": "MD04",
+  "slugs": [
+   "lodha",
+   "lodhadevelopers"
+  ]
+ },
+ "LT": {
+  "code": "LT",
+  "slugs": [
+   "lt",
+   "larsentoubro"
+  ]
+ },
+ "LTF": {
+  "code": "LFH",
+  "slugs": [
+   "ltf",
+   "ltfinance"
+  ]
+ },
+ "LTM": {
+  "code": "LI09",
+  "slugs": [
+   "ltm"
+  ]
+ },
+ "LUPIN": {
+  "code": "LC03",
+  "slugs": [
+   "lupin"
+  ]
+ },
+ "M&M": {
+  "code": "MM",
+  "slugs": [
+   "m&m",
+   "mahindramahindra"
+  ]
+ },
+ "MAHABANK": {
+  "code": "BM05",
+  "slugs": [
+   "mahabank",
+   "bankmaharashtra"
+  ]
+ },
+ "MANAPPURAM": {
+  "code": "MGF01",
+  "slugs": [
+   "manappuram",
+   "manappuramfinance"
+  ]
+ },
+ "MANKIND": {
+  "code": "MP21",
+  "slugs": [
+   "mankind",
+   "mankindpharma"
+  ]
+ },
+ "MARICO": {
+  "code": "MI25",
+  "slugs": [
+   "marico"
+  ]
+ },
+ "MARUTI": {
+  "code": "MU01",
+  "slugs": [
+   "maruti",
+   "marutisuzukiindia"
+  ]
+ },
+ "MAXHEALTH": {
+  "code": "MHI",
+  "slugs": [
+   "maxhealth",
+   "maxhealthcareinstitute"
+  ]
+ },
+ "MAZDOCK": {
+  "code": "MDS01",
+  "slugs": [
+   "mazdock",
+   "mazagondockshipbuilders"
+  ]
+ },
+ "MCX": {
+  "code": "MCE",
+  "slugs": [
+   "mcx",
+   "multicommodityexchangeindia"
+  ]
+ },
+ "MFSL": {
+  "code": "MI",
+  "slugs": [
+   "mfsl",
+   "maxfinancialservices"
+  ]
+ },
+ "MOTHERSON": {
+  "code": "MSS01",
+  "slugs": [
+   "motherson",
+   "samvardhanamothersoninternational"
+  ]
+ },
+ "MOTILALOFS": {
+  "code": "MOF01",
+  "slugs": [
+   "motilalofs",
+   "motilaloswalfinancialservices"
+  ]
+ },
+ "MPHASIS": {
+  "code": "BFL",
+  "slugs": [
+   "mphasis"
+  ]
+ },
+ "MUTHOOTFIN": {
+  "code": "MF19",
+  "slugs": [
+   "muthootfin",
+   "muthootfinance"
+  ]
+ },
+ "NAM-INDIA": {
+  "code": "RNL",
+  "slugs": [
+   "nam-india",
+   "nipponlifeindiaassetmanagement"
+  ]
+ },
+ "NATIONALUM": {
+  "code": "NAC",
+  "slugs": [
+   "nationalum",
+   "nationalaluminiumcompany"
+  ]
+ },
+ "NAUKRI": {
+  "code": "IEI01",
+  "slugs": [
+   "naukri",
+   "infoedgeindia"
+  ]
+ },
+ "NAVINFLUOR": {
+  "code": "PRC",
+  "slugs": [
+   "navinfluor",
+   "navinfluorineinternational"
+  ]
+ },
+ "NBCC": {
+  "code": "NBC",
+  "slugs": [
+   "nbcc",
+   "nbccindia"
+  ]
+ },
+ "NESTLEIND": {
+  "code": "NI",
+  "slugs": [
+   "nestleind",
+   "nestleindia"
+  ]
+ },
+ "NHPC": {
+  "code": "N07",
+  "slugs": [
+   "nhpc"
+  ]
+ },
+ "NMDC": {
+  "code": "NMD01",
+  "slugs": [
+   "nmdc"
+  ]
+ },
+ "NTPC": {
+  "code": "NTP",
+  "slugs": [
+   "ntpc"
+  ]
+ },
+ "NYKAA": {
+  "code": "FEV",
+  "slugs": [
+   "nykaa",
+   "fsne-commerceventuresnykaa"
+  ]
+ },
+ "OBEROIRLTY": {
+  "code": "OR",
+  "slugs": [
+   "oberoirlty",
+   "oberoirealty"
+  ]
+ },
+ "OFSS": {
+  "code": "S11",
+  "slugs": [
+   "ofss",
+   "oraclefinancialservicessoftware"
+  ]
+ },
+ "OIL": {
+  "code": "OI13",
+  "slugs": [
+   "oil",
+   "oilindia"
+  ]
+ },
+ "ONGC": {
+  "code": "ONG",
+  "slugs": [
+   "ongc",
+   "oilnaturalgascorporation"
+  ]
+ },
+ "PAGEIND": {
+  "code": "PI35",
+  "slugs": [
+   "pageind",
+   "pageindustries"
+  ]
+ },
+ "PATANJALI": {
+  "code": "RSI",
+  "slugs": [
+   "patanjali",
+   "patanjalifoods"
+  ]
+ },
+ "PAYTM": {
+  "code": "OC10",
+  "slugs": [
+   "paytm",
+   "one97communicationspaytm"
+  ]
+ },
+ "PERSISTENT": {
+  "code": "PS15",
+  "slugs": [
+   "persistent",
+   "persistentsystems"
+  ]
+ },
+ "PETRONET": {
+  "code": "PLN",
+  "slugs": [
+   "petronet",
+   "petronetlng"
+  ]
+ },
+ "PFC": {
+  "code": "PFC02",
+  "slugs": [
+   "pfc",
+   "powerfinancecorporation"
+  ]
+ },
+ "PGEL": {
+  "code": "PE06",
+  "slugs": [
+   "pgel",
+   "pgelectroplast"
+  ]
+ },
+ "PHOENIXLTD": {
+  "code": "PM02",
+  "slugs": [
+   "phoenixltd",
+   "phoenixmills"
+  ]
+ },
+ "PIDILITIND": {
+  "code": "PI11",
+  "slugs": [
+   "pidilitind",
+   "pidiliteindustries"
+  ]
+ },
+ "PIIND": {
+  "code": "PII",
+  "slugs": [
+   "piind",
+   "piindustries"
+  ]
+ },
+ "PNB": {
+  "code": "PNB05",
+  "slugs": [
+   "pnb",
+   "punjabnationalbank"
+  ]
+ },
+ "PNBHOUSING": {
+  "code": "PHF",
+  "slugs": [
+   "pnbhousing",
+   "pnbhousingfinance"
+  ]
+ },
+ "POLICYBZR": {
+  "code": "PF15",
+  "slugs": [
+   "policybzr",
+   "pbfintech"
+  ]
+ },
+ "POLYCAB": {
+  "code": "PI41",
+  "slugs": [
+   "polycab",
+   "polycabindia"
+  ]
+ },
+ "POWERGRID": {
+  "code": "PGC",
+  "slugs": [
+   "powergrid",
+   "powergridcorporationindia"
+  ]
+ },
+ "POWERINDIA": {
+  "code": "APP03",
+  "slugs": [
+   "powerindia",
+   "hitachienergyindia"
+  ]
+ },
+ "PREMIERENE": {
+  "code": "PEL07",
+  "slugs": [
+   "premierene",
+   "premierenergies"
+  ]
+ },
+ "PRESTIGE": {
+  "code": "PEP02",
+  "slugs": [
+   "prestige",
+   "prestigeestatesprojects"
+  ]
+ },
+ "RADICO": {
+  "code": "RK01",
+  "slugs": [
+   "radico",
+   "radicokhaitan"
+  ]
+ },
+ "RBLBANK": {
+  "code": "RB02",
+  "slugs": [
+   "rblbank"
+  ]
+ },
+ "RECLTD": {
+  "code": "REC02",
+  "slugs": [
+   "recltd",
+   "rec"
+  ]
+ },
+ "RELIANCE": {
+  "code": "RI",
+  "slugs": [
+   "reliance",
+   "relianceindustries"
+  ]
+ },
+ "RVNL": {
+  "code": "RVN",
+  "slugs": [
+   "rvnl",
+   "railvikasnigam"
+  ]
+ },
+ "SAGILITY": {
+  "code": "SIL25",
+  "slugs": [
+   "sagility"
+  ]
+ },
+ "SAIL": {
+  "code": "SAI",
+  "slugs": [
+   "sail",
+   "steelauthorityindia"
+  ]
+ },
+ "SBICARD": {
+  "code": "SCP03",
+  "slugs": [
+   "sbicard",
+   "sbicardspaymentservices"
+  ]
+ },
+ "SBILIFE": {
+  "code": "SLI03",
+  "slugs": [
+   "sbilife",
+   "sbilifeinsurancecompany"
+  ]
+ },
+ "SBIN": {
+  "code": "SBI",
+  "slugs": [
+   "sbin",
+   "statebankindia"
+  ]
+ },
+ "SHREECEM": {
+  "code": "SC12",
+  "slugs": [
+   "shreecem",
+   "shreecements"
+  ]
+ },
+ "SHRIRAMFIN": {
+  "code": "STF",
+  "slugs": [
+   "shriramfin",
+   "shriramfinance"
+  ]
+ },
+ "SIEMENS": {
+  "code": "S",
+  "slugs": [
+   "siemens"
+  ]
+ },
+ "SOLARINDS": {
+  "code": "SE20",
+  "slugs": [
+   "solarinds",
+   "solarindustriesindia"
+  ]
+ },
+ "SONACOMS": {
+  "code": "SBP04",
+  "slugs": [
+   "sonacoms",
+   "sonablwprecisionforgings"
+  ]
+ },
+ "SRF": {
+  "code": "SRF",
+  "slugs": [
+   "srf"
+  ]
+ },
+ "SUNPHARMA": {
+  "code": "SPI",
+  "slugs": [
+   "sunpharma",
+   "sunpharmaceuticalindustries"
+  ]
+ },
+ "SUPREMEIND": {
+  "code": "SI48",
+  "slugs": [
+   "supremeind",
+   "supremeindustries"
+  ]
+ },
+ "SUZLON": {
+  "code": "SE17",
+  "slugs": [
+   "suzlon",
+   "suzlonenergy"
+  ]
+ },
+ "SWIGGY": {
+  "code": "SL23",
+  "slugs": [
+   "swiggy"
+  ]
+ },
+ "SYRMA": {
+  "code": "SST07",
+  "slugs": [
+   "syrma",
+   "syrmasgstechnology"
+  ]
+ },
+ "TATACONSUM": {
+  "code": "TT",
+  "slugs": [
+   "tataconsum",
+   "tataconsumerproducts"
+  ]
+ },
+ "TATAELXSI": {
+  "code": "TEI",
+  "slugs": [
+   "tataelxsi"
+  ]
+ },
+ "TATAPOWER": {
+  "code": "TPC",
+  "slugs": [
+   "tatapower",
+   "thetatapowercompany"
+  ]
+ },
+ "TATASTEEL": {
+  "code": "TIS",
+  "slugs": [
+   "tatasteel"
+  ]
+ },
+ "TCS": {
+  "code": "TCS",
+  "slugs": [
+   "tcs",
+   "tataconsultancyservices"
+  ]
+ },
+ "TECHM": {
+  "code": "TM4",
+  "slugs": [
+   "techm",
+   "techmahindra"
+  ]
+ },
+ "TIINDIA": {
+  "code": "TIIND54076",
+  "slugs": [
+   "tiindia",
+   "tubeinvestmentsindialtd"
+  ]
+ },
+ "TITAN": {
+  "code": "TI01",
+  "slugs": [
+   "titan",
+   "titancompany"
+  ]
+ },
+ "TMPV": {
+  "code": "TEL",
+  "slugs": [
+   "tmpv",
+   "tatamotorspassengervehicles"
+  ]
+ },
+ "TORNTPHARM": {
+  "code": "TP06",
+  "slugs": [
+   "torntpharm",
+   "torrentpharmaceuticals"
+  ]
+ },
+ "TRENT": {
+  "code": "L",
+  "slugs": [
+   "trent"
+  ]
+ },
+ "TVSMOTOR": {
+  "code": "TVS",
+  "slugs": [
+   "tvsmotor",
+   "tvsmotorcompany"
+  ]
+ },
+ "UJJIVANSFB": {
+  "code": "USF",
+  "slugs": [
+   "ujjivansfb",
+   "ujjivansmallfinancebank"
+  ]
+ },
+ "ULTRACEMCO": {
+  "code": "UTC",
+  "slugs": [
+   "ultracemco",
+   "ultratechcement"
+  ]
+ },
+ "UNIONBANK": {
+  "code": "UBI01",
+  "slugs": [
+   "unionbank",
+   "unionbankindia"
+  ]
+ },
+ "UNITDSPR": {
+  "code": "MC08",
+  "slugs": [
+   "unitdspr",
+   "unitedspirits"
+  ]
+ },
+ "UNOMINDA": {
+  "code": "MI44",
+  "slugs": [
+   "unominda"
+  ]
+ },
+ "UPL": {
+  "code": "SI10",
+  "slugs": [
+   "upl"
+  ]
+ },
+ "VBL": {
+  "code": "VB05",
+  "slugs": [
+   "vbl",
+   "varunbeverages"
+  ]
+ },
+ "VEDL": {
+  "code": "SG",
+  "slugs": [
+   "vedl",
+   "vedanta"
+  ]
+ },
+ "VMM": {
+  "code": "VMML",
+  "slugs": [
+   "vmm",
+   "vishalmegamart"
+  ]
+ },
+ "VOLTAS": {
+  "code": "V",
+  "slugs": [
+   "voltas"
+  ]
+ },
+ "WAAREEENER": {
+  "code": "WEL01",
+  "slugs": [
+   "waareeener",
+   "waareeenergies"
+  ]
+ },
+ "WIPRO": {
+  "code": "W",
+  "slugs": [
+   "wipro"
+  ]
+ },
+ "YESBANK": {
+  "code": "YB",
+  "slugs": [
+   "yesbank"
+  ]
+ },
+ "ZYDUSLIFE": {
+  "code": "CHC",
+  "slugs": [
+   "zyduslife",
+   "zyduslifesciences"
+  ]
+ }
+}
