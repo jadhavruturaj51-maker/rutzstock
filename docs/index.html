@@ -75,7 +75,7 @@
 
   <div id="scanners"></div>
 
-  <div class="foot">PASSED is counted out of 12. On live scans, OI buildup is checked from Moneycontrol's live OI data, so 11/12 is the maximum; same-day events cannot be checked from free data. On backtest days OI is not checked either, so the maximum there is 10/12. Unchecked criteria are not failed; they are marked "not checked" in the Failed column.</div>
+  <div class="foot">PASSED is counted out of 12. Live scans check OI buildup from Moneycontrol's live OI data (maximum 11/12) and, from 19 Nov 2026, same-day events too — board meetings via Moneycontrol, results and ex-dividend dates via Yahoo — so the maximum is then 12/12. Backtest days check neither (maximum 10/12). Unchecked criteria are not failed; they are marked "not checked" in the Failed column.</div>
   <div class="foot"><a href="backtest.html" style="color:#6b7280;">Backtest results →</a></div>
   <div class="foot">own risk, not advice. This scan is for information only; the decisions and the losses are yours. · <a href="#" id="locklink" style="color:#6b7280;">Lock site</a></div>
 </div>
@@ -92,8 +92,10 @@ function fmtMove(v) {
 function failedHtml(p, isPick) {
   var parts = [];
   if (!isPick && p.failed && p.failed.length) parts.push(esc(p.failed.join(", ")));
-  var nc = (p.oi === "pass" || p.oi === "fail") ? "events (not checked)" : "OI, events (not checked)";
-  parts.push('<span class="nc">' + nc + "</span>");
+  var nc = [];
+  if (p.oi !== "pass" && p.oi !== "fail") nc.push("OI");
+  if (p.event !== "yes" && p.event !== "no") nc.push("events");
+  if (nc.length) parts.push('<span class="nc">' + nc.join(", ") + " (not checked)</span>");
   return parts.join(" · ");
 }
 function stockRow(day, p, isPick) {

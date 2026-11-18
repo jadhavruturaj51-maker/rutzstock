@@ -14,11 +14,15 @@ Three scanners, evaluated every trading day at 9:50 IST on all NSE F&O stocks:
 
 Data source: Yahoo Finance (free) via yfinance - the same source the
 backtests were validated on. Criterion 11 (no event today) cannot be
-checked from free sources. Criterion 10 (OI buildup) is checked on LIVE
-runs only, from Moneycontrol's live OI change for the near-month future
-(finalist stocks only); when it cannot be fetched it stays unchecked.
-PASSED is shown as x/12 - the maximum is 11/12 on a live run with OI
-checked, otherwise 10/12, as in the backtests.
+Criterion 10 (OI buildup) is checked on LIVE runs only, from
+Moneycontrol's live OI change for the near-month future (finalist
+stocks only). Criterion 11 (no event today) is checked on LIVE runs
+from 2026-11-19, via Moneycontrol board-meeting pages plus Yahoo's
+calendar (earnings and ex-dividend dates); split/bonus ex-dates and
+just-declared interim dividends can still be missed. Anything that
+cannot be fetched stays unchecked. PASSED is shown as x/12 - the
+maximum is 12/12 when both live checks pass, 11/12 with OI only,
+otherwise 10/12, as in the backtests.
 
 Definitions (identical to the validated backtest code):
   - "9:50 price" = close of the 09:45 five-minute candle.
@@ -77,23 +81,85 @@ def _mc_codes():
     return _MC_CODES
 
 
+def _mc_session():
+    global _MC_SESSION
+    if _MC_SESSION is None:
+        _MC_SESSION = requests.Session()
+        _MC_SESSION.headers.update({"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36"})
+    return _MC_SESSION
+
+
+_MONTHS = {"Jan": 1, "Feb": 2, "Mar": 3, "Apr": 4, "May": 5, "Jun": 6,
+           "Jul": 7, "Aug": 8, "Sep": 9, "Oct": 10, "Nov": 11, "Dec": 12}
+
+
+def fetch_event_today(symbol, ds):
+    """Is there a same-day event (criterion 11) for this symbol on ds
+    (YYYY-MM-DD)? Sources: Moneycontrol's per-stock Board Meetings page
+    (results / fund raising / dividend meetings) and Yahoo's calendar
+    (earnings date, ex-dividend date). Returns True (event), False
+    (sources checked, no event) or None (nothing could be fetched).
+    Known gap: ex-dates for splits/bonus and just-declared interim
+    dividends can be missing or stale in these free sources."""
+    target = ds
+    found = False
+    checked = False
+    info = _mc_codes().get(symbol)
+    if info:
+        S = _mc_session()
+        for slug in info.get("slugs", []):
+            url = ("https://www.moneycontrol.com/company-facts/%s/board-meetings/%s/"
+                   % (slug, info["code"]))
+            try:
+                r = S.get(url, timeout=20)
+                if r.status_code != 200:
+                    continue
+                text = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", r.text))
+                i = text.find("Meeting Date")
+                if i < 0:
+                    continue
+                block = text[i:i + 4000]
+                for dnum, mon, yr in re.findall(r"(\d{1,2}) ([A-Za-z]{3}), (\d{4})", block):
+                    if _MONTHS.get(mon) is None:
+                        continue
+                    dstr = "%04d-%02d-%02d" % (int(yr), _MONTHS[mon], int(dnum))
+                    checked = True
+                    if dstr == target:
+                        found = True
+                break
+            except Exception:
+                continue
+    try:
+        cal = yf.Ticker(symbol + ".NS").calendar
+        if cal:
+            checked = True
+            for key in ("Earnings Date", "Ex-Dividend Date"):
+                v = cal.get(key)
+                vals = v if isinstance(v, (list, tuple)) else [v]
+                for x in vals:
+                    if x is not None and str(x)[:10] == target:
+                        found = True
+    except Exception:
+        pass
+    if found:
+        return True
+    return False if checked else None
+
+
 def fetch_oi_chg_pct(symbol):
     """Live OI change % of the symbol's near-month future, from
     Moneycontrol (free, no login). Positive = OI buildup today.
     Returns None when the value cannot be fetched or parsed."""
-    global _MC_SESSION
     info = _mc_codes().get(symbol)
     if not info:
         return None
-    if _MC_SESSION is None:
-        _MC_SESSION = requests.Session()
-        _MC_SESSION.headers.update({"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36"})
+    _MC_SESSION_USED = _mc_session()
     for slug in info.get("slugs", []):
         url = ("https://www.moneycontrol.com/india/fnoquote/%s/%s"
                % (slug, info["code"]))
         for _try in range(2):
             try:
-                r = _MC_SESSION.get(url, timeout=20)
+                r = _MC_SESSION_USED.get(url, timeout=20)
                 if r.status_code != 200:
                     break
                 text = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", r.text))
@@ -251,7 +317,8 @@ def ema_rsi_at(intr, ds):
 
 
 # ---------------------------------------------------------------- evaluation
-def evaluate(date, daily, m5, nifty_d, nifty_5, sectors, syms, live_oi=False):
+def evaluate(date, daily, m5, nifty_d, nifty_5, sectors, syms, live_oi=False,
+             live_events=False):
     """Run all three scanners for one trading date. Returns a day dict or
     None when the date is not a trading day / data is missing."""
     ds = date.strftime("%Y-%m-%d")
@@ -420,11 +487,38 @@ def evaluate(date, daily, m5, nifty_d, nifty_5, sectors, syms, live_oi=False):
             return "na", None
         return ("pass" if v > 0 else "fail"), v
 
+    ev_cache = {}
+    ev_budget = [25]
+
+    def ev_state(sym, fetch=False):
+        if not live_events:
+            return "na"
+        if sym in ev_cache:
+            return ev_cache[sym]
+        if fetch and ev_budget[0] > 0:
+            ev_budget[0] -= 1
+            v = fetch_event_today(sym, ds)
+            st = "na" if v is None else ("yes" if v else "no")
+            ev_cache[sym] = st
+            return st
+        return "na"
+
+    def live_passed(base, sym):
+        p = base
+        st, _ = oi_state(sym)
+        if st == "pass":
+            p += 1
+        if ev_state(sym) == "no":
+            p += 1
+        return p
+
     def with_oi(d, sym):
         st, v = oi_state(sym)
         d["oi"] = st
         if v is not None:
             d["oi_chg_pct"] = round(float(v), 2)
+        if live_events:
+            d["event"] = ev_state(sym)
         return d
 
     # ---- display helpers (entry / SL / T1 reference levels, failed names)
@@ -465,12 +559,13 @@ def evaluate(date, daily, m5, nifty_d, nifty_5, sectors, syms, live_oi=False):
         _st, _ = oi_state(r["symbol"], fetch=True)
         if _st == "fail":
             continue
+        if ev_state(r["symbol"], fetch=True) == "yes":
+            continue
         a_pick_rows.append(r)
     a_pick_syms = {r["symbol"] for r in a_pick_rows}
     a_picks = []
     for r in a_pick_rows:
-        _st, _ = oi_state(r["symbol"])
-        d = disp(r, 11 if _st == "pass" else 10)
+        d = disp(r, live_passed(10, r["symbol"]))
         if live_oi:
             d = with_oi(d, r["symbol"])
         a_picks.append(d)
@@ -479,10 +574,13 @@ def evaluate(date, daily, m5, nifty_d, nifty_5, sectors, syms, live_oi=False):
     a_near = []
     for r in a_near_pool[:3]:
         _st, _ = oi_state(r["symbol"], fetch=True)
+        _ev = ev_state(r["symbol"], fetch=True)
         _names = [A_NAMES.get(f, f) for f in r["fails"]]
         if _st == "fail":
             _names.append("OI buildup")
-        _total = 11 if _st != "na" else 10
+        if _ev == "yes":
+            _names.append("event today")
+        _total = 10 + (1 if _st != "na" else 0) + (1 if _ev != "na" else 0)
         d = disp(r, _total - len(_names), _names)
         if live_oi:
             d = with_oi(d, r["symbol"])
@@ -520,6 +618,8 @@ def evaluate(date, daily, m5, nifty_d, nifty_5, sectors, syms, live_oi=False):
         _st, _ = oi_state(r["symbol"], fetch=True)
         if _st == "fail":
             continue
+        if ev_state(r["symbol"], fetch=True) == "yes":
+            continue
         b_pick_rows.append(r)
     b_pick_syms = {r["symbol"] for r in b_pick_rows}
 
@@ -543,6 +643,10 @@ def evaluate(date, daily, m5, nifty_d, nifty_5, sectors, syms, live_oi=False):
             _st, _ = oi_state(r["symbol"])
             ch["OI buildup"] = (True if _st == "pass" else
                                 False if _st == "fail" else None)
+        if live_events:
+            _ev = ev_state(r["symbol"])
+            ch["no event today"] = (True if _ev == "no" else
+                                    False if _ev == "yes" else None)
         return ch
 
     def b_disp(r):
@@ -558,8 +662,7 @@ def evaluate(date, daily, m5, nifty_d, nifty_5, sectors, syms, live_oi=False):
     for r in b_pick_rows:
         d = b_disp(r)
         d.pop("failed", None)
-        _st, _ = oi_state(r["symbol"])
-        d["passed"] = 11 if _st == "pass" else 10
+        d["passed"] = live_passed(10, r["symbol"])
         b_picks.append(d)
     pool_syms = {r["symbol"] for r in pool}
     b_near_rows = [r for r in pool if r["symbol"] not in b_pick_syms]
@@ -576,6 +679,7 @@ def evaluate(date, daily, m5, nifty_d, nifty_5, sectors, syms, live_oi=False):
             b_near_chosen.append(r)
     for r in b_near_chosen:
         oi_state(r["symbol"], fetch=True)
+        ev_state(r["symbol"], fetch=True)
     b_near = [b_disp(r) for r in b_near_chosen]
 
     # ---- Scanner C: Scanner B's final picks + two clean-trend gates,
@@ -610,8 +714,7 @@ def evaluate(date, daily, m5, nifty_d, nifty_5, sectors, syms, live_oi=False):
     for r in c_pick_rows:
         d = c_disp(r)
         d.pop("failed", None)
-        _st, _ = oi_state(r["symbol"])
-        d["passed"] = 11 if _st == "pass" else 10
+        d["passed"] = live_passed(10, r["symbol"])
         c_picks.append(d)
     c_near_rows = [r for r in pool if r["symbol"] not in c_pick_syms]
     c_near_rows.sort(key=lambda r: (-sum(1 for v in c_checks(r).values() if v),
@@ -628,6 +731,7 @@ def evaluate(date, daily, m5, nifty_d, nifty_5, sectors, syms, live_oi=False):
             c_near_chosen.append(r)
     for r in c_near_chosen:
         oi_state(r["symbol"], fetch=True)
+        ev_state(r["symbol"], fetch=True)
     c_near = [c_disp(r) for r in c_near_chosen]
 
     return {"date": ds, "side": side, "nifty_move_pct": round(float(nmove), 2),
@@ -770,8 +874,10 @@ def main():
     if not args.dry_run:
         score_pending(store, daily)
 
+    # Events check (criterion 11) starts Day 4, 2026-11-19 (RJ's call).
     day = evaluate(date, daily, m5, nifty_d, nifty_5, sectors, syms,
-                   live_oi=live)
+                   live_oi=live,
+                   live_events=live and date >= pd.Timestamp("2026-11-19"))
     if day is None:
         print("Not a trading day (or insufficient data) for", date.strftime("%Y-%m-%d"))
         if not args.dry_run:
