@@ -1,6 +1,151 @@
 {
  "days": [
   {
+   "date": "2026-11-18",
+   "source": "live",
+   "side": "SHORT",
+   "nifty_move_pct": -0.57,
+   "rj": {
+    "picks": [],
+    "near": [
+     {
+      "symbol": "NATIONALUM",
+      "entry": 311.6,
+      "passed": 9,
+      "move_pct": -2.3,
+      "sl": 315.95,
+      "t1": 302.9,
+      "failed": [
+       "volume 2x",
+       "OI buildup"
+      ],
+      "oi": "fail",
+      "oi_chg_pct": -7.68
+     },
+     {
+      "symbol": "HINDZINC",
+      "entry": 530.35,
+      "passed": 10,
+      "move_pct": -3.57,
+      "sl": 538.5,
+      "t1": 514.05,
+      "failed": [
+       "move under 2.5%"
+      ],
+      "oi": "pass",
+      "oi_chg_pct": 2.99
+     },
+     {
+      "symbol": "PIIND",
+      "entry": 1637.5,
+      "passed": 9,
+      "move_pct": -2.06,
+      "sl": 1664.6,
+      "t1": 1583.3,
+      "failed": [
+       "volume 2x",
+       "OI buildup"
+      ],
+      "oi": "fail",
+      "oi_chg_pct": -5.21
+     }
+    ],
+    "no_pick": true
+   },
+   "claude": {
+    "picks": [],
+    "near": [
+     {
+      "symbol": "NATIONALUM",
+      "entry": 311.6,
+      "passed": 10,
+      "move_pct": -2.3,
+      "sl": 315.95,
+      "t1": 302.9,
+      "failed": [
+       "OI buildup"
+      ],
+      "oi": "fail",
+      "oi_chg_pct": -7.68
+     },
+     {
+      "symbol": "RVNL",
+      "entry": 191.4,
+      "passed": 10,
+      "move_pct": -2.1,
+      "sl": 195.9,
+      "t1": 182.4,
+      "failed": [
+       "OI buildup"
+      ],
+      "oi": "fail",
+      "oi_chg_pct": -3.14
+     },
+     {
+      "symbol": "NBCC",
+      "entry": 77.59,
+      "passed": 10,
+      "move_pct": -1.17,
+      "sl": 79.09,
+      "t1": 74.59,
+      "failed": [
+       "OI buildup"
+      ],
+      "oi": "fail",
+      "oi_chg_pct": -6.46
+     }
+    ],
+    "no_pick": true
+   },
+   "trend": {
+    "picks": [],
+    "near": [
+     {
+      "symbol": "SRF",
+      "entry": 2440.7,
+      "passed": 10,
+      "move_pct": -1.56,
+      "sl": 2462.7,
+      "t1": 2396.7,
+      "failed": [
+       "OI buildup"
+      ],
+      "oi": "fail",
+      "oi_chg_pct": -7.92
+     },
+     {
+      "symbol": "RVNL",
+      "entry": 191.4,
+      "passed": 10,
+      "move_pct": -2.1,
+      "sl": 195.9,
+      "t1": 182.4,
+      "failed": [
+       "move band 0.8-2.0%",
+       "OI buildup"
+      ],
+      "oi": "fail",
+      "oi_chg_pct": -3.14
+     },
+     {
+      "symbol": "NBCC",
+      "entry": 77.59,
+      "passed": 10,
+      "move_pct": -1.17,
+      "sl": 79.09,
+      "t1": 74.59,
+      "failed": [
+       "OI buildup",
+       "efficiency ratio 0.5+"
+      ],
+      "oi": "fail",
+      "oi_chg_pct": -6.46
+     }
+    ],
+    "no_pick": true
+   }
+  },
+  {
    "date": "2026-11-17",
    "source": "live",
    "side": "LONG",
@@ -14,7 +159,8 @@
       "move_pct": 2.14,
       "sl": 344.6,
       "t1": 377.6,
-      "return_pct": null
+      "return_pct": -1.63,
+      "close": 349.8
      },
      {
       "symbol": "BLUESTARCO",
@@ -23,7 +169,8 @@
       "move_pct": 1.42,
       "sl": 1583.7,
       "t1": 1773.6,
-      "return_pct": null
+      "return_pct": -2.37,
+      "close": 1608.0
      }
     ],
     "near": [
@@ -72,7 +219,8 @@
       "move_pct": 1.51,
       "sl": 1768.4,
       "t1": 1937.6,
-      "return_pct": null
+      "return_pct": -0.28,
+      "close": 1819.7
      }
     ],
     "near": [
@@ -122,7 +270,8 @@
       "move_pct": 1.51,
       "sl": 1768.4,
       "t1": 1937.6,
-      "return_pct": null
+      "return_pct": -0.28,
+      "close": 1819.7
      }
     ],
     "near": [
@@ -1441,29 +1590,29 @@
  ],
  "scoreboard": {
   "rj": {
-   "days": 9,
+   "days": 10,
    "picks": 13,
-   "scored": 11,
+   "scored": 13,
    "positive": 6,
-   "pct_positive": 54.5,
-   "avg_return": 0.36
+   "pct_positive": 46.2,
+   "avg_return": -0.0
   },
   "claude": {
-   "days": 9,
+   "days": 10,
    "picks": 11,
-   "scored": 10,
+   "scored": 11,
    "positive": 9,
-   "pct_positive": 90.0,
-   "avg_return": 1.68
+   "pct_positive": 81.8,
+   "avg_return": 1.5
   },
   "trend": {
-   "days": 9,
+   "days": 10,
    "picks": 6,
-   "scored": 5,
+   "scored": 6,
    "positive": 5,
-   "pct_positive": 100.0,
-   "avg_return": 2.64
+   "pct_positive": 83.3,
+   "avg_return": 2.16
   }
  },
- "updated_at": "2026-11-17T10:36:44+05:30"
+ "updated_at": "2026-11-18T10:40:01+05:30"
 }
