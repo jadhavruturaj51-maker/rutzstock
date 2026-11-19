@@ -17,7 +17,8 @@
       "oi": "pass",
       "oi_chg_pct": 1.1,
       "event": "no",
-      "return_pct": null
+      "return_pct": -0.1,
+      "close": 2025.7
      }
     ],
     "near": [
@@ -80,7 +81,8 @@
       "oi": "pass",
       "oi_chg_pct": 6.42,
       "event": "no",
-      "return_pct": null
+      "return_pct": 0.57,
+      "close": 7977.0
      }
     ],
     "near": [
@@ -142,7 +144,8 @@
       "oi": "pass",
       "oi_chg_pct": 6.42,
       "event": "no",
-      "return_pct": null
+      "return_pct": 0.57,
+      "close": 7977.0
      }
     ],
     "near": [
@@ -1786,27 +1789,27 @@
   "rj": {
    "days": 11,
    "picks": 14,
-   "scored": 13,
+   "scored": 14,
    "positive": 6,
-   "pct_positive": 46.2,
-   "avg_return": -0.0
+   "pct_positive": 42.9,
+   "avg_return": -0.01
   },
   "claude": {
    "days": 11,
    "picks": 12,
-   "scored": 11,
-   "positive": 9,
-   "pct_positive": 81.8,
-   "avg_return": 1.5
+   "scored": 12,
+   "positive": 10,
+   "pct_positive": 83.3,
+   "avg_return": 1.42
   },
   "trend": {
    "days": 11,
    "picks": 7,
-   "scored": 6,
-   "positive": 5,
-   "pct_positive": 83.3,
-   "avg_return": 2.16
+   "scored": 7,
+   "positive": 6,
+   "pct_positive": 85.7,
+   "avg_return": 1.93
   }
  },
- "updated_at": "2026-11-19T09:50:51+05:30"
+ "updated_at": "2026-11-19T10:44:40+05:30"
 }
