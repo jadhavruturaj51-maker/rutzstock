@@ -1,6 +1,200 @@
 {
  "days": [
   {
+   "date": "2026-11-19",
+   "source": "live",
+   "side": "LONG",
+   "nifty_move_pct": 0.12,
+   "rj": {
+    "picks": [
+     {
+      "symbol": "HINDUNILVR",
+      "entry": 2027.7,
+      "passed": 12,
+      "move_pct": 1.74,
+      "sl": 1990.0,
+      "t1": 2103.1,
+      "oi": "pass",
+      "oi_chg_pct": 1.1,
+      "event": "no",
+      "return_pct": null
+     }
+    ],
+    "near": [
+     {
+      "symbol": "EICHERMOT",
+      "entry": 7932.0,
+      "passed": 11,
+      "move_pct": 1.33,
+      "sl": 7747.0,
+      "t1": 8302.0,
+      "failed": [
+       "volume 2x"
+      ],
+      "oi": "pass",
+      "oi_chg_pct": 6.42,
+      "event": "no"
+     },
+     {
+      "symbol": "FORCEMOT",
+      "entry": 20422.0,
+      "passed": 10,
+      "move_pct": 1.66,
+      "sl": 19972.0,
+      "t1": 21322.0,
+      "failed": [
+       "previous week high",
+       "OI buildup"
+      ],
+      "oi": "fail",
+      "oi_chg_pct": -0.72,
+      "event": "no"
+     },
+     {
+      "symbol": "DABUR",
+      "entry": 388.5,
+      "passed": 10,
+      "move_pct": 2.44,
+      "sl": 381.2,
+      "t1": 403.1,
+      "failed": [
+       "volume 2x",
+       "OI buildup"
+      ],
+      "oi": "fail",
+      "oi_chg_pct": -1.12,
+      "event": "no"
+     }
+    ],
+    "no_pick": false
+   },
+   "claude": {
+    "picks": [
+     {
+      "symbol": "EICHERMOT",
+      "entry": 7932.0,
+      "passed": 12,
+      "move_pct": 1.33,
+      "sl": 7747.0,
+      "t1": 8302.0,
+      "oi": "pass",
+      "oi_chg_pct": 6.42,
+      "event": "no",
+      "return_pct": null
+     }
+    ],
+    "near": [
+     {
+      "symbol": "AMBER",
+      "entry": 6399.5,
+      "passed": 11,
+      "move_pct": 2.47,
+      "sl": 6241.0,
+      "t1": 6716.5,
+      "failed": [
+       "OI buildup"
+      ],
+      "oi": "fail",
+      "oi_chg_pct": -2.37,
+      "event": "no"
+     },
+     {
+      "symbol": "BHARATFORG",
+      "entry": 1721.5,
+      "passed": 10,
+      "move_pct": 2.2,
+      "sl": 1688.3,
+      "t1": 1787.9,
+      "failed": [
+       "sector strength 1%",
+       "OI buildup"
+      ],
+      "oi": "fail",
+      "oi_chg_pct": -0.13,
+      "event": "no"
+     },
+     {
+      "symbol": "FORCEMOT",
+      "entry": 20422.0,
+      "passed": 11,
+      "move_pct": 1.66,
+      "sl": 19972.0,
+      "t1": 21322.0,
+      "failed": [
+       "OI buildup"
+      ],
+      "oi": "fail",
+      "oi_chg_pct": -0.72,
+      "event": "no"
+     }
+    ],
+    "no_pick": false
+   },
+   "trend": {
+    "picks": [
+     {
+      "symbol": "EICHERMOT",
+      "entry": 7932.0,
+      "passed": 12,
+      "move_pct": 1.33,
+      "sl": 7747.0,
+      "t1": 8302.0,
+      "oi": "pass",
+      "oi_chg_pct": 6.42,
+      "event": "no",
+      "return_pct": null
+     }
+    ],
+    "near": [
+     {
+      "symbol": "FORCEMOT",
+      "entry": 20422.0,
+      "passed": 11,
+      "move_pct": 1.66,
+      "sl": 19972.0,
+      "t1": 21322.0,
+      "failed": [
+       "OI buildup"
+      ],
+      "oi": "fail",
+      "oi_chg_pct": -0.72,
+      "event": "no"
+     },
+     {
+      "symbol": "AMBER",
+      "entry": 6399.5,
+      "passed": 11,
+      "move_pct": 2.47,
+      "sl": 6241.0,
+      "t1": 6716.5,
+      "failed": [
+       "move band 0.8-2.0%",
+       "OI buildup"
+      ],
+      "oi": "fail",
+      "oi_chg_pct": -2.37,
+      "event": "no"
+     },
+     {
+      "symbol": "HINDUNILVR",
+      "entry": 2027.7,
+      "passed": 10,
+      "move_pct": 1.74,
+      "sl": 1990.0,
+      "t1": 2103.1,
+      "failed": [
+       "VWAP distance 0.5%",
+       "sector strength 1%"
+      ],
+      "oi": "pass",
+      "oi_chg_pct": 1.1,
+      "event": "no"
+     }
+    ],
+    "no_pick": false
+   }
+  },
+  {
    "date": "2026-11-18",
    "source": "live",
    "side": "SHORT",
@@ -1590,29 +1784,29 @@
  ],
  "scoreboard": {
   "rj": {
-   "days": 10,
-   "picks": 13,
+   "days": 11,
+   "picks": 14,
    "scored": 13,
    "positive": 6,
    "pct_positive": 46.2,
    "avg_return": -0.0
   },
   "claude": {
-   "days": 10,
-   "picks": 11,
+   "days": 11,
+   "picks": 12,
    "scored": 11,
    "positive": 9,
    "pct_positive": 81.8,
    "avg_return": 1.5
   },
   "trend": {
-   "days": 10,
-   "picks": 6,
+   "days": 11,
+   "picks": 7,
    "scored": 6,
    "positive": 5,
    "pct_positive": 83.3,
    "avg_return": 2.16
   }
  },
- "updated_at": "2026-11-18T11:17:46+05:30"
+ "updated_at": "2026-11-19T09:50:51+05:30"
 }
