@@ -17,7 +17,8 @@
       "oi": "pass",
       "oi_chg_pct": 0.24,
       "event": "no",
-      "return_pct": null
+      "return_pct": 0.52,
+      "close": 110.18
      }
     ],
     "near": [
@@ -80,7 +81,8 @@
       "oi": "pass",
       "oi_chg_pct": 0.24,
       "event": "no",
-      "return_pct": null
+      "return_pct": 0.52,
+      "close": 110.18
      },
      {
       "symbol": "JIOFIN",
@@ -92,7 +94,8 @@
       "oi": "pass",
       "oi_chg_pct": 0.61,
       "event": "no",
-      "return_pct": null
+      "return_pct": 0.54,
+      "close": 222.36
      }
     ],
     "near": [
@@ -2149,18 +2152,18 @@
   "rj": {
    "days": 13,
    "picks": 15,
-   "scored": 14,
-   "positive": 6,
-   "pct_positive": 42.9,
-   "avg_return": -0.01
+   "scored": 15,
+   "positive": 7,
+   "pct_positive": 46.7,
+   "avg_return": 0.03
   },
   "claude": {
    "days": 13,
    "picks": 14,
-   "scored": 12,
-   "positive": 10,
-   "pct_positive": 83.3,
-   "avg_return": 1.42
+   "scored": 14,
+   "positive": 12,
+   "pct_positive": 85.7,
+   "avg_return": 1.3
   },
   "trend": {
    "days": 13,
@@ -2171,5 +2174,5 @@
    "avg_return": 1.93
   }
  },
- "updated_at": "2026-11-23T09:50:35+05:30"
+ "updated_at": "2026-11-23T10:58:30+05:30"
 }
