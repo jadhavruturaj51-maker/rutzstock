@@ -1,6 +1,199 @@
 {
  "days": [
   {
+   "date": "2026-11-23",
+   "source": "live",
+   "side": "SHORT",
+   "nifty_move_pct": -0.54,
+   "rj": {
+    "picks": [
+     {
+      "symbol": "IEX",
+      "entry": 110.76,
+      "passed": 12,
+      "move_pct": -2.11,
+      "sl": 114.75,
+      "t1": 102.78,
+      "oi": "pass",
+      "oi_chg_pct": 0.24,
+      "event": "no",
+      "return_pct": null
+     }
+    ],
+    "near": [
+     {
+      "symbol": "TATASTEEL",
+      "entry": 168.76,
+      "passed": 11,
+      "move_pct": -5.19,
+      "sl": 173.53,
+      "t1": 159.22,
+      "failed": [
+       "move under 2.5%"
+      ],
+      "oi": "pass",
+      "oi_chg_pct": 1.94,
+      "event": "no"
+     },
+     {
+      "symbol": "PIIND",
+      "entry": 1578.0,
+      "passed": 10,
+      "move_pct": -1.21,
+      "sl": 1610.3,
+      "t1": 1513.4,
+      "failed": [
+       "volume 2x",
+       "OI buildup"
+      ],
+      "oi": "fail",
+      "oi_chg_pct": -2.19,
+      "event": "no"
+     },
+     {
+      "symbol": "NAM-INDIA",
+      "entry": 1029.3,
+      "passed": 10,
+      "move_pct": -1.97,
+      "sl": 1066.6,
+      "t1": 954.7,
+      "failed": [
+       "volume 2x",
+       "OI buildup"
+      ],
+      "oi": "fail",
+      "oi_chg_pct": -1.36,
+      "event": "no"
+     }
+    ],
+    "no_pick": false
+   },
+   "claude": {
+    "picks": [
+     {
+      "symbol": "IEX",
+      "entry": 110.76,
+      "passed": 12,
+      "move_pct": -2.11,
+      "sl": 114.75,
+      "t1": 102.78,
+      "oi": "pass",
+      "oi_chg_pct": 0.24,
+      "event": "no",
+      "return_pct": null
+     },
+     {
+      "symbol": "JIOFIN",
+      "entry": 223.57,
+      "passed": 12,
+      "move_pct": -0.62,
+      "sl": 228.4,
+      "t1": 213.91,
+      "oi": "pass",
+      "oi_chg_pct": 0.61,
+      "event": "no",
+      "return_pct": null
+     }
+    ],
+    "near": [
+     {
+      "symbol": "ADANIGREEN",
+      "entry": 1408.4,
+      "passed": 11,
+      "move_pct": -1.85,
+      "sl": 1454.2,
+      "t1": 1316.8,
+      "failed": [
+       "sector strength 1%"
+      ],
+      "oi": "pass",
+      "oi_chg_pct": 0.9,
+      "event": "no"
+     },
+     {
+      "symbol": "PIIND",
+      "entry": 1578.0,
+      "passed": 10,
+      "move_pct": -1.21,
+      "sl": 1610.3,
+      "t1": 1513.4,
+      "failed": [
+       "RSI limit",
+       "OI buildup"
+      ],
+      "oi": "fail",
+      "oi_chg_pct": -2.19,
+      "event": "no"
+     },
+     {
+      "symbol": "RVNL",
+      "entry": 189.43,
+      "passed": 10,
+      "move_pct": -0.82,
+      "sl": 195.91,
+      "t1": 176.47,
+      "failed": [
+       "sector strength 1%",
+       "OI buildup"
+      ],
+      "oi": "fail",
+      "oi_chg_pct": -4.84,
+      "event": "no"
+     }
+    ],
+    "no_pick": false
+   },
+   "trend": {
+    "picks": [],
+    "near": [
+     {
+      "symbol": "ADANIGREEN",
+      "entry": 1408.4,
+      "passed": 11,
+      "move_pct": -1.85,
+      "sl": 1454.2,
+      "t1": 1316.8,
+      "failed": [
+       "sector strength 1%"
+      ],
+      "oi": "pass",
+      "oi_chg_pct": 0.9,
+      "event": "no"
+     },
+     {
+      "symbol": "IEX",
+      "entry": 110.76,
+      "passed": 12,
+      "move_pct": -2.11,
+      "sl": 114.75,
+      "t1": 102.78,
+      "failed": [
+       "move band 0.8-2.0%"
+      ],
+      "oi": "pass",
+      "oi_chg_pct": 0.24,
+      "event": "no"
+     },
+     {
+      "symbol": "JIOFIN",
+      "entry": 223.57,
+      "passed": 12,
+      "move_pct": -0.62,
+      "sl": 228.4,
+      "t1": 213.91,
+      "failed": [
+       "move band 0.8-2.0%",
+       "efficiency ratio 0.5+"
+      ],
+      "oi": "pass",
+      "oi_chg_pct": 0.61,
+      "event": "no"
+     }
+    ],
+    "no_pick": true
+   }
+  },
+  {
    "date": "2026-11-20",
    "source": "live",
    "side": "SHORT",
@@ -1954,23 +2147,23 @@
  ],
  "scoreboard": {
   "rj": {
-   "days": 12,
-   "picks": 14,
+   "days": 13,
+   "picks": 15,
    "scored": 14,
    "positive": 6,
    "pct_positive": 42.9,
    "avg_return": -0.01
   },
   "claude": {
-   "days": 12,
-   "picks": 12,
+   "days": 13,
+   "picks": 14,
    "scored": 12,
    "positive": 10,
    "pct_positive": 83.3,
    "avg_return": 1.42
   },
   "trend": {
-   "days": 12,
+   "days": 13,
    "picks": 7,
    "scored": 7,
    "positive": 6,
@@ -1978,5 +2171,5 @@
    "avg_return": 1.93
   }
  },
- "updated_at": "2026-11-20T11:14:03+05:30"
+ "updated_at": "2026-11-23T09:50:35+05:30"
 }
