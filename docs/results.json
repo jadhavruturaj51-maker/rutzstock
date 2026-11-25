@@ -17,7 +17,8 @@
       "oi": "pass",
       "oi_chg_pct": 1.3,
       "event": "no",
-      "return_pct": null
+      "return_pct": 0.39,
+      "close": 1847.5
      },
      {
       "symbol": "BAJAJFINSV",
@@ -29,7 +30,8 @@
       "oi": "pass",
       "oi_chg_pct": 0.21,
       "event": "no",
-      "return_pct": null
+      "return_pct": 0.34,
+      "close": 1927.6
      }
     ],
     "near": [
@@ -2330,10 +2332,10 @@
   "rj": {
    "days": 14,
    "picks": 17,
-   "scored": 15,
-   "positive": 7,
-   "pct_positive": 46.7,
-   "avg_return": 0.03
+   "scored": 17,
+   "positive": 9,
+   "pct_positive": 52.9,
+   "avg_return": 0.07
   },
   "claude": {
    "days": 14,
@@ -2352,5 +2354,5 @@
    "avg_return": 1.93
   }
  },
- "updated_at": "2026-11-25T09:50:22+05:30"
+ "updated_at": "2026-11-25T10:49:27+05:30"
 }
