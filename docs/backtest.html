@@ -74,7 +74,7 @@
   <div class="snapshot"><a href="index.html" style="color:#6b7280;">← Today's 9:50 list</a></div>
   <div class="snapshot" id="snapshot">Loading…</div>
 
-  <h2>Scoreboard <span class="who">— RJ Scanner vs Muse Scanner vs One-Direction</span></h2>
+  <h2>Scoreboard <span class="who">— RJ Scanner vs One-Direction vs Strict</span></h2>
   <div class="scores" id="scoreboard"></div>
 
   <div id="scanners"></div>
@@ -91,13 +91,15 @@
       <li>Price above VWAP and above the first 15-min opening range</li>
       <li>Gap less than 3%; stock has not already moved more than 2.5% by 9:50</li>
     </ul>
-    <div class="card-head"><b>Scanner B — Muse Scanner</b> (V2-Quality + RSI)</div>
+    <div class="card-head"><b>Scanner D — Strict One-Direction</b> (own-direction winners criteria)</div>
     <ul class="crit">
-      <li>Same base: market direction, Previous Day breakout, EMA10/EMA20, opening range, gap &lt; 3%, move &lt; 2.5%</li>
-      <li>Volume at least 1.0x the 10-day average (not 2x); no Previous-Week or sector top-5 hard gates</li>
-      <li>Quality gate: sector strength at least 1.0% in the trade direction AND VWAP distance at least 0.5%</li>
-      <li>RSI filter: LONG needs 15m RSI(14) at 9:50 of 80 or less; SHORT needs 20 or more</li>
-      <li>Ranked by sector strength + VWAP distance, max 3 per day</li>
+      <li>Each stock judged in its OWN direction only — up vs previous close = LONG, down = SHORT (Nifty ignored)</li>
+      <li>All 7 morning candles (9:15–9:45) close on the EMA20 side, with no wick crossing the running 15m EMA20</li>
+      <li>Directional 15m RSI at least 60 (LONG: RSI 60 or more; SHORT: RSI 40 or less)</li>
+      <li>EMA10 beyond EMA20, and both EMAs sloping in the trade direction</li>
+      <li>Morning breaks the previous day's high (LONG) / low (SHORT); first 5-minute and first 15-minute candle bodies and the opening gap all in the trade direction</li>
+      <li>EMA20 distance at least 3.0%, morning volume at least 3.0x, move by 9:50 at least 3.0%</li>
+      <li>Max 3 per day, ranked by EMA20 distance</li>
     </ul>
     <div class="card-head"><b>Scanner C — One-Direction</b> (Scanner B + clean-trend gates)</div>
     <ul class="crit">
@@ -115,7 +117,8 @@
     10 are checked from price/volume data; on live scan days OI buildup is also checked, from Moneycontrol's
     live OI data (maximum 11/12), and from 19 Nov 2026 same-day events are checked too — board meetings via
     Moneycontrol, results and ex-dividend dates via Yahoo — making the maximum 12/12. Unchecked criteria
-    are marked "not checked" in the Failed column. Returns in the
+    are marked "not checked" in the Failed column. Scanner D (Strict) uses price/volume criteria only — it
+    does not check OI or events, and each stock is judged in its own direction (Nifty ignored). Returns in the
     scoreboard are measured from the 9:50 price to that day's close. Days marked
     <span class="tag">backtest</span> were computed later from historical data; unmarked days are live 9:50 scans.
   </div>
@@ -136,47 +139,51 @@ function fmtPct(v) {
   var cls = v > 0 ? "pos" : (v < 0 ? "neg" : "");
   return '<span class="' + cls + '">' + (v > 0 ? "+" : "") + Number(v).toFixed(2) + "%</span>";
 }
-function failedHtml(p, isPick) {
+function failedHtml(p, isPick, key) {
   var parts = [];
   if (!isPick && p.failed && p.failed.length) parts.push(esc(p.failed.join(", ")));
-  var nc = [];
-  if (p.oi !== "pass" && p.oi !== "fail") nc.push("OI");
-  if (p.event !== "yes" && p.event !== "no") nc.push("events");
-  if (nc.length) parts.push('<span class="nc">' + nc.join(", ") + " (not checked)</span>");
+  // Scanner D (Strict) uses price/volume criteria only - no OI or event
+  // check applies to it, so never show an OI/events "not checked" note.
+  if (key !== "strict") {
+    var nc = [];
+    if (p.oi !== "pass" && p.oi !== "fail") nc.push("OI");
+    if (p.event !== "yes" && p.event !== "no") nc.push("events");
+    if (nc.length) parts.push('<span class="nc">' + nc.join(", ") + " (not checked)</span>");
+  }
   return parts.join(" · ");
 }
-function stockRow(day, p, isPick) {
-  var failed = failedHtml(p, isPick);
-  return "<tr" + (isPick ? "" : " class='near'") + "><td class='sym'>" + esc(p.symbol) + "</td><td>" + sideHtml(day.side) +
+function stockRow(day, p, isPick, key) {
+  var failed = failedHtml(p, isPick, key);
+  return "<tr" + (isPick ? "" : " class='near'") + "><td class='sym'>" + esc(p.symbol) + "</td><td>" + sideHtml(p.side || day.side) +
          "</td><td>" + fmtMove(p.move_pct) + "</td><td>" + p.passed + "/12</td>" +
          "<td class='failedcell'>" + failed + "</td></tr>";
 }
-function stockRows(day, s) {
+function stockRows(day, s, key) {
   var out = "";
-  (s.picks || []).forEach(function (p) { out += stockRow(day, p, true); });
-  (s.near || []).forEach(function (p) { out += stockRow(day, p, false); });
+  (s.picks || []).forEach(function (p) { out += stockRow(day, p, true, key); });
+  (s.near || []).forEach(function (p) { out += stockRow(day, p, false, key); });
   return out;
 }
-function stockTable(day, s) {
+function stockTable(day, s, key) {
   return "<table><thead><tr><th>Stock</th><th>Side</th><th>Move</th><th>Passed</th><th>Failed</th></tr></thead><tbody>" +
-         stockRows(day, s) + "</tbody></table>";
+         stockRows(day, s, key) + "</tbody></table>";
 }
 function dayCard(day, key, title) {
-  var s = day[key];
+  var s = day[key] || { picks: [], near: [] };
   var has = s.picks && s.picks.length;
   var hasRows = (s.picks && s.picks.length) || (s.near && s.near.length);
   var status = has ? "PICK — " + s.picks.length + " stock" + (s.picks.length > 1 ? "s" : "")
                    : "no pick (no stock passed all checks)";
   var html = '<div class="card"><div class="card-head">' + day.date + ' — <span class="status">' + status + "</span>" +
              (day.source === "backtest" ? '<span class="tag">backtest</span>' : '<span class="tag">live</span>') + "</div>";
-  if (hasRows) html += stockTable(day, s);
+  if (hasRows) html += stockTable(day, s, key);
   else html += '<div class="nopick">No stocks to show.</div>';
   return html + "</div>";
 }
 function historyTable(days, key) {
   var out = "<table><thead><tr><th>Date</th><th>Stock</th><th>Side</th><th>Passed</th><th>Day</th><th>Failed</th></tr></thead><tbody>";
   days.forEach(function (d) {
-    var s = d[key];
+    var s = d[key] || { picks: [], near: [] };
     var has = s.picks && s.picks.length;
     var rows = has ? s.picks : (s.near || []);
     if (!rows.length) {
@@ -185,8 +192,8 @@ function historyTable(days, key) {
       return;
     }
     rows.forEach(function (p) {
-      var failed = failedHtml(p, has);
-      out += "<tr><td>" + d.date + "</td><td class='sym'>" + esc(p.symbol) + "</td><td>" + sideHtml(d.side) +
+      var failed = failedHtml(p, has, key);
+      out += "<tr><td>" + d.date + "</td><td class='sym'>" + esc(p.symbol) + "</td><td>" + sideHtml(p.side || d.side) +
              "</td><td>" + p.passed + "/12</td><td>" +
              (has ? '<span class="pick-badge">PICK</span>' : '<span class="nopick">no pick</span>') + "</td>" +
              "<td class='failedcell'>" + failed + "</td></tr>";
@@ -218,12 +225,13 @@ fetch("results.json", { cache: "no-store" })
       (data.updated_at ? " · Last updated: " + new Date(data.updated_at).toLocaleString("en-IN", { timeZone: "Asia/Kolkata" }) + " IST" : "");
     var sb = data.scoreboard || {};
     document.getElementById("scoreboard").innerHTML =
-      scoreCard("Scanner A — RJ Scanner", sb.rj) + scoreCard("Scanner B — Muse Scanner", sb.claude) +
-      scoreCard("Scanner C — One-Direction", sb.trend);
+      scoreCard("Scanner A — RJ Scanner", sb.rj) +
+      scoreCard("Scanner C — One-Direction", sb.trend) +
+      scoreCard("Scanner D — Strict One-Direction", sb.strict);
     document.getElementById("scanners").innerHTML =
       historySection(days, "rj", "Scanner A — RJ Scanner") +
-      historySection(days, "claude", "Scanner B — Muse Scanner") +
-      historySection(days, "trend", "Scanner C — One-Direction");
+      historySection(days, "trend", "Scanner C — One-Direction") +
+      historySection(days, "strict", "Scanner D — Strict One-Direction");
     if (days.length) {
       document.getElementById("footdays").textContent =
         "Days: " + days.map(function (d) { return d.date; }).reverse().join(", ") + ".";

@@ -75,7 +75,7 @@
 
   <div id="scanners"></div>
 
-  <div class="foot">PASSED is counted out of 12. Live scans check OI buildup from Moneycontrol's live OI data (maximum 11/12) and, from 19 Nov 2026, same-day events too — board meetings via Moneycontrol, results and ex-dividend dates via Yahoo — so the maximum is then 12/12. Backtest days check neither (maximum 10/12). Unchecked criteria are not failed; they are marked "not checked" in the Failed column.</div>
+  <div class="foot">PASSED is counted out of 12. Live scans check OI buildup from Moneycontrol's live OI data (maximum 11/12) and, from 19 Nov 2026, same-day events too — board meetings via Moneycontrol, results and ex-dividend dates via Yahoo — so the maximum is then 12/12. Backtest days check neither (maximum 10/12). Unchecked criteria are not failed; they are marked "not checked" in the Failed column. Scanner D (Strict) uses price/volume criteria only — it does not check OI or events, and each stock is judged in its own direction (Nifty ignored).</div>
   <div class="foot"><a href="backtest.html" style="color:#6b7280;">Backtest results →</a></div>
   <div class="foot">own risk, not advice. This scan is for information only; the decisions and the losses are yours. · <a href="#" id="locklink" style="color:#6b7280;">Lock site</a></div>
 </div>
@@ -89,40 +89,44 @@ function fmtMove(v) {
   if (v === null || v === undefined) return "—";
   return (v > 0 ? "+" : "") + Number(v).toFixed(2) + "%";
 }
-function failedHtml(p, isPick) {
+function failedHtml(p, isPick, key) {
   var parts = [];
   if (!isPick && p.failed && p.failed.length) parts.push(esc(p.failed.join(", ")));
-  var nc = [];
-  if (p.oi !== "pass" && p.oi !== "fail") nc.push("OI");
-  if (p.event !== "yes" && p.event !== "no") nc.push("events");
-  if (nc.length) parts.push('<span class="nc">' + nc.join(", ") + " (not checked)</span>");
+  // Scanner D (Strict) uses price/volume criteria only - no OI or event
+  // check applies to it, so never show an OI/events "not checked" note.
+  if (key !== "strict") {
+    var nc = [];
+    if (p.oi !== "pass" && p.oi !== "fail") nc.push("OI");
+    if (p.event !== "yes" && p.event !== "no") nc.push("events");
+    if (nc.length) parts.push('<span class="nc">' + nc.join(", ") + " (not checked)</span>");
+  }
   return parts.join(" · ");
 }
-function stockRow(day, p, isPick) {
-  var failed = failedHtml(p, isPick);
-  return "<tr" + (isPick ? "" : " class='near'") + "><td class='sym'>" + esc(p.symbol) + "</td><td>" + sideHtml(day.side) +
+function stockRow(day, p, isPick, key) {
+  var failed = failedHtml(p, isPick, key);
+  return "<tr" + (isPick ? "" : " class='near'") + "><td class='sym'>" + esc(p.symbol) + "</td><td>" + sideHtml(p.side || day.side) +
          "</td><td>" + fmtMove(p.move_pct) + "</td><td>" + p.passed + "/12</td>" +
          "<td class='failedcell'>" + failed + "</td></tr>";
 }
-function stockRows(day, s) {
+function stockRows(day, s, key) {
   var out = "";
-  (s.picks || []).forEach(function (p) { out += stockRow(day, p, true); });
-  (s.near || []).forEach(function (p) { out += stockRow(day, p, false); });
+  (s.picks || []).forEach(function (p) { out += stockRow(day, p, true, key); });
+  (s.near || []).forEach(function (p) { out += stockRow(day, p, false, key); });
   return out;
 }
-function stockTable(day, s) {
+function stockTable(day, s, key) {
   return "<table><thead><tr><th>Stock</th><th>Side</th><th>Move</th><th>Passed</th><th>Failed</th></tr></thead><tbody>" +
-         stockRows(day, s) + "</tbody></table>";
+         stockRows(day, s, key) + "</tbody></table>";
 }
 function dayCard(day, key, title) {
-  var s = day[key];
+  var s = day[key] || { picks: [], near: [] };
   var has = s.picks && s.picks.length;
   var hasRows = (s.picks && s.picks.length) || (s.near && s.near.length);
   var status = has ? "PICK — " + s.picks.length + " stock" + (s.picks.length > 1 ? "s" : "")
                    : "no pick (no stock passed all checks)";
   var html = '<div class="card"><div class="card-head">' + day.date + ' — <span class="status">' + status + "</span>" +
              (day.source === "backtest" ? '<span class="tag">backtest</span>' : '<span class="tag">live</span>') + "</div>";
-  if (hasRows) html += stockTable(day, s);
+  if (hasRows) html += stockTable(day, s, key);
   else html += '<div class="nopick">No stocks to show.</div>';
   return html + "</div>";
 }
@@ -142,8 +146,8 @@ fetch("results.json", { cache: "no-store" })
     var latest = days[0];
     document.getElementById("scanners").innerHTML =
       "<h2>Scanner A — RJ Scanner</h2>" + dayCard(latest, "rj", "Scanner A — RJ Scanner") +
-      "<h2>Scanner B — Muse Scanner</h2>" + dayCard(latest, "claude", "Scanner B — Muse Scanner") +
-      "<h2>Scanner C — One-Direction</h2>" + dayCard(latest, "trend", "Scanner C — One-Direction");
+      "<h2>Scanner C — One-Direction</h2>" + dayCard(latest, "trend", "Scanner C — One-Direction") +
+      "<h2>Scanner D — Strict One-Direction</h2>" + dayCard(latest, "strict", "Scanner D — Strict One-Direction");
   })
   .catch(function () {
     document.getElementById("snapshot").innerHTML = '<span class="err">Could not load results.json yet.</span>';

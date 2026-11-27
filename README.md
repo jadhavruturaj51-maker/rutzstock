@@ -18,14 +18,27 @@ It does **not** depend on Muse or any paid service:
 - **Scanner B — "Muse Scanner":** V2-Quality rules (volume ≥ 1.0x, no
   previous-week/sector hard gates, VWAP distance ≥ 0.3% pool, quality gate
   sector strength ≥ 1.0% + VWAP distance ≥ 0.5%) plus the RSI extreme
-  exclusion (LONG: 15m RSI ≤ 80, SHORT: RSI ≥ 20).
+  exclusion (LONG: 15m RSI ≤ 80, SHORT: RSI ≥ 20). Still computed
+  internally — Scanner C is derived from its picks — but no longer shown
+  on the website (removed 2026-11-28 on RJ's instruction).
+- **Scanner D — "Strict One-Direction":** the strict winners criteria.
+  Each stock is judged in its OWN direction only (up vs previous close =
+  LONG, down = SHORT; Nifty ignored): all 7 morning candles (9:15–9:45)
+  close on the EMA20 side with no wick crossing the running 15m EMA20,
+  directional 15m RSI ≥ 60, EMA10 beyond EMA20 with both EMAs sloping in
+  direction, previous-day high/low broken in the morning, first 5m and 15m
+  candle bodies and the gap all in direction, EMA20 distance ≥ 3.0%,
+  morning volume ≥ 3.0x, move by 9:50 ≥ 3.0%. Max 3/day, ranked by EMA20
+  distance.
 - **Scanner C — "One-Direction":** Scanner B's final picks, filtered by
   two clean-trend gates with no replacement picks: efficiency ratio of
   the 9:15–9:45 morning move ≥ 0.5 (a clean, straight move, not zigzag),
   and the signed move by 9:50 within 0.8%–2.0%.
 
-Both: market direction decides the side, max 3 picks/day, ranked by sector
-strength. A no-pick day is a valid result.
+Scanners A and C follow the market direction (bullish = LONG only,
+bearish = SHORT only); Scanner D follows each stock's own direction.
+Max 3 picks/day for every scanner, ranked as stated. A no-pick day is a
+valid result.
 
 ## Honest limits
 

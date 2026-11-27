@@ -2,15 +2,32 @@
 """
 F&O 9:50 Scanner - independent version (runs on GitHub Actions, free).
 
-Three scanners, evaluated every trading day at 9:50 IST on all NSE F&O stocks:
+Three scanners shown on the website, evaluated every trading day at 9:50
+IST on all NSE F&O stocks:
 
   Scanner A "RJ Scanner"     - RJ's original 12 criteria, unchanged.
-  Scanner B "Muse Scanner" - V2-Quality rules + RSI extreme exclusion.
   Scanner C "One-Direction"  - Scanner B's final picks, filtered by two
                                clean-trend gates (no replacement picks):
                                efficiency ratio of the 09:15-09:45 morning
                                move >= 0.5, and the signed move by 9:50
                                within 0.8%-2.0%.
+  Scanner D "Strict"         - the strict one-direction winners criteria:
+                               each stock judged in its OWN direction
+                               (sign of 9:50 price vs previous close,
+                               Nifty ignored), 7/7 morning candles on the
+                               EMA20 side with no wick cross, directional
+                               15m RSI >= 60, EMA10 beyond EMA20 with both
+                               EMAs sloping in direction, previous-day
+                               high/low broken in the morning, first 5m and
+                               15m candle bodies and the gap all in
+                               direction, EMA20 distance >= 3.0%, morning
+                               volume >= 3.0x, move by 9:50 >= 3.0%.
+
+Scanner B "Muse Scanner" (V2-Quality rules + RSI extreme exclusion) is
+still computed internally - Scanner C is derived from its picks - but it
+is no longer shown on the website (removed 2026-11-28 on RJ's instruction);
+its data stays in results.json until the live A-vs-B chat comparison ends
+(2026-12-04).
 
 Data source: Yahoo Finance (free) via yfinance - the same source the
 backtests were validated on. Criterion 11 (no event today) cannot be
@@ -292,12 +309,12 @@ def day_stats(intr_day):
     }
 
 
-def ema_rsi_at(intr, ds):
-    """EMA10/EMA20 and Wilder RSI(14) on 15m candles, at the 09:30 candle."""
+def ema15(intr):
+    """15m candles with EMA10/EMA20 and Wilder RSI(14), continuous series."""
     agg = {"Open": "first", "High": "max", "Low": "min", "Close": "last", "Volume": "sum"}
     r = intr.resample("15min").agg(agg).dropna(subset=["Close"])
     if not len(r):
-        return None, None, None
+        return None
     r["EMA10"] = r["Close"].ewm(span=10, adjust=False).mean()
     r["EMA20"] = r["Close"].ewm(span=20, adjust=False).mean()
     delta = r["Close"].diff()
@@ -308,12 +325,110 @@ def ema_rsi_at(intr, ds):
     rs = avg_gain / avg_loss.replace(0, np.nan)
     r["RSI"] = 100 - 100 / (1 + rs)
     r.loc[avg_loss == 0, "RSI"] = 100.0
+    return r
+
+
+def ema_rsi_at(intr, ds):
+    """EMA10/EMA20 and Wilder RSI(14) on 15m candles, at the 09:30 candle."""
+    r = ema15(intr)
+    if r is None:
+        return None, None, None
     etime = pd.Timestamp(f"{ds} 09:30:00", tz="Asia/Kolkata")
     if etime not in r.index:
         return None, None, None
     row = r.loc[etime]
     rsi = float(row["RSI"]) if pd.notna(row["RSI"]) else None
     return float(row["EMA10"]), float(row["EMA20"]), rsi
+
+
+# ---------------------------------------------------------------- Scanner D
+D_FAIL_NAMES = {"candles": "candles on EMA20 side", "wick": "wick cross",
+                "rsi": "RSI 60+", "ema_order": "EMA order",
+                "ema_slope": "EMA slope", "broke_pdh": "previous day high",
+                "broke_pdl": "previous day low", "body15": "15m body",
+                "body5": "5m body", "gap": "gap", "ema20_dist": "EMA20 distance 3%",
+                "vol": "volume 3x", "move": "move 3%"}
+
+
+def strict_features(intr, ds, prev_close, prev_high, prev_low, entry, vol_ratio):
+    """The 12 strict one-direction checks for one symbol on one date,
+    evaluated in the stock's OWN direction (sign of 9:50 price vs previous
+    close; Nifty ignored). Ported exactly from
+    ~/workspace/screener_backtest/strict_live_run_2026-11-27.py. Returns a
+    dict of check values + match, or None when the symbol must be skipped
+    (zero move vs previous close, or incomplete morning bars)."""
+    move_vs_pc = (entry / prev_close - 1) * 100
+    if move_vs_pc == 0 or np.isnan(move_vs_pc):
+        return None
+    s = 1 if move_vs_pc > 0 else -1
+    day5 = intr[intr.index.strftime("%Y-%m-%d") == ds].sort_index()
+    morn5 = day5[day5.index.strftime("%H:%M").isin(
+        ["09:15", "09:20", "09:25", "09:30", "09:35", "09:40", "09:45"])]
+    if len(morn5) != 7:
+        return None
+    r15 = ema15(intr)
+    if r15 is None:
+        return None
+    t930 = pd.Timestamp(f"{ds} 09:30:00", tz="Asia/Kolkata")
+    t915 = pd.Timestamp(f"{ds} 09:15:00", tz="Asia/Kolkata")
+    if t930 not in r15.index or t915 not in r15.index:
+        return None
+    e10_last = float(r15.loc[t930, "EMA10"])
+    e20_last = float(r15.loc[t930, "EMA20"])
+    e10_prev2 = float(r15.loc[t915, "EMA10"])
+    e20_prev2 = float(r15.loc[t915, "EMA20"])
+    rsi = r15.loc[t930, "RSI"]
+    rsi = float(rsi) if pd.notna(rsi) else None
+    # running 15m EMA20 ("step"): for each 5m bar, the EMA20 of the last
+    # completed 15m bin before that bar's bin (positional, like the live
+    # script's prevpos = max(binpos - 1, 0)).
+    steps = []
+    for t in morn5.index:
+        pos = r15.index.get_loc(t.floor("15min"))
+        if isinstance(pos, slice):
+            pos = pos.start
+        prevpos = max(int(pos) - 1, 0)
+        steps.append(float(r15["EMA20"].iloc[prevpos]))
+    mO = morn5["Open"].to_numpy(float)
+    mH = morn5["High"].to_numpy(float)
+    mL = morn5["Low"].to_numpy(float)
+    mC = morn5["Close"].to_numpy(float)
+    mStep = np.array(steps)
+    open0 = float(mO[0])
+    candles = int(sum(1 for k in range(7)
+                      if (s == 1 and mC[k] >= mStep[k]) or (s == -1 and mC[k] <= mStep[k])))
+    wicks = int(sum(1 for k in range(7)
+                    if (s == 1 and mL[k] < mStep[k]) or (s == -1 and mH[k] > mStep[k])))
+    checks = {
+        "candles": candles == 7,
+        "wick": wicks == 0,
+        "rsi": (rsi is not None and ((rsi >= 60) if s == 1 else (rsi <= 40))),
+        "ema_order": (e10_last > e20_last) if s == 1 else (e10_last < e20_last),
+        "ema_slope": ((e10_last > e10_prev2) and (e20_last > e20_prev2)) if s == 1
+                     else ((e10_last < e10_prev2) and (e20_last < e20_prev2)),
+        "broke_pdh": bool(mH.max() > prev_high) if s == 1 else bool(mL.min() < prev_low),
+        "body15": (mC[2] / open0 - 1) * 100 * s > 0,
+        "body5": (mC[0] / mO[0] - 1) * 100 * s > 0,
+        "gap": (open0 / prev_close - 1) * 100 * s > 0,
+        "ema20_dist": (entry / e20_last - 1) * 100 * s >= 3.0,
+        "vol": vol_ratio >= 3.0,
+        "move": move_vs_pc * s >= 3.0,
+    }
+    failed = []
+    for key, ok in checks.items():
+        if not ok:
+            if key == "broke_pdh":
+                failed.append(D_FAIL_NAMES["broke_pdh"] if s == 1 else D_FAIL_NAMES["broke_pdl"])
+            else:
+                failed.append(D_FAIL_NAMES[key])
+    return {"side": "LONG" if s == 1 else "SHORT", "s": s,
+            "candles_on_side": candles, "wick_crosses": wicks,
+            "rsi": rsi, "ema20_dist": round(float((entry / e20_last - 1) * 100 * s), 3),
+            "vol_ratio": round(float(vol_ratio), 3),
+            "move_pc": round(float(move_vs_pc * s), 3),
+            "checks": checks, "failed": failed,
+            "passed": sum(1 for v in checks.values() if v),
+            "match": all(checks.values())}
 
 
 # ---------------------------------------------------------------- evaluation
@@ -734,10 +849,73 @@ def evaluate(date, daily, m5, nifty_d, nifty_5, sectors, syms, live_oi=False,
         ev_state(r["symbol"], fetch=True)
     c_near = [c_disp(r) for r in c_near_chosen]
 
+    # ---- Scanner D (Strict): the 12 winners conditions, each stock in
+    # its OWN direction (sign of 9:50 price vs previous close; Nifty
+    # ignored). Matches ranked by EMA20 distance, cap 3/day. No OI or
+    # event checks - D's criteria are price/volume only.
+    def s_levels(r, side_s):
+        entry = r["entry"]
+        if side_s == "LONG":
+            sl = round(float(r["orl"]), 2)
+            if entry - sl <= 0:
+                sl = round(entry * 0.98, 2)
+            return sl, round(entry + 2 * (entry - sl), 2)
+        sl = round(float(r["orh"]), 2)
+        if sl - entry <= 0:
+            sl = round(entry * 1.02, 2)
+        return sl, round(entry - 2 * (sl - entry), 2)
+
+    def s_disp(r, passed, failed_names=None):
+        sl, t1 = s_levels(r, r["strict"]["side"])
+        d = {"symbol": r["symbol"], "side": r["strict"]["side"],
+             "entry": r["entry"], "passed": passed,
+             "move_pct": r["move_raw"], "sl": sl, "t1": t1}
+        if failed_names is not None:
+            d["failed"] = failed_names
+        return d
+
+    s_rows = []
+    for sym, b in base.items():
+        d, past, st = b["d"], b["past"], b["st"]
+        prev_row = past.loc[b["prev_row_date"]]
+        prev_close = float(prev_row["Close"])
+        # morning volume ratio, same window/baseline as the rows loop;
+        # the live strict script skips a symbol with <5 baseline days.
+        vols_prev = []
+        for p in prev10:
+            pds = p.strftime("%Y-%m-%d")
+            pd_day = b["intr"][b["intr"].index.strftime("%Y-%m-%d") == pds]
+            if len(pd_day):
+                pst = day_stats(pd_day)
+                if pst is not None:
+                    vols_prev.append(pst["vol_win"])
+        if len(vols_prev) < 5 or float(np.mean(vols_prev)) <= 0:
+            continue
+        vol_ratio = st["vol_win"] / float(np.mean(vols_prev))
+        sf = strict_features(b["intr"], ds, prev_close,
+                             float(prev_row["High"]), float(prev_row["Low"]),
+                             st["p950"], vol_ratio)
+        if sf is None:
+            continue
+        r = {"symbol": sym, "side": sf["side"], "entry": round(st["p950"], 2),
+             "move_raw": round(float((st["p950"] / prev_close - 1) * 100), 2),
+             "orh": st["orh"], "orl": st["orl"], "strict": sf}
+        s_rows.append(r)
+    s_matches = [r for r in s_rows if r["strict"]["match"]]
+    s_matches.sort(key=lambda r: (-r["strict"]["ema20_dist"], -r["strict"]["vol_ratio"]))
+    s_pick_rows = s_matches[:3]
+    s_pick_syms = {r["symbol"] for r in s_pick_rows}
+    s_picks = [s_disp(r, 12) for r in s_pick_rows]
+    s_near_rows = [r for r in s_rows if r["symbol"] not in s_pick_syms]
+    s_near_rows.sort(key=lambda r: (-r["strict"]["passed"], -r["strict"]["ema20_dist"]))
+    s_near = [s_disp(r, r["strict"]["passed"], r["strict"]["failed"])
+              for r in s_near_rows[:3]]
+
     return {"date": ds, "side": side, "nifty_move_pct": round(float(nmove), 2),
             "rj": {"picks": a_picks, "near": a_near, "no_pick": len(a_picks) == 0},
             "claude": {"picks": b_picks, "near": b_near, "no_pick": len(b_picks) == 0},
             "trend": {"picks": c_picks, "near": c_near, "no_pick": len(c_picks) == 0},
+            "strict": {"picks": s_picks, "near": s_near, "no_pick": len(s_picks) == 0},
             "_rows": rows}
 
 
@@ -750,11 +928,14 @@ def load_results():
 
 def scoreboard(days):
     out = {}
-    for key in ("rj", "claude", "trend"):
-        picks = [p for d in days for p in (d.get(key) or {}).get("picks", [])]
+    for key in ("rj", "claude", "trend", "strict"):
+        # days counted per scanner: a scanner only counts days on which it
+        # has an entry (Strict starts 2026-11-23, the others cover all days).
+        key_days = [d for d in days if key in d]
+        picks = [p for d in key_days for p in (d.get(key) or {}).get("picks", [])]
         scored = [p for p in picks if p.get("return_pct") is not None]
         out[key] = {
-            "days": len(days),
+            "days": len(key_days),
             "picks": len(picks),
             "scored": len(scored),
             "positive": sum(1 for p in scored if p["return_pct"] > 0),
@@ -777,31 +958,34 @@ def save_results(store):
 def score_pending(store, daily):
     """Fill return_pct for picks from earlier days using daily closes."""
     for d in store["days"]:
-        sgn = 1 if d["side"] == "LONG" else -1
         date = pd.Timestamp(d["date"])
-        for key in ("rj", "claude", "trend"):
+        for key in ("rj", "claude", "trend", "strict"):
             for p in (d.get(key) or {}).get("picks", []):
                 if p.get("return_pct") is not None:
                     continue
                 t = p["symbol"] + ".NS"
                 if t in daily and date in daily[t].index:
                     close = float(daily[t].loc[date, "Close"])
+                    # Strict picks carry their own side; A/B/C picks use
+                    # the day's side (they have no per-pick side field).
+                    psgn = 1 if p.get("side", d["side"]) == "LONG" else -1
                     p["close"] = round(close, 2)
-                    p["return_pct"] = round(sgn * (close / p["entry"] - 1) * 100, 2)
+                    p["return_pct"] = round(psgn * (close / p["entry"] - 1) * 100, 2)
 
 
 def record_day(store, day, source, rows_by_symbol):
     """Insert/replace a day entry, scoring its picks when closes are known."""
-    sgn = 1 if day["side"] == "LONG" else -1
     entry = {"date": day["date"], "source": source, "side": day["side"],
              "nifty_move_pct": day["nifty_move_pct"],
-             "rj": day["rj"], "claude": day["claude"], "trend": day["trend"]}
-    for key in ("rj", "claude", "trend"):
+             "rj": day["rj"], "claude": day["claude"], "trend": day["trend"],
+             "strict": day["strict"]}
+    for key in ("rj", "claude", "trend", "strict"):
         for p in entry[key]["picks"]:
             r = rows_by_symbol.get(p["symbol"])
+            psgn = 1 if p.get("side", day["side"]) == "LONG" else -1
             if r and r.get("close"):
                 p["close"] = round(r["close"], 2)
-                p["return_pct"] = round(sgn * (r["close"] / p["entry"] - 1) * 100, 2)
+                p["return_pct"] = round(psgn * (r["close"] / p["entry"] - 1) * 100, 2)
             else:
                 p["return_pct"] = None
     store["days"] = [d for d in store["days"] if d["date"] != entry["date"]]
@@ -897,6 +1081,7 @@ def main():
     print("RJ Scanner picks:    ", [p["symbol"] for p in day["rj"]["picks"]] or "no pick")
     print("Claude Scanner picks:", [p["symbol"] for p in day["claude"]["picks"]] or "no pick")
     print("One-Direction picks: ", [p["symbol"] for p in day["trend"]["picks"]] or "no pick")
+    print("Strict picks:        ", [p["symbol"] for p in day["strict"]["picks"]] or "no pick")
 
     if not args.dry_run:
         source = "live" if live else ("backtest" if args.backfill else "live")
@@ -908,7 +1093,7 @@ def main():
             # they are scored properly by the next run
             for d in store["days"]:
                 if d["date"] == day["date"]:
-                    for key in ("rj", "claude", "trend"):
+                    for key in ("rj", "claude", "trend", "strict"):
                         for p in (d.get(key) or {}).get("picks", []):
                             p.pop("close", None)
                             p["return_pct"] = None

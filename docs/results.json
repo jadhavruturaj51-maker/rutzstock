@@ -4,52 +4,52 @@
    "date": "2026-11-27",
    "source": "live",
    "side": "SHORT",
-   "nifty_move_pct": -0.13,
+   "nifty_move_pct": -0.16,
    "rj": {
     "picks": [],
     "near": [
      {
       "symbol": "GODREJCP",
-      "entry": 928.95,
+      "entry": 928.6,
       "passed": 11,
-      "move_pct": -1.96,
+      "move_pct": -1.99,
       "sl": 944.75,
-      "t1": 897.35,
+      "t1": 896.3,
       "failed": [
        "previous week low"
       ],
       "oi": "pass",
-      "oi_chg_pct": 0.45,
+      "oi_chg_pct": 0.48,
       "event": "no"
      },
      {
       "symbol": "ZYDUSLIFE",
-      "entry": 1177.9,
+      "entry": 1177.5,
       "passed": 10,
-      "move_pct": -1.36,
+      "move_pct": -1.4,
       "sl": 1194.1,
-      "t1": 1145.5,
+      "t1": 1144.3,
       "failed": [
        "opening range",
        "OI buildup"
       ],
       "oi": "fail",
-      "oi_chg_pct": -1.62,
+      "oi_chg_pct": -1.8,
       "event": "no"
      },
      {
       "symbol": "NESTLEIND",
-      "entry": 1314.3,
+      "entry": 1314.2,
       "passed": 10,
-      "move_pct": -0.45,
+      "move_pct": -0.46,
       "sl": 1326.6,
-      "t1": 1289.7,
+      "t1": 1289.4,
       "failed": [
        "previous week low",
        "volume 2x"
       ],
       "oi": "pass",
-      "oi_chg_pct": 0.47,
+      "oi_chg_pct": 0.63,
       "event": "no"
      }
     ],
@@ -60,45 +60,45 @@
     "near": [
      {
       "symbol": "GODREJCP",
-      "entry": 928.95,
+      "entry": 928.6,
       "passed": 11,
-      "move_pct": -1.96,
+      "move_pct": -1.99,
       "sl": 944.75,
-      "t1": 897.35,
+      "t1": 896.3,
       "failed": [
        "sector strength 1%"
       ],
       "oi": "pass",
-      "oi_chg_pct": 0.45,
-      "event": "no"
-     },
-     {
-      "symbol": "MPHASIS",
-      "entry": 2451.5,
-      "passed": 11,
-      "move_pct": -2.33,
-      "sl": 2520.3,
-      "t1": 2313.9,
-      "failed": [
-       "sector strength 1%"
-      ],
-      "oi": "pass",
-      "oi_chg_pct": 1.93,
+      "oi_chg_pct": 0.48,
       "event": "no"
      },
      {
       "symbol": "NESTLEIND",
-      "entry": 1314.3,
+      "entry": 1314.2,
       "passed": 10,
-      "move_pct": -0.45,
+      "move_pct": -0.46,
       "sl": 1326.6,
-      "t1": 1289.7,
+      "t1": 1289.4,
       "failed": [
        "VWAP distance 0.5%",
        "sector strength 1%"
       ],
       "oi": "pass",
-      "oi_chg_pct": 0.47,
+      "oi_chg_pct": 0.63,
+      "event": "no"
+     },
+     {
+      "symbol": "ADANIPORTS",
+      "entry": 1913.0,
+      "passed": 11,
+      "move_pct": -0.69,
+      "sl": 1945.0,
+      "t1": 1849.0,
+      "failed": [
+       "sector strength 1%"
+      ],
+      "oi": "pass",
+      "oi_chg_pct": 0.24,
       "event": "no"
      }
     ],
@@ -109,51 +109,106 @@
     "near": [
      {
       "symbol": "GODREJCP",
-      "entry": 928.95,
+      "entry": 928.6,
       "passed": 11,
-      "move_pct": -1.96,
+      "move_pct": -1.99,
       "sl": 944.75,
-      "t1": 897.35,
+      "t1": 896.3,
       "failed": [
        "sector strength 1%"
       ],
       "oi": "pass",
-      "oi_chg_pct": 0.45,
-      "event": "no"
-     },
-     {
-      "symbol": "MPHASIS",
-      "entry": 2451.5,
-      "passed": 11,
-      "move_pct": -2.33,
-      "sl": 2520.3,
-      "t1": 2313.9,
-      "failed": [
-       "move band 0.8-2.0%",
-       "sector strength 1%"
-      ],
-      "oi": "pass",
-      "oi_chg_pct": 1.93,
+      "oi_chg_pct": 0.48,
       "event": "no"
      },
      {
       "symbol": "NESTLEIND",
-      "entry": 1314.3,
+      "entry": 1314.2,
       "passed": 10,
-      "move_pct": -0.45,
+      "move_pct": -0.46,
       "sl": 1326.6,
-      "t1": 1289.7,
+      "t1": 1289.4,
       "failed": [
        "move band 0.8-2.0%",
        "VWAP distance 0.5%",
        "sector strength 1%"
       ],
       "oi": "pass",
-      "oi_chg_pct": 0.47,
+      "oi_chg_pct": 0.63,
+      "event": "no"
+     },
+     {
+      "symbol": "ADANIPORTS",
+      "entry": 1913.0,
+      "passed": 11,
+      "move_pct": -0.69,
+      "sl": 1945.0,
+      "t1": 1849.0,
+      "failed": [
+       "move band 0.8-2.0%",
+       "sector strength 1%",
+       "efficiency ratio 0.5+"
+      ],
+      "oi": "pass",
+      "oi_chg_pct": 0.24,
       "event": "no"
      }
     ],
     "no_pick": true
+   },
+   "strict": {
+    "picks": [
+     {
+      "symbol": "MAZDOCK",
+      "side": "LONG",
+      "entry": 1889.5,
+      "passed": 12,
+      "move_pct": 3.99,
+      "sl": 1818.1,
+      "t1": 2032.3,
+      "close": 1890.0,
+      "return_pct": 0.03
+     }
+    ],
+    "near": [
+     {
+      "symbol": "BANKINDIA",
+      "side": "LONG",
+      "entry": 168.15,
+      "passed": 11,
+      "move_pct": 4.9,
+      "sl": 160.65,
+      "t1": 183.15,
+      "failed": [
+       "wick cross"
+      ]
+     },
+     {
+      "symbol": "ANGELONE",
+      "side": "LONG",
+      "entry": 370.45,
+      "passed": 11,
+      "move_pct": 3.48,
+      "sl": 360.05,
+      "t1": 391.25,
+      "failed": [
+       "volume 3x"
+      ]
+     },
+     {
+      "symbol": "POLICYBZR",
+      "side": "LONG",
+      "entry": 1207.1,
+      "passed": 11,
+      "move_pct": 3.17,
+      "sl": 1174.2,
+      "t1": 1272.9,
+      "failed": [
+       "volume 3x"
+      ]
+     }
+    ],
+    "no_pick": false
    }
   },
   {
@@ -166,46 +221,46 @@
     "near": [
      {
       "symbol": "ADANIGREEN",
-      "entry": 1343.7,
+      "entry": 1344.4,
       "passed": 11,
-      "move_pct": -1.52,
+      "move_pct": -1.47,
       "sl": 1366.6,
-      "t1": 1297.9,
+      "t1": 1300.0,
       "failed": [
        "volume 2x"
       ],
       "oi": "pass",
-      "oi_chg_pct": 0.17,
+      "oi_chg_pct": 0.28,
       "event": "no"
      },
      {
       "symbol": "ADANIENT",
-      "entry": 2647.7,
+      "entry": 2648.4,
       "passed": 10,
-      "move_pct": -0.78,
+      "move_pct": -0.75,
       "sl": 2667.9,
-      "t1": 2607.3,
+      "t1": 2609.4,
       "failed": [
        "previous week low",
        "volume 2x"
       ],
       "oi": "pass",
-      "oi_chg_pct": 0.46,
+      "oi_chg_pct": 0.47,
       "event": "no"
      },
      {
       "symbol": "HYUNDAI",
-      "entry": 2085.9,
+      "entry": 2085.5,
       "passed": 10,
-      "move_pct": -1.24,
+      "move_pct": -1.25,
       "sl": 2107.0,
-      "t1": 2043.7,
+      "t1": 2042.5,
       "failed": [
        "previous week low",
        "volume 2x"
       ],
       "oi": "pass",
-      "oi_chg_pct": 0.96,
+      "oi_chg_pct": 0.99,
       "event": "no"
      }
     ],
@@ -216,46 +271,46 @@
     "near": [
      {
       "symbol": "ADANIGREEN",
-      "entry": 1343.7,
+      "entry": 1344.4,
       "passed": 11,
-      "move_pct": -1.52,
+      "move_pct": -1.47,
       "sl": 1366.6,
-      "t1": 1297.9,
+      "t1": 1300.0,
       "failed": [
        "sector strength 1%"
       ],
       "oi": "pass",
-      "oi_chg_pct": 0.17,
+      "oi_chg_pct": 0.28,
       "event": "no"
      },
      {
       "symbol": "ADANIENT",
-      "entry": 2647.7,
+      "entry": 2648.4,
       "passed": 10,
-      "move_pct": -0.78,
+      "move_pct": -0.75,
       "sl": 2667.9,
-      "t1": 2607.3,
+      "t1": 2609.4,
       "failed": [
        "VWAP distance 0.5%",
        "sector strength 1%"
       ],
       "oi": "pass",
-      "oi_chg_pct": 0.46,
+      "oi_chg_pct": 0.47,
       "event": "no"
      },
      {
       "symbol": "HYUNDAI",
-      "entry": 2085.9,
+      "entry": 2085.5,
       "passed": 10,
-      "move_pct": -1.24,
+      "move_pct": -1.25,
       "sl": 2107.0,
-      "t1": 2043.7,
+      "t1": 2042.5,
       "failed": [
        "VWAP distance 0.5%",
        "sector strength 1%"
       ],
       "oi": "pass",
-      "oi_chg_pct": 0.96,
+      "oi_chg_pct": 0.99,
       "event": "no"
      }
     ],
@@ -266,100 +321,166 @@
     "near": [
      {
       "symbol": "ADANIGREEN",
-      "entry": 1343.7,
+      "entry": 1344.4,
       "passed": 11,
-      "move_pct": -1.52,
+      "move_pct": -1.47,
       "sl": 1366.6,
-      "t1": 1297.9,
+      "t1": 1300.0,
       "failed": [
        "sector strength 1%"
       ],
       "oi": "pass",
-      "oi_chg_pct": 0.17,
+      "oi_chg_pct": 0.28,
       "event": "no"
      },
      {
       "symbol": "HYUNDAI",
-      "entry": 2085.9,
+      "entry": 2085.5,
       "passed": 10,
-      "move_pct": -1.24,
+      "move_pct": -1.25,
       "sl": 2107.0,
-      "t1": 2043.7,
+      "t1": 2042.5,
       "failed": [
        "VWAP distance 0.5%",
        "sector strength 1%"
       ],
       "oi": "pass",
-      "oi_chg_pct": 0.96,
+      "oi_chg_pct": 0.99,
       "event": "no"
      },
      {
       "symbol": "ADANIENT",
-      "entry": 2647.7,
+      "entry": 2648.4,
       "passed": 10,
-      "move_pct": -0.78,
+      "move_pct": -0.75,
       "sl": 2667.9,
-      "t1": 2607.3,
+      "t1": 2609.4,
       "failed": [
        "move band 0.8-2.0%",
        "VWAP distance 0.5%",
        "sector strength 1%"
       ],
       "oi": "pass",
-      "oi_chg_pct": 0.46,
+      "oi_chg_pct": 0.47,
       "event": "no"
      }
     ],
     "no_pick": true
+   },
+   "strict": {
+    "picks": [
+     {
+      "symbol": "KFINTECH",
+      "side": "LONG",
+      "entry": 969.05,
+      "passed": 12,
+      "move_pct": 3.75,
+      "sl": 934.45,
+      "t1": 1038.25,
+      "close": 995.0,
+      "return_pct": 2.68
+     },
+     {
+      "symbol": "ASTRAL",
+      "side": "LONG",
+      "entry": 1286.5,
+      "passed": 12,
+      "move_pct": 3.23,
+      "sl": 1250.8,
+      "t1": 1357.9,
+      "close": 1258.3,
+      "return_pct": -2.19
+     }
+    ],
+    "near": [
+     {
+      "symbol": "WIPRO",
+      "side": "LONG",
+      "entry": 195.3,
+      "passed": 11,
+      "move_pct": 3.31,
+      "sl": 191.9,
+      "t1": 202.1,
+      "failed": [
+       "volume 3x"
+      ]
+     },
+     {
+      "symbol": "MCX",
+      "side": "LONG",
+      "entry": 3680.2,
+      "passed": 11,
+      "move_pct": 3.23,
+      "sl": 3603.0,
+      "t1": 3834.6,
+      "failed": [
+       "volume 3x"
+      ]
+     },
+     {
+      "symbol": "ENRIN",
+      "side": "LONG",
+      "entry": 3127.0,
+      "passed": 10,
+      "move_pct": 5.29,
+      "sl": 3100.3,
+      "t1": 3180.4,
+      "failed": [
+       "15m body",
+       "5m body"
+      ]
+     }
+    ],
+    "no_pick": false
    }
   },
   {
    "date": "2026-11-25",
    "source": "live",
    "side": "LONG",
-   "nifty_move_pct": 1.54,
+   "nifty_move_pct": 1.55,
    "rj": {
     "picks": [
      {
       "symbol": "SBILIFE",
-      "entry": 1840.4,
+      "entry": 1845.0,
       "passed": 12,
-      "move_pct": 1.97,
+      "move_pct": 2.22,
       "sl": 1824.2,
-      "t1": 1872.8,
+      "t1": 1886.6,
       "oi": "pass",
-      "oi_chg_pct": 1.3,
+      "oi_chg_pct": 1.65,
       "event": "no",
-      "return_pct": 0.39,
-      "close": 1847.5
+      "return_pct": -1.14,
+      "close": 1823.9
      },
      {
       "symbol": "BAJAJFINSV",
-      "entry": 1921.0,
+      "entry": 1921.5,
       "passed": 12,
-      "move_pct": 2.18,
+      "move_pct": 2.2,
       "sl": 1893.4,
-      "t1": 1976.2,
+      "t1": 1977.7,
       "oi": "pass",
-      "oi_chg_pct": 0.21,
+      "oi_chg_pct": 0.24,
       "event": "no",
-      "return_pct": 0.34,
-      "close": 1927.6
+      "return_pct": 0.18,
+      "close": 1925.0
      }
     ],
     "near": [
      {
       "symbol": "SBICARD",
-      "entry": 593.5,
+      "entry": 594.1,
       "passed": 11,
-      "move_pct": 3.19,
+      "move_pct": 3.29,
       "sl": 583.1,
-      "t1": 614.3,
+      "t1": 616.1,
       "failed": [
        "move under 2.5%"
       ],
       "oi": "pass",
-      "oi_chg_pct": 0.08,
+      "oi_chg_pct": 0.12,
       "event": "no"
      },
      {
@@ -374,123 +495,213 @@
        "OI buildup"
       ],
       "oi": "fail",
-      "oi_chg_pct": -0.74,
+      "oi_chg_pct": -0.77,
       "event": "no"
      },
      {
-      "symbol": "CIPLA",
-      "entry": 1422.8,
+      "symbol": "TATACONSUM",
+      "entry": 1169.6,
       "passed": 11,
-      "move_pct": 1.64,
-      "sl": 1404.6,
-      "t1": 1459.2,
+      "move_pct": 3.23,
+      "sl": 1153.4,
+      "t1": 1202.0,
       "failed": [
-       "previous week high"
+       "move under 2.5%"
       ],
       "oi": "pass",
-      "oi_chg_pct": 0.79,
+      "oi_chg_pct": 0.52,
       "event": "no"
      }
     ],
     "no_pick": false
    },
    "claude": {
-    "picks": [],
-    "near": [
+    "picks": [
      {
       "symbol": "SBILIFE",
-      "entry": 1840.4,
-      "passed": 11,
-      "move_pct": 1.97,
+      "entry": 1845.0,
+      "passed": 12,
+      "move_pct": 2.22,
       "sl": 1824.2,
-      "t1": 1872.8,
-      "failed": [
-       "VWAP distance 0.5%"
-      ],
+      "t1": 1886.6,
       "oi": "pass",
-      "oi_chg_pct": 1.3,
-      "event": "no"
-     },
+      "oi_chg_pct": 1.65,
+      "event": "no",
+      "return_pct": -1.14,
+      "close": 1823.9
+     }
+    ],
+    "near": [
      {
       "symbol": "CIPLA",
-      "entry": 1422.8,
+      "entry": 1423.2,
       "passed": 11,
-      "move_pct": 1.64,
+      "move_pct": 1.66,
       "sl": 1404.6,
-      "t1": 1459.2,
+      "t1": 1460.4,
       "failed": [
        "sector strength 1%"
       ],
       "oi": "pass",
-      "oi_chg_pct": 0.79,
+      "oi_chg_pct": 0.84,
       "event": "no"
      },
      {
       "symbol": "ETERNAL",
-      "entry": 370.95,
+      "entry": 370.35,
       "passed": 10,
-      "move_pct": 2.44,
+      "move_pct": 2.28,
       "sl": 364.45,
-      "t1": 383.95,
+      "t1": 382.15,
       "failed": [
        "sector strength 1%",
        "OI buildup"
       ],
       "oi": "fail",
-      "oi_chg_pct": -0.18,
+      "oi_chg_pct": -0.16,
+      "event": "no"
+     },
+     {
+      "symbol": "BAJAJFINSV",
+      "entry": 1921.5,
+      "passed": 11,
+      "move_pct": 2.2,
+      "sl": 1893.4,
+      "t1": 1977.7,
+      "failed": [
+       "VWAP distance 0.5%"
+      ],
+      "oi": "pass",
+      "oi_chg_pct": 0.24,
       "event": "no"
      }
     ],
-    "no_pick": true
+    "no_pick": false
    },
    "trend": {
     "picks": [],
     "near": [
      {
       "symbol": "SBILIFE",
-      "entry": 1840.4,
-      "passed": 11,
-      "move_pct": 1.97,
+      "entry": 1845.0,
+      "passed": 12,
+      "move_pct": 2.22,
       "sl": 1824.2,
-      "t1": 1872.8,
+      "t1": 1886.6,
       "failed": [
-       "VWAP distance 0.5%"
+       "move band 0.8-2.0%"
       ],
       "oi": "pass",
-      "oi_chg_pct": 1.3,
+      "oi_chg_pct": 1.65,
       "event": "no"
      },
      {
       "symbol": "CIPLA",
-      "entry": 1422.8,
+      "entry": 1423.2,
       "passed": 11,
-      "move_pct": 1.64,
+      "move_pct": 1.66,
       "sl": 1404.6,
-      "t1": 1459.2,
+      "t1": 1460.4,
       "failed": [
        "sector strength 1%"
       ],
       "oi": "pass",
-      "oi_chg_pct": 0.79,
+      "oi_chg_pct": 0.84,
       "event": "no"
      },
      {
       "symbol": "BAJAJFINSV",
-      "entry": 1921.0,
+      "entry": 1921.5,
       "passed": 11,
-      "move_pct": 2.18,
+      "move_pct": 2.2,
       "sl": 1893.4,
-      "t1": 1976.2,
+      "t1": 1977.7,
       "failed": [
        "move band 0.8-2.0%",
        "VWAP distance 0.5%"
       ],
       "oi": "pass",
-      "oi_chg_pct": 0.21,
+      "oi_chg_pct": 0.24,
       "event": "no"
      }
     ],
     "no_pick": true
+   },
+   "strict": {
+    "picks": [
+     {
+      "symbol": "MFSL",
+      "side": "LONG",
+      "entry": 1513.2,
+      "passed": 12,
+      "move_pct": 5.68,
+      "sl": 1500.4,
+      "t1": 1538.8,
+      "close": 1444.0,
+      "return_pct": -4.57
+     },
+     {
+      "symbol": "HDFCLIFE",
+      "side": "LONG",
+      "entry": 604.9,
+      "passed": 12,
+      "move_pct": 5.21,
+      "sl": 590.3,
+      "t1": 634.1,
+      "close": 601.3,
+      "return_pct": -0.6
+     },
+     {
+      "symbol": "LTF",
+      "side": "LONG",
+      "entry": 285.14,
+      "passed": 12,
+      "move_pct": 4.07,
+      "sl": 279.44,
+      "t1": 296.54,
+      "close": 283.95,
+      "return_pct": -0.42
+     }
+    ],
+    "near": [
+     {
+      "symbol": "APLAPOLLO",
+      "side": "SHORT",
+      "entry": 1458.2,
+      "passed": 11,
+      "move_pct": -12.68,
+      "sl": 1503.0,
+      "t1": 1368.6,
+      "failed": [
+       "5m body"
+      ]
+     },
+     {
+      "symbol": "POLICYBZR",
+      "side": "LONG",
+      "entry": 1151.4,
+      "passed": 11,
+      "move_pct": 5.72,
+      "sl": 1131.4,
+      "t1": 1191.4,
+      "failed": [
+       "5m body"
+      ]
+     },
+     {
+      "symbol": "ICICILIFE",
+      "side": "LONG",
+      "entry": 487.3,
+      "passed": 11,
+      "move_pct": 4.8,
+      "sl": 472.5,
+      "t1": 516.9,
+      "failed": [
+       "volume 3x"
+      ]
+     }
+    ],
+    "no_pick": false
    }
   },
   {
@@ -502,31 +713,31 @@
     "picks": [
      {
       "symbol": "IEX",
-      "entry": 110.76,
+      "entry": 110.72,
       "passed": 12,
-      "move_pct": -2.11,
+      "move_pct": -2.15,
       "sl": 114.75,
-      "t1": 102.78,
+      "t1": 102.66,
       "oi": "pass",
-      "oi_chg_pct": 0.24,
+      "oi_chg_pct": 0.31,
       "event": "no",
-      "return_pct": 0.52,
-      "close": 110.18
+      "return_pct": 1.42,
+      "close": 109.15
      }
     ],
     "near": [
      {
       "symbol": "TATASTEEL",
-      "entry": 168.76,
+      "entry": 168.77,
       "passed": 11,
       "move_pct": -5.19,
       "sl": 173.53,
-      "t1": 159.22,
+      "t1": 159.25,
       "failed": [
        "move under 2.5%"
       ],
       "oi": "pass",
-      "oi_chg_pct": 1.94,
+      "oi_chg_pct": 1.82,
       "event": "no"
      },
      {
@@ -541,7 +752,7 @@
        "OI buildup"
       ],
       "oi": "fail",
-      "oi_chg_pct": -2.19,
+      "oi_chg_pct": -3.84,
       "event": "no"
      },
      {
@@ -566,44 +777,44 @@
     "picks": [
      {
       "symbol": "IEX",
-      "entry": 110.76,
+      "entry": 110.72,
       "passed": 12,
-      "move_pct": -2.11,
+      "move_pct": -2.15,
       "sl": 114.75,
-      "t1": 102.78,
+      "t1": 102.66,
       "oi": "pass",
-      "oi_chg_pct": 0.24,
+      "oi_chg_pct": 0.31,
       "event": "no",
-      "return_pct": 0.52,
-      "close": 110.18
+      "return_pct": 1.42,
+      "close": 109.15
      },
      {
       "symbol": "JIOFIN",
-      "entry": 223.57,
+      "entry": 223.5,
       "passed": 12,
-      "move_pct": -0.62,
+      "move_pct": -0.65,
       "sl": 228.4,
-      "t1": 213.91,
+      "t1": 213.7,
       "oi": "pass",
-      "oi_chg_pct": 0.61,
+      "oi_chg_pct": 0.66,
       "event": "no",
-      "return_pct": 0.54,
-      "close": 222.36
+      "return_pct": 1.7,
+      "close": 219.7
      }
     ],
     "near": [
      {
       "symbol": "ADANIGREEN",
-      "entry": 1408.4,
+      "entry": 1408.9,
       "passed": 11,
-      "move_pct": -1.85,
+      "move_pct": -1.82,
       "sl": 1454.2,
-      "t1": 1316.8,
+      "t1": 1318.3,
       "failed": [
        "sector strength 1%"
       ],
       "oi": "pass",
-      "oi_chg_pct": 0.9,
+      "oi_chg_pct": 0.92,
       "event": "no"
      },
      {
@@ -618,7 +829,7 @@
        "OI buildup"
       ],
       "oi": "fail",
-      "oi_chg_pct": -2.19,
+      "oi_chg_pct": -3.84,
       "event": "no"
      },
      {
@@ -633,7 +844,7 @@
        "OI buildup"
       ],
       "oi": "fail",
-      "oi_chg_pct": -4.84,
+      "oi_chg_pct": -6.01,
       "event": "no"
      }
     ],
@@ -643,50 +854,118 @@
     "picks": [],
     "near": [
      {
-      "symbol": "ADANIGREEN",
-      "entry": 1408.4,
-      "passed": 11,
-      "move_pct": -1.85,
-      "sl": 1454.2,
-      "t1": 1316.8,
-      "failed": [
-       "sector strength 1%"
-      ],
-      "oi": "pass",
-      "oi_chg_pct": 0.9,
-      "event": "no"
-     },
-     {
       "symbol": "IEX",
-      "entry": 110.76,
+      "entry": 110.72,
       "passed": 12,
-      "move_pct": -2.11,
+      "move_pct": -2.15,
       "sl": 114.75,
-      "t1": 102.78,
+      "t1": 102.66,
       "failed": [
        "move band 0.8-2.0%"
       ],
       "oi": "pass",
-      "oi_chg_pct": 0.24,
+      "oi_chg_pct": 0.31,
+      "event": "no"
+     },
+     {
+      "symbol": "ADANIGREEN",
+      "entry": 1408.9,
+      "passed": 11,
+      "move_pct": -1.82,
+      "sl": 1454.2,
+      "t1": 1318.3,
+      "failed": [
+       "sector strength 1%"
+      ],
+      "oi": "pass",
+      "oi_chg_pct": 0.92,
       "event": "no"
      },
      {
       "symbol": "JIOFIN",
-      "entry": 223.57,
+      "entry": 223.5,
       "passed": 12,
-      "move_pct": -0.62,
+      "move_pct": -0.65,
       "sl": 228.4,
-      "t1": 213.91,
+      "t1": 213.7,
       "failed": [
        "move band 0.8-2.0%",
        "efficiency ratio 0.5+"
       ],
       "oi": "pass",
-      "oi_chg_pct": 0.61,
+      "oi_chg_pct": 0.66,
       "event": "no"
      }
     ],
     "no_pick": true
+   },
+   "strict": {
+    "picks": [
+     {
+      "symbol": "APLAPOLLO",
+      "side": "SHORT",
+      "entry": 1838.0,
+      "passed": 12,
+      "move_pct": -13.37,
+      "sl": 1960.1,
+      "t1": 1593.8,
+      "close": 1670.0,
+      "return_pct": 9.14
+     },
+     {
+      "symbol": "TATASTEEL",
+      "side": "SHORT",
+      "entry": 168.77,
+      "passed": 12,
+      "move_pct": -5.19,
+      "sl": 173.53,
+      "t1": 159.25,
+      "close": 163.0,
+      "return_pct": 3.42
+     }
+    ],
+    "near": [
+     {
+      "symbol": "KALYANKJIL",
+      "side": "LONG",
+      "entry": 663.4,
+      "passed": 11,
+      "move_pct": 3.87,
+      "sl": 640.3,
+      "t1": 709.6,
+      "failed": [
+       "volume 3x"
+      ]
+     },
+     {
+      "symbol": "DIXON",
+      "side": "LONG",
+      "entry": 13435.0,
+      "passed": 10,
+      "move_pct": 2.4,
+      "sl": 13174.0,
+      "t1": 13957.0,
+      "failed": [
+       "EMA20 distance 3%",
+       "move 3%"
+      ]
+     },
+     {
+      "symbol": "TCS",
+      "side": "LONG",
+      "entry": 2451.6,
+      "passed": 9,
+      "move_pct": 3.17,
+      "sl": 2405.0,
+      "t1": 2544.8,
+      "failed": [
+       "15m body",
+       "EMA20 distance 3%",
+       "volume 3x"
+      ]
+     }
+    ],
+    "no_pick": false
    }
   },
   {
@@ -699,16 +978,15 @@
     "near": [
      {
       "symbol": "APLAPOLLO",
-      "entry": 2053.3,
-      "passed": 11,
-      "move_pct": -4.4,
+      "entry": 2054.7,
+      "passed": 10,
+      "move_pct": -4.34,
       "sl": 2116.1,
-      "t1": 1927.7,
+      "t1": 1931.9,
       "failed": [
        "move under 2.5%"
       ],
-      "oi": "pass",
-      "oi_chg_pct": 6.09,
+      "oi": "na",
       "event": "no"
      },
      {
@@ -721,11 +999,9 @@
       "failed": [
        "opening range",
        "volume 2x",
-       "OI buildup",
        "event today"
       ],
-      "oi": "fail",
-      "oi_chg_pct": -1.63,
+      "oi": "na",
       "event": "yes"
      },
      {
@@ -737,11 +1013,9 @@
       "t1": 3946.2,
       "failed": [
        "previous week low",
-       "volume 2x",
-       "OI buildup"
+       "volume 2x"
       ],
-      "oi": "fail",
-      "oi_chg_pct": -2.51,
+      "oi": "na",
       "event": "no"
      }
     ],
@@ -750,22 +1024,6 @@
    "claude": {
     "picks": [],
     "near": [
-     {
-      "symbol": "APLAPOLLO",
-      "entry": 2053.3,
-      "passed": 9,
-      "move_pct": -4.4,
-      "sl": 2116.1,
-      "t1": 1927.7,
-      "failed": [
-       "move under 2.5%",
-       "sector strength 1%",
-       "RSI limit"
-      ],
-      "oi": "pass",
-      "oi_chg_pct": 6.09,
-      "event": "no"
-     },
      {
       "symbol": "DATAPATTNS",
       "entry": 4057.4,
@@ -776,26 +1034,38 @@
       "failed": [
        "volume 1x",
        "VWAP distance 0.5%",
-       "sector strength 1%",
-       "OI buildup"
+       "sector strength 1%"
       ],
-      "oi": "fail",
-      "oi_chg_pct": -2.51,
+      "oi": "na",
+      "event": "no"
+     },
+     {
+      "symbol": "APLAPOLLO",
+      "entry": 2054.7,
+      "passed": 8,
+      "move_pct": -4.34,
+      "sl": 2116.1,
+      "t1": 1931.9,
+      "failed": [
+       "move under 2.5%",
+       "sector strength 1%",
+       "RSI limit"
+      ],
+      "oi": "na",
       "event": "no"
      },
      {
       "symbol": "TITAN",
-      "entry": 4531.0,
-      "passed": 10,
-      "move_pct": -3.6,
+      "entry": 4532.0,
+      "passed": 9,
+      "move_pct": -3.57,
       "sl": 4612.4,
-      "t1": 4368.2,
+      "t1": 4371.2,
       "failed": [
        "move under 2.5%",
        "sector strength 1%"
       ],
-      "oi": "pass",
-      "oi_chg_pct": 1.65,
+      "oi": "na",
       "event": "no"
      }
     ],
@@ -806,33 +1076,16 @@
     "near": [
      {
       "symbol": "TITAN",
-      "entry": 4531.0,
-      "passed": 10,
-      "move_pct": -3.6,
+      "entry": 4532.0,
+      "passed": 9,
+      "move_pct": -3.57,
       "sl": 4612.4,
-      "t1": 4368.2,
+      "t1": 4371.2,
       "failed": [
        "move band 0.8-2.0%",
        "sector strength 1%"
       ],
-      "oi": "pass",
-      "oi_chg_pct": 1.65,
-      "event": "no"
-     },
-     {
-      "symbol": "APLAPOLLO",
-      "entry": 2053.3,
-      "passed": 9,
-      "move_pct": -4.4,
-      "sl": 2116.1,
-      "t1": 1927.7,
-      "failed": [
-       "move band 0.8-2.0%",
-       "sector strength 1%",
-       "RSI limit"
-      ],
-      "oi": "pass",
-      "oi_chg_pct": 6.09,
+      "oi": "na",
       "event": "no"
      },
      {
@@ -845,11 +1098,24 @@
       "failed": [
        "volume 1x",
        "VWAP distance 0.5%",
-       "sector strength 1%",
-       "OI buildup"
+       "sector strength 1%"
       ],
-      "oi": "fail",
-      "oi_chg_pct": -2.51,
+      "oi": "na",
+      "event": "no"
+     },
+     {
+      "symbol": "APLAPOLLO",
+      "entry": 2054.7,
+      "passed": 8,
+      "move_pct": -4.34,
+      "sl": 2116.1,
+      "t1": 1931.9,
+      "failed": [
+       "move band 0.8-2.0%",
+       "sector strength 1%",
+       "RSI limit"
+      ],
+      "oi": "na",
       "event": "no"
      }
     ],
@@ -865,31 +1131,31 @@
     "picks": [
      {
       "symbol": "HINDUNILVR",
-      "entry": 2027.7,
+      "entry": 2030.5,
       "passed": 12,
-      "move_pct": 1.74,
+      "move_pct": 1.88,
       "sl": 1990.0,
-      "t1": 2103.1,
+      "t1": 2111.5,
       "oi": "pass",
-      "oi_chg_pct": 1.1,
+      "oi_chg_pct": 1.06,
       "event": "no",
-      "return_pct": -0.1,
-      "close": 2025.7
+      "return_pct": 2.15,
+      "close": 2074.2
      }
     ],
     "near": [
      {
       "symbol": "EICHERMOT",
-      "entry": 7932.0,
+      "entry": 7941.0,
       "passed": 11,
-      "move_pct": 1.33,
+      "move_pct": 1.44,
       "sl": 7747.0,
-      "t1": 8302.0,
+      "t1": 8329.0,
       "failed": [
        "volume 2x"
       ],
       "oi": "pass",
-      "oi_chg_pct": 6.42,
+      "oi_chg_pct": 6.27,
       "event": "no"
      },
      {
@@ -904,22 +1170,21 @@
        "OI buildup"
       ],
       "oi": "fail",
-      "oi_chg_pct": -0.72,
+      "oi_chg_pct": -0.93,
       "event": "no"
      },
      {
-      "symbol": "DABUR",
-      "entry": 388.5,
-      "passed": 10,
-      "move_pct": 2.44,
-      "sl": 381.2,
-      "t1": 403.1,
+      "symbol": "GODREJCP",
+      "entry": 909.5,
+      "passed": 11,
+      "move_pct": 1.46,
+      "sl": 898.4,
+      "t1": 931.7,
       "failed": [
-       "volume 2x",
-       "OI buildup"
+       "volume 2x"
       ],
-      "oi": "fail",
-      "oi_chg_pct": -1.12,
+      "oi": "pass",
+      "oi_chg_pct": 0.41,
       "event": "no"
      }
     ],
@@ -929,46 +1194,46 @@
     "picks": [
      {
       "symbol": "EICHERMOT",
-      "entry": 7932.0,
+      "entry": 7941.0,
       "passed": 12,
-      "move_pct": 1.33,
+      "move_pct": 1.44,
       "sl": 7747.0,
-      "t1": 8302.0,
+      "t1": 8329.0,
       "oi": "pass",
-      "oi_chg_pct": 6.42,
+      "oi_chg_pct": 6.27,
       "event": "no",
-      "return_pct": 0.57,
-      "close": 7977.0
+      "return_pct": 1.48,
+      "close": 8058.5
      }
     ],
     "near": [
      {
       "symbol": "AMBER",
-      "entry": 6399.5,
+      "entry": 6400.0,
       "passed": 11,
       "move_pct": 2.47,
       "sl": 6241.0,
-      "t1": 6716.5,
+      "t1": 6718.0,
       "failed": [
        "OI buildup"
       ],
       "oi": "fail",
-      "oi_chg_pct": -2.37,
+      "oi_chg_pct": -2.47,
       "event": "no"
      },
      {
       "symbol": "BHARATFORG",
-      "entry": 1721.5,
+      "entry": 1722.0,
       "passed": 10,
-      "move_pct": 2.2,
+      "move_pct": 2.23,
       "sl": 1688.3,
-      "t1": 1787.9,
+      "t1": 1789.4,
       "failed": [
        "sector strength 1%",
        "OI buildup"
       ],
       "oi": "fail",
-      "oi_chg_pct": -0.13,
+      "oi_chg_pct": -0.15,
       "event": "no"
      },
      {
@@ -982,7 +1247,7 @@
        "OI buildup"
       ],
       "oi": "fail",
-      "oi_chg_pct": -0.72,
+      "oi_chg_pct": -0.93,
       "event": "no"
      }
     ],
@@ -992,16 +1257,16 @@
     "picks": [
      {
       "symbol": "EICHERMOT",
-      "entry": 7932.0,
+      "entry": 7941.0,
       "passed": 12,
-      "move_pct": 1.33,
+      "move_pct": 1.44,
       "sl": 7747.0,
-      "t1": 8302.0,
+      "t1": 8329.0,
       "oi": "pass",
-      "oi_chg_pct": 6.42,
+      "oi_chg_pct": 6.27,
       "event": "no",
-      "return_pct": 0.57,
-      "close": 7977.0
+      "return_pct": 1.48,
+      "close": 8058.5
      }
     ],
     "near": [
@@ -1016,37 +1281,36 @@
        "OI buildup"
       ],
       "oi": "fail",
-      "oi_chg_pct": -0.72,
+      "oi_chg_pct": -0.93,
+      "event": "no"
+     },
+     {
+      "symbol": "HINDUNILVR",
+      "entry": 2030.5,
+      "passed": 11,
+      "move_pct": 1.88,
+      "sl": 1990.0,
+      "t1": 2111.5,
+      "failed": [
+       "sector strength 1%"
+      ],
+      "oi": "pass",
+      "oi_chg_pct": 1.06,
       "event": "no"
      },
      {
       "symbol": "AMBER",
-      "entry": 6399.5,
+      "entry": 6400.0,
       "passed": 11,
       "move_pct": 2.47,
       "sl": 6241.0,
-      "t1": 6716.5,
+      "t1": 6718.0,
       "failed": [
        "move band 0.8-2.0%",
        "OI buildup"
       ],
       "oi": "fail",
-      "oi_chg_pct": -2.37,
-      "event": "no"
-     },
-     {
-      "symbol": "HINDUNILVR",
-      "entry": 2027.7,
-      "passed": 10,
-      "move_pct": 1.74,
-      "sl": 1990.0,
-      "t1": 2103.1,
-      "failed": [
-       "VWAP distance 0.5%",
-       "sector strength 1%"
-      ],
-      "oi": "pass",
-      "oi_chg_pct": 1.1,
+      "oi_chg_pct": -2.47,
       "event": "no"
      }
     ],
@@ -1069,24 +1333,21 @@
       "sl": 315.95,
       "t1": 302.9,
       "failed": [
-       "volume 2x",
-       "OI buildup"
+       "volume 2x"
       ],
-      "oi": "fail",
-      "oi_chg_pct": -7.68
+      "oi": "na"
      },
      {
       "symbol": "HINDZINC",
       "entry": 530.35,
-      "passed": 10,
+      "passed": 9,
       "move_pct": -3.57,
       "sl": 538.5,
       "t1": 514.05,
       "failed": [
        "move under 2.5%"
       ],
-      "oi": "pass",
-      "oi_chg_pct": 2.99
+      "oi": "na"
      },
      {
       "symbol": "PIIND",
@@ -1096,18 +1357,15 @@
       "sl": 1664.6,
       "t1": 1583.3,
       "failed": [
-       "volume 2x",
-       "OI buildup"
+       "volume 2x"
       ],
-      "oi": "fail",
-      "oi_chg_pct": -5.21
+      "oi": "na"
      }
     ],
     "no_pick": true
    },
    "claude": {
-    "picks": [],
-    "near": [
+    "picks": [
      {
       "symbol": "NATIONALUM",
       "entry": 311.6,
@@ -1115,11 +1373,9 @@
       "move_pct": -2.3,
       "sl": 315.95,
       "t1": 302.9,
-      "failed": [
-       "OI buildup"
-      ],
-      "oi": "fail",
-      "oi_chg_pct": -7.68
+      "oi": "na",
+      "close": 308.1,
+      "return_pct": 1.12
      },
      {
       "symbol": "RVNL",
@@ -1128,11 +1384,9 @@
       "move_pct": -2.1,
       "sl": 195.9,
       "t1": 182.4,
-      "failed": [
-       "OI buildup"
-      ],
-      "oi": "fail",
-      "oi_chg_pct": -3.14
+      "oi": "na",
+      "close": 189.0,
+      "return_pct": 1.25
      },
      {
       "symbol": "NBCC",
@@ -1141,14 +1395,39 @@
       "move_pct": -1.17,
       "sl": 79.09,
       "t1": 74.59,
-      "failed": [
-       "OI buildup"
-      ],
-      "oi": "fail",
-      "oi_chg_pct": -6.46
+      "oi": "na",
+      "close": 77.32,
+      "return_pct": 0.35
      }
     ],
-    "no_pick": true
+    "near": [
+     {
+      "symbol": "KEI",
+      "entry": 3773.6,
+      "passed": 9,
+      "failed": [
+       "RSI limit"
+      ],
+      "oi": "na"
+     },
+     {
+      "symbol": "SRF",
+      "entry": 2440.7,
+      "passed": 10,
+      "failed": [],
+      "oi": "na"
+     },
+     {
+      "symbol": "JIOFIN",
+      "entry": 224.66,
+      "passed": 9,
+      "failed": [
+       "sector strength 1%"
+      ],
+      "oi": "na"
+     }
+    ],
+    "no_pick": false
    },
    "trend": {
     "picks": [],
@@ -1157,46 +1436,31 @@
       "symbol": "SRF",
       "entry": 2440.7,
       "passed": 10,
-      "move_pct": -1.56,
-      "sl": 2462.7,
-      "t1": 2396.7,
-      "failed": [
-       "OI buildup"
-      ],
-      "oi": "fail",
-      "oi_chg_pct": -7.92
+      "failed": [],
+      "oi": "na"
      },
      {
       "symbol": "RVNL",
       "entry": 191.4,
       "passed": 10,
-      "move_pct": -2.1,
-      "sl": 195.9,
-      "t1": 182.4,
       "failed": [
-       "move band 0.8-2.0%",
-       "OI buildup"
+       "move band 0.8-2.0%"
       ],
-      "oi": "fail",
-      "oi_chg_pct": -3.14
+      "oi": "na"
      },
      {
       "symbol": "NBCC",
       "entry": 77.59,
       "passed": 10,
-      "move_pct": -1.17,
-      "sl": 79.09,
-      "t1": 74.59,
       "failed": [
-       "OI buildup",
        "efficiency ratio 0.5+"
       ],
-      "oi": "fail",
-      "oi_chg_pct": -6.46
+      "oi": "na"
      }
     ],
     "no_pick": true
-   }
+   },
+   "notes": "OI not checked at scan time (Moneycontrol throttled); post-run re-check showed OI down for all 3 Muse picks."
   },
   {
    "date": "2026-11-17",
@@ -2648,15 +2912,15 @@
    "scored": 17,
    "positive": 9,
    "pct_positive": 52.9,
-   "avg_return": 0.07
+   "avg_return": 0.15
   },
   "claude": {
    "days": 16,
-   "picks": 14,
-   "scored": 14,
-   "positive": 12,
-   "pct_positive": 85.7,
-   "avg_return": 1.3
+   "picks": 18,
+   "scored": 18,
+   "positive": 15,
+   "pct_positive": 83.3,
+   "avg_return": 1.26
   },
   "trend": {
    "days": 16,
@@ -2664,8 +2928,16 @@
    "scored": 7,
    "positive": 6,
    "pct_positive": 85.7,
-   "avg_return": 1.93
+   "avg_return": 2.06
+  },
+  "strict": {
+   "days": 4,
+   "picks": 8,
+   "scored": 8,
+   "positive": 4,
+   "pct_positive": 50.0,
+   "avg_return": 0.94
   }
  },
- "updated_at": "2026-11-27T11:12:10+05:30"
+ "updated_at": "2026-11-28T00:54:36+05:30"
 }
